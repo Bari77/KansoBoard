@@ -1,0 +1,167 @@
+﻿using Application.Webhooks;
+using Domain.Entities;
+using Domain.Enums;
+using Infrastructure;
+using Microsoft.EntityFrameworkCore;
+
+namespace Application.Cards;
+
+public class CardService(KansoDbContext db, IWebhookService webhooks) : ICardService
+{
+    public async Task<Card> CreateAsync(Guid columnId, string title, string? description, CardType type, CardPriority priority)
+    {
+        var column = await db.Columns
+            .Include(c => c.Board)
+                .ThenInclude(b => b.Project)
+            .FirstAsync(c => c.Id == columnId);
+
+        var board = column.Board;
+        var project = board.Project;
+
+        var nextNumber = await db.Cards
+            .Where(c => c.Column.Board.ProjectId == project.Id)
+            .MaxAsync(c => (uint?)c.Number) ?? 0;
+
+        var card = new Card
+        {
+            Number = nextNumber + 1,
+            ColumnId = columnId,
+            Title = title,
+            Description = description,
+            Type = type,
+            Priority = priority,
+        };
+
+        db.Cards.Add(card);
+        await db.SaveChangesAsync();
+
+        await webhooks.TriggerAsync(project.Id, WebhookFormatter.StandardizedCardPayload("card.created", project, board, column, card));
+
+        return card;
+    }
+
+    public async Task<Card?> GetByIdAsync(Guid id)
+        => await db.Cards
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Id == id);
+
+    public async Task<List<Card>> GetByColumnAsync(Guid columnId)
+        => await db.Cards
+            .AsNoTracking()
+            .Where(c => c.ColumnId == columnId)
+            .ToListAsync();
+
+    public async Task<Card?> UpdateAsync(Guid id, string title, string? description, CardType type, CardPriority priority)
+    {
+        var card = await db.Cards
+            .Include(c => c.Column)
+                .ThenInclude(col => col.Board)
+                    .ThenInclude(b => b.Project)
+            .Include(c => c.AssignedTo)
+            .FirstOrDefaultAsync(c => c.Id == id);
+
+        if (card is null)
+            return null;
+
+        card.Title = title;
+        card.Description = description;
+        card.Type = type;
+        card.Priority = priority;
+
+        await db.SaveChangesAsync();
+
+        var column = card.Column;
+        var board = column.Board;
+        var project = board.Project;
+
+        await webhooks.TriggerAsync(project.Id, WebhookFormatter.StandardizedCardPayload("card.updated", project, board, column, card, card.AssignedTo));
+
+        return card;
+    }
+
+    public async Task<bool> AssignAsync(Guid id, Guid? userId)
+    {
+        var card = await db.Cards
+            .Include(c => c.Column)
+                .ThenInclude(col => col.Board)
+                    .ThenInclude(b => b.Project)
+            .Include(c => c.AssignedTo)
+            .FirstOrDefaultAsync(c => c.Id == id);
+
+        if (card is null)
+            return false;
+
+        var oldAssigned = card.AssignedTo;
+
+        card.AssignedToUserId = userId;
+        await db.SaveChangesAsync();
+
+        var column = card.Column;
+        var board = column.Board;
+        var project = board.Project;
+
+        var newAssigned = card.AssignedTo;
+
+        var hookType = userId is null ? "card.unassigned" : "card.assigned";
+
+        await webhooks.TriggerAsync(project.Id, WebhookFormatter.StandardizedCardPayload(hookType, project, board, column, card, newAssigned));
+
+        return true;
+    }
+
+    public async Task<bool> MoveAsync(Guid id, Guid newColumnId)
+    {
+        var card = await db.Cards
+            .Include(c => c.Column)
+                .ThenInclude(col => col.Board)
+                    .ThenInclude(b => b.Project)
+            .Include(c => c.AssignedTo)
+            .FirstOrDefaultAsync(c => c.Id == id);
+
+        if (card is null)
+            return false;
+
+        var oldColumn = card.Column;
+        var oldBoard = oldColumn.Board;
+
+        var newColumn = await db.Columns
+            .Include(c => c.Board)
+                .ThenInclude(b => b.Project)
+            .FirstAsync(c => c.Id == newColumnId);
+
+        if (newColumn.Board.Id != oldBoard.Id)
+            return false;
+
+        card.ColumnId = newColumnId;
+        await db.SaveChangesAsync();
+
+        await webhooks.TriggerAsync(newColumn.Board.ProjectId, WebhookFormatter.StandardizedCardPayload("card.moved", newColumn.Board.Project, newColumn.Board, newColumn, card, card.AssignedTo));
+
+        return true;
+    }
+
+    public async Task<bool> DeleteAsync(Guid id)
+    {
+        var card = await db.Cards
+            .Include(c => c.Column)
+                .ThenInclude(col => col.Board)
+                    .ThenInclude(b => b.Project)
+            .Include(c => c.AssignedTo)
+            .FirstOrDefaultAsync(c => c.Id == id);
+
+        if (card is null)
+            return false;
+
+        var column = card.Column;
+        var board = column.Board;
+        var project = board.Project;
+        var assigned = card.AssignedTo;
+
+        db.Cards.Remove(card);
+        await db.SaveChangesAsync();
+
+        await webhooks.TriggerAsync(project.Id, WebhookFormatter.StandardizedCardPayload("card.deleted", project, board, column, card, assigned));
+
+        return true;
+    }
+}

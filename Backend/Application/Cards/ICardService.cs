@@ -1,0 +1,15 @@
+﻿using Domain.Entities;
+using Domain.Enums;
+
+namespace Application.Cards;
+
+public interface ICardService
+{
+    Task<Card> CreateAsync(Guid columnId, string title, string? description, CardType type, CardPriority priority);
+    Task<Card?> GetByIdAsync(Guid id);
+    Task<List<Card>> GetByColumnAsync(Guid columnId);
+    Task<Card?> UpdateAsync(Guid id, string title, string? description, CardType type, CardPriority priority);
+    Task<bool> DeleteAsync(Guid id);
+    Task<bool> AssignAsync(Guid id, Guid? userId);
+    Task<bool> MoveAsync(Guid id, Guid newColumnId);
+}
