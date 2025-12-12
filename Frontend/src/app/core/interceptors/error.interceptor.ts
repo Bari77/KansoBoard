@@ -18,15 +18,19 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
                 return throwError(() => err);
             }
 
-            let errorMsg = "ERROR.HTTP_CODE." + err.status;
-            if (err.error?.Message?.startsWith("ERR_")) {
-                errorMsg = "ERROR." + err.error.Message;
-                err.error.Message = errorMsg;
-            }
+            if (err.status) {
+                let errorMsg = "ERROR.HTTP_CODE." + err.status;
+                if (err.error?.Message?.startsWith("ERR_")) {
+                    errorMsg = "ERROR." + err.error.Message;
+                    err.error.Message = errorMsg;
+                }
 
-            console.error(errorMsg, err.error);
-            const toastService = injector.get(ToastService);
-            toastService.error(errorMsg);
+                console.error(errorMsg, err.error);
+                const toastService = injector.get(ToastService);
+                toastService.error(errorMsg);
+            } else {
+                console.error(err);
+            }
 
             if (err.status === CodeHttp.SERVER_OFF || err.status === CodeHttp.SERVER_MAINTENANCE) {
                 authStore.logout();

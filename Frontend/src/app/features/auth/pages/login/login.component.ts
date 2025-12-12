@@ -49,7 +49,7 @@ export class LoginComponent {
 
         try {
             await this.authStore.login(this.form.value.email!, this.form.value.password!);
-            await this.router.navigate(['/home']);
+            await this.router.navigate(['/projects']);
         } catch {
             this.error.set("ERROR.ERR_LOGIN_FAILED");
         } finally {

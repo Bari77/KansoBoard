@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, OnInit, computed, inject } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
 import { MatToolbar } from "@angular/material/toolbar";
+import { MatTooltip } from "@angular/material/tooltip";
 import { RouterLink, RouterOutlet } from "@angular/router";
 import { LoadingComponent } from "@core/layout/splash/components/loading/loading.component";
 import { TokenStore } from "@features/auth/stores/token.store";
@@ -11,7 +12,7 @@ import { AppStore } from "app/app.store";
 @Component({
     selector: "app-root",
     standalone: true,
-    imports: [RouterOutlet, RouterLink, CommonModule, TranslateModule, LoadingComponent, MatToolbar, MatCardModule],
+    imports: [RouterOutlet, RouterLink, CommonModule, TranslateModule, LoadingComponent, MatToolbar, MatCardModule, MatTooltip],
     templateUrl: "./app.component.html",
     styleUrl: "./app.component.scss",
 })

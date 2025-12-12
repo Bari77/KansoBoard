@@ -12,12 +12,12 @@ export class ToastService {
     private queue: ToastSnackData[] = [];
     private processing = false;
 
-    public async popup(
+    public popup(
         message: string,
         action: string = "GLOBAL.CLOSE",
         color: "info" | "success" | "warn" | "danger" = "info",
         duration: number | null = 3000,
-    ): Promise<void> {
+    ): void {
         this.queue.push({
             message: message,
             action: action,
@@ -28,15 +28,15 @@ export class ToastService {
         this.processQueue();
     }
 
-    public async success(message: string, action: string = "GLOBAL.CLOSE"): Promise<void> {
+    public success(message: string, action: string = "GLOBAL.CLOSE"): void {
         this.popup(message, action, "success");
     }
 
-    public async warning(message: string, action: string = "GLOBAL.CLOSE"): Promise<void> {
+    public warning(message: string, action: string = "GLOBAL.CLOSE"): void {
         this.popup(message, action, "warn");
     }
 
-    public async error(message: string, action: string = "GLOBAL.CLOSE"): Promise<void> {
+    public error(message: string, action: string = "GLOBAL.CLOSE"): void {
         this.popup(message, action, "danger", null);
     }
 

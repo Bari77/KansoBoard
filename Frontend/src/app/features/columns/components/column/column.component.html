@@ -1,0 +1,26 @@
+<mat-card class="column" cdkDrag>
+    <ng-template cdkDragPlaceholder>
+        <div class="column-placeholder"></div>
+    </ng-template>
+
+    <mat-card-header cdkDragHandle>
+        <mat-card-title>{{ column().name }}</mat-card-title>
+        <span class="spacer"></span>
+        <button mat-icon-button [matTooltip]="'COLUMN.ADD_CARD' | translate"
+            (click)="addCard(); $event.stopPropagation()" class="success">
+            <mat-icon>add</mat-icon>
+        </button>
+        <button mat-icon-button [matTooltip]="'GLOBAL.EDIT' | translate" (click)="edit(); $event.stopPropagation()"
+            class="info">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button [matTooltip]="'GLOBAL.DELETE' | translate" (click)="delete(); $event.stopPropagation()"
+            class="danger">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </mat-card-header>
+
+    <mat-card-content class="column-content">
+        <ng-content>Content</ng-content>
+    </mat-card-content>
+</mat-card>

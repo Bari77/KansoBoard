@@ -15,6 +15,13 @@ import { ToastService } from "@core/services/toast.service";
 import { AuthService } from "@features/auth/services/auth.service";
 import { AuthStore } from "@features/auth/stores/auth.store";
 import { TokenStore } from "@features/auth/stores/token.store";
+import { BoardsService } from "@features/boards/services/boards.service";
+import { BoardStore } from "@features/boards/stores/board.store";
+import { BoardsStore } from "@features/boards/stores/boards.store";
+import { ColumnsService } from "@features/columns/services/columns.service";
+import { ColumnsStore } from "@features/columns/stores/columns.store";
+import { ProjectsService } from "@features/projects/services/projects.service";
+import { ProjectsStore } from "@features/projects/stores/projects.store";
 import { TranslateService, provideTranslateService } from "@ngx-translate/core";
 import { provideTranslateHttpLoader } from "@ngx-translate/http-loader";
 import { StorageService } from "@shared/services/storage.service";
@@ -56,9 +63,16 @@ export const appConfig: ApplicationConfig = {
         ToastService,
         StorageService,
         AuthService,
+        ProjectsService,
+        BoardsService,
+        ColumnsService,
 
         AppStore,
         AuthStore,
         TokenStore,
+        ProjectsStore,
+        BoardsStore,
+        BoardStore,
+        ColumnsStore
     ],
 };

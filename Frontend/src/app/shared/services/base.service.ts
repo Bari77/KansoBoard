@@ -97,7 +97,7 @@ export abstract class BaseService {
      * An observable emitting the array of transformed model instances.
      * The exact behavior (online vs offline) depends on `fetchAndTransform()`.
      */
-    protected httpList<Tdto, Tmodel>(modelClass: DtoConvertibleClass<Tdto, Tmodel>, url: string, params?: HttpParams): Observable<Tmodel[]> {
+    protected httpList<Tdto, Tmodel>(modelClass: DtoConvertibleClass<Tdto, Tmodel>, url: string = "", params?: HttpParams): Observable<Tmodel[]> {
         return this.fetchAndTransform<Tdto, Tmodel>(modelClass, url, true, params) as Observable<Tmodel[]>;
     }
 

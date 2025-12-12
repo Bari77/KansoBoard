@@ -1,0 +1,11 @@
+.column {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    min-height: 750px;
+}
+
+.column-content {
+    flex: 1;
+    overflow-y: auto;
+}

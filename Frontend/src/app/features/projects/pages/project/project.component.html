@@ -1,0 +1,60 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <span routerLink="/projects" class="cursor-pointer">{{ "PROJECTS.TITLE" | translate }}</span>
+            <mat-icon>chevron_right</mat-icon>
+            <span>{{ projectsStore.getName(id()!) }}</span>
+            <mat-icon>chevron_right</mat-icon>
+            <span>{{ "BOARDS.TITLE" | translate }}</span>
+        </mat-card-title>
+        <span class="spacer"></span>
+        <button mat-icon-button [matTooltip]="'BOARDS.LINK' | translate" class="info">
+            <mat-icon>link</mat-icon>
+        </button>
+        <button mat-icon-button [matTooltip]="'BOARDS.NEW' | translate" (click)="new()" class="success">
+            <mat-icon>add</mat-icon>
+        </button>
+    </mat-card-header>
+</mat-card>
+
+<br>
+
+@if (boardsStore.loading()) {
+<div class="loader">
+    <mat-spinner></mat-spinner>
+</div>
+} @else {
+@if (boardsStore.boards().length === 0) {
+<mat-card class="empty-card">
+    <mat-card-content>
+        <h2>{{ "BOARDS.EMPTY" | translate }}</h2>
+        <p>{{ "BOARDS.EMPTY_PHRASE" | translate }}</p>
+        <br>
+        <button mat-raised-button (click)="new()">
+            {{ "BOARDS.CREATE" | translate }}
+        </button>
+    </mat-card-content>
+</mat-card>
+} @else {
+<div class="row">
+    @for (board of boardsStore.boards(); track board.id) {
+    <div class="col">
+        <mat-card class="board-card" [routerLink]="['/boards', board.id]">
+            <mat-card-header>
+                <mat-card-title class="board-title">{{ board.name }}</mat-card-title>
+                <span class="spacer"></span>
+                <button mat-icon-button [matTooltip]="'GLOBAL.EDIT' | translate"
+                    (click)="edit(board); $event.stopPropagation()" class="info">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button [matTooltip]="'GLOBAL.DELETE' | translate"
+                    (click)="delete(board); $event.stopPropagation()" class="danger">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-card-header>
+        </mat-card>
+    </div>
+    }
+</div>
+}
+}

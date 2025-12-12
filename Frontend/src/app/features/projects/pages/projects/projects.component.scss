@@ -1,0 +1,19 @@
+.card {
+    cursor: pointer;
+}
+
+.empty-card {
+    text-align: center;
+}
+
+.project-card {
+    width: 100%;
+    cursor: pointer;
+}
+
+.project-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 175px;
+}

@@ -1,0 +1,51 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{ "PROJECTS.TITLE" | translate }}</mat-card-title>
+        <span class="spacer"></span>
+        <button mat-icon-button [matTooltip]="'PROJECTS.NEW' | translate" (click)="new()" class="success">
+            <mat-icon>add</mat-icon>
+        </button>
+    </mat-card-header>
+</mat-card>
+
+<br>
+
+@if (projectsStore.loading()) {
+<div class="loader">
+    <mat-spinner></mat-spinner>
+</div>
+} @else {
+@if (projectsStore.projects().length === 0) {
+<mat-card class="empty-card">
+    <mat-card-content>
+        <h2>{{ "PROJECTS.EMPTY" | translate }}</h2>
+        <p>{{ "PROJECTS.EMPTY_PHRASE" | translate }}</p>
+        <br>
+        <button mat-raised-button (click)="new()">
+            {{ "PROJECTS.CREATE" | translate }}
+        </button>
+    </mat-card-content>
+</mat-card>
+} @else {
+<div class="row">
+    @for (project of projectsStore.projects(); track project.id) {
+    <div class="col">
+        <mat-card class="project-card" [routerLink]="project.id">
+            <mat-card-header>
+                <mat-card-title class="project-title">{{ project.name }}</mat-card-title>
+                <span class="spacer"></span>
+                <button mat-icon-button [matTooltip]="'GLOBAL.EDIT' | translate"
+                    (click)="edit(project); $event.stopPropagation()" class="info">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button [matTooltip]="'GLOBAL.DELETE' | translate"
+                    (click)="delete(project); $event.stopPropagation()" class="danger">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-card-header>
+        </mat-card>
+    </div>
+    }
+</div>
+}
+}

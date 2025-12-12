@@ -14,7 +14,7 @@ export class UnauthGuard implements CanActivate {
         if (!this.tokenData()) {
             return true;
         } else {
-            this.router.navigateByUrl("/home");
+            this.router.navigateByUrl("/projects");
             return false;
         }
     }

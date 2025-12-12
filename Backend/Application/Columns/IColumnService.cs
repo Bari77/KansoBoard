@@ -9,5 +9,7 @@ public interface IColumnService
     Task<Column?> GetByIdAsync(Guid id);
     Task<Column?> UpdateAsync(Guid id, string name);
     Task<bool> DeleteAsync(Guid id);
-    Task<bool> MoveAsync(Guid id, int newOrder);
+    Task<bool> ReorderAsync(Guid id, List<ColumnOrderDto> orders);
 }
+
+public record ColumnOrderDto(Guid Id, int Order);

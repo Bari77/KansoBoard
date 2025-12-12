@@ -1,0 +1,19 @@
+.card {
+    cursor: pointer;
+}
+
+.empty-card {
+    text-align: center;
+}
+
+.board-card {
+    width: 100%;
+    cursor: pointer;
+}
+
+.board-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 175px;
+}

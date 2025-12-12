@@ -1,0 +1,21 @@
+{
+    "COLUMN": {
+        "NEW": "Ajouter une colonne",
+        "ADD_CARD": "Ajouter une carte",
+        "EMPTY": "Aucunes colonnes",
+        "EMPTY_PHRASE": "Ajouter une colonne pour commencer à organiser vos cartes.",
+        "CREATE": "Ajouter une colonne",
+        "DELETE_ASK": "Confirmez-vous souhaiter supprimer définitivement cette colonne ?",
+        "DELETE_OK": "La colonne a bien été supprimée.",
+        "DELETE_KO": "La suppression de la colonne a échouée, veuillez réessayer.",
+        "CREATE_OK": "La colonne a bien été créé.",
+        "CREATE_KO": "La création de la colonne a échouée, veuillez réessayer.",
+        "EDIT_OK": "La colonne a bien été modifiée.",
+        "EDIT_KO": "La modification de la colonne a échouée, veuillez réessayer.",
+        "DIALOG": {
+            "EDIT": "Modifer la colonne",
+            "NEW": "Nouvelle colonne",
+            "NAME": "Nom de la colonne"
+        }
+    }
+}

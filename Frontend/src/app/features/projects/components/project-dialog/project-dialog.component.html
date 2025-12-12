@@ -1,0 +1,28 @@
+<div mat-dialog-title>
+    @if (project().id) {
+    {{ "PROJECTS.DIALOG.EDIT" | translate }}
+    } @else {
+    {{ "PROJECTS.DIALOG.NEW" | translate }}
+    }
+</div>
+
+<mat-dialog-content>
+    <mat-form-field appearance="outline">
+        <mat-label>{{ "PROJECTS.DIALOG.NAME" | translate }}</mat-label>
+        <input matInput [(ngModel)]="project().name" />
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cancel()">
+        {{ "GLOBAL.CANCEL" | translate}}
+    </button>
+
+    <button mat-raised-button color="primary" [disabled]="!canConfirm()" (click)="confirm()">
+        @if (project().id) {
+        {{ "GLOBAL.SAVE" | translate }}
+        } @else {
+        {{ "GLOBAL.CREATE" | translate }}
+        }
+    </button>
+</mat-dialog-actions>

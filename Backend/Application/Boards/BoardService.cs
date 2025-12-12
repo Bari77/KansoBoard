@@ -1,21 +1,26 @@
-﻿using Domain.Entities;
+﻿using Application.Columns;
+using Domain.Entities;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Boards;
 
-public class BoardService(KansoDbContext db) : IBoardService
+public class BoardService(KansoDbContext db, IColumnService columnService) : IBoardService
 {
     public async Task<Board> CreateAsync(Guid projectId, string name)
     {
         var board = new Board
         {
             ProjectId = projectId,
-            Name = name
+            Name = name,
         };
 
         db.Boards.Add(board);
         await db.SaveChangesAsync();
+
+        await columnService.CreateAsync(board.Id, "Todo");
+        await columnService.CreateAsync(board.Id, "Doing");
+        await columnService.CreateAsync(board.Id, "Done");
 
         return board;
     }

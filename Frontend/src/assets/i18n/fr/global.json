@@ -1,9 +1,15 @@
 {
     "GLOBAL": {
         "TITLE": "KansoBoard",
+        "ACCUEIL": "Accueil",
+        "PROFILE": "Profil",
+        "LOADING": "Loading...",
         "CONFIRM": "Confirmer",
-        "CLOSE": "Fermer",
+        "CREATE": "Créer",
+        "EDIT": "Modifier",
+        "DELETE": "Supprimer",
+        "SAVE": "Sauvegarder",
         "CANCEL": "Annuler",
-        "LOADING": "Loading..."
+        "CLOSE": "Fermer"
     }
 }

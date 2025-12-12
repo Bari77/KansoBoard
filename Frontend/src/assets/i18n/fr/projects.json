@@ -1,0 +1,21 @@
+{
+    "PROJECTS": {
+        "TITLE": "Projets",
+        "NEW": "Nouveau projet",
+        "EMPTY": "Aucun projet",
+        "EMPTY_PHRASE": "Créez votre premier projet pour commencer à organiser votre board.",
+        "CREATE": "Créer mon premier projet",
+        "DELETE_ASK": "Confirmez-vous souhaiter supprimer définitivement ce projet ?",
+        "DELETE_OK": "Le projet a bien été supprimé.",
+        "DELETE_KO": "La suppression du projet a échoué, veuillez réessayer.",
+        "CREATE_OK": "Le projet a bien été créé.",
+        "CREATE_KO": "La création du projet a échoué, veuillez réessayer.",
+        "EDIT_OK": "Le projet a bien été modifié.",
+        "EDIT_KO": "La modification du projet a échoué, veuillez réessayer.",
+        "DIALOG": {
+            "EDIT": "Modifer le projet",
+            "NEW": "Nouveau projet",
+            "NAME": "Nom du projet"
+        }
+    }
+}

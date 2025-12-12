@@ -1,0 +1,22 @@
+{
+    "BOARDS": {
+        "TITLE": "Boards",
+        "NEW": "Nouveau board",
+        "LINK": "Lien d'invitation",
+        "EMPTY": "Aucun board",
+        "EMPTY_PHRASE": "Créez votre premier board pour commencer à organiser votre board.",
+        "CREATE": "Créer mon premier board",
+        "DELETE_ASK": "Confirmez-vous souhaiter supprimer définitivement ce board ?",
+        "DELETE_OK": "Le board a bien été supprimé.",
+        "DELETE_KO": "La suppression du board a échoué, veuillez réessayer.",
+        "CREATE_OK": "Le board a bien été créé.",
+        "CREATE_KO": "La création du board a échoué, veuillez réessayer.",
+        "EDIT_OK": "Le board a bien été modifié.",
+        "EDIT_KO": "La modification du board a échoué, veuillez réessayer.",
+        "DIALOG": {
+            "EDIT": "Modifer le board",
+            "NEW": "Nouveau board",
+            "NAME": "Nom du board"
+        }
+    }
+}

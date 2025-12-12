@@ -5,7 +5,7 @@ import { UnauthGuard } from "@core/guards/unauthGuard";
 export const appRoutes: Routes = [
     {
         path: "",
-        redirectTo: "home",
+        redirectTo: "projects",
         pathMatch: "full",
     },
     {
@@ -14,8 +14,13 @@ export const appRoutes: Routes = [
         canActivate: [UnauthGuard],
     },
     {
-        path: "home",
-        loadChildren: () => import("./features/home/home.routes").then((m) => m.routes),
+        path: "projects",
+        loadChildren: () => import("./features/projects/projects.routes").then((m) => m.routes),
+        canActivate: [AuthGuard],
+    },
+    {
+        path: "boards",
+        loadChildren: () => import("./features/boards/boards.routes").then((m) => m.routes),
         canActivate: [AuthGuard],
     },
 ];

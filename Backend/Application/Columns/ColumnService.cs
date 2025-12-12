@@ -68,24 +68,17 @@ public class ColumnService(KansoDbContext db) : IColumnService
         return true;
     }
 
-    public async Task<bool> MoveAsync(Guid id, int newOrder)
+    public async Task<bool> ReorderAsync(Guid id, List<ColumnOrderDto> orders)
     {
-        var col = await db.Columns.FirstOrDefaultAsync(c => c.Id == id);
-        if (col is null)
-            return false;
-
-        var siblings = await db.Columns
-            .Where(c => c.BoardId == col.BoardId)
-            .OrderBy(c => c.Order)
+        var columns = await db.Columns
+            .Where(c => c.BoardId == id)
             .ToListAsync();
 
-        newOrder = Math.Clamp(newOrder, 1, siblings.Count);
-
-        siblings.Remove(col);
-        siblings.Insert(newOrder - 1, col);
-
-        for (int i = 0; i < siblings.Count; i++)
-            siblings[i].Order = i + 1;
+        foreach (var col in columns)
+        {
+            var dto = orders.First(o => o.Id == col.Id);
+            col.Order = dto.Order;
+        }
 
         await db.SaveChangesAsync();
         return true;

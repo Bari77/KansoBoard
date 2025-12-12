@@ -116,10 +116,10 @@ public class ColumnsController(IColumnService service, IProjectAuthorizationServ
         return await service.DeleteAsync(id) ? NoContent() : NotFound();
     }
 
-    [HttpPost("{id:guid}/move")]
-    public async Task<IActionResult> Move(Guid id, MoveColumnRequest req)
+    [HttpPost("{id:guid}/reorder")]
+    public async Task<IActionResult> Reorder(Guid id, List<ColumnOrderDto> orders)
     {
-        var projectId = await resolver.GetProjectIdFromColumn(id);
+        var projectId = await resolver.GetProjectIdFromBoard(id);
         if (projectId is null) return Forbid();
 
         if (HttpContext.Items["ApiProjectId"] is Guid apiId)
@@ -133,12 +133,10 @@ public class ColumnsController(IColumnService service, IProjectAuthorizationServ
             if (!await auth.CanAccessProjectAsync(userId.Value, projectId.Value)) return Forbid();
         }
 
-        return await service.MoveAsync(id, req.NewOrder) ? Ok() : NotFound();
+        return await service.ReorderAsync(id, orders) ? NoContent() : NotFound();
     }
 }
 
 public record CreateColumnRequest(Guid BoardId, string Name);
 
 public record UpdateColumnRequest(string Name);
-
-public record MoveColumnRequest(int NewOrder);

@@ -1,0 +1,53 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <span routerLink="/projects" class="cursor-pointer">{{ "PROJECTS.TITLE" | translate }}</span>
+            <mat-icon>chevron_right</mat-icon>
+            @if (boardStore.board()?.projectId) {
+            <span [routerLink]="['/projects', boardStore.board()?.projectId]" class="cursor-pointer">{{
+                projectsStore.getName(boardStore.board()?.projectId) }}</span>
+            } @else {
+            <mat-spinner class="title-spinner"></mat-spinner>
+            }
+            <mat-icon>chevron_right</mat-icon>
+            <span [routerLink]="['/projects', boardStore.board()?.projectId]" class="cursor-pointer">{{ "BOARDS.TITLE" |
+                translate }}</span>
+            <mat-icon>chevron_right</mat-icon>
+            @if (boardStore.board()?.name) {
+            <span>{{ boardStore.board()?.name }}</span>
+            } @else {
+            <mat-spinner class="title-spinner"></mat-spinner>
+            }
+        </mat-card-title>
+        <span class="spacer"></span>
+        <button mat-icon-button [matTooltip]="'COLUMN.NEW' | translate" (click)="newColumn()" class="success">
+            <mat-icon>add</mat-icon>
+        </button>
+    </mat-card-header>
+</mat-card>
+
+<br>
+@if (boardStore.loading()) {
+<div class="loader">
+    <mat-spinner></mat-spinner>
+</div>
+} @else {
+@if (columnsStore.columns().length === 0) {
+<mat-card class="empty-card">
+    <mat-card-content>
+        <h2>{{ "COLUMN.EMPTY" | translate }}</h2>
+        <p>{{ "COLUMN.EMPTY_PHRASE" | translate }}</p>
+        <br>
+        <button mat-raised-button (click)="newColumn()">
+            {{ "COLUMN.CREATE" | translate }}
+        </button>
+    </mat-card-content>
+</mat-card>
+} @else {
+<div cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)" class="board-container">
+    @for (column of columnsStore.columns(); track column.id) {
+    <app-column [column]="column"></app-column>
+    }
+</div>
+}
+}
