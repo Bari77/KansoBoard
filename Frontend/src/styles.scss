@@ -1,0 +1,182 @@
+@use '@angular/material' as mat;
+
+:root {
+    --font-main: "Noto Serif JP", serif;
+}
+
+html {
+    @include mat.theme((color: (primary: mat.$red-palette, secondary: mat.$red-palette), density: 0));
+}
+
+html,
+body {
+    height: 100vh;
+    font-family: var(--font-main);
+}
+
+body {
+    margin: 0;
+}
+
+button:disabled {
+    opacity: 0.5;
+}
+
+mat-card-content {
+    padding-top: 15px !important;
+}
+
+mat-card-actions {
+    justify-content: center;
+    gap: 10px;
+}
+
+.global-container {
+    height: 100vh;
+
+    &.light-mode {
+        color-scheme: light;
+        background: radial-gradient(circle at center, #f7efe6 0%, #efe3d4 100%);
+        color: var(--mat-sys-on-surface);
+    }
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.loader {
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed;
+
+    mat-spinner {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+    }
+}
+
+.sakura-rain {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.sakura-rain .petal {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background-image: url('/assets/img/sakura-petals.png');
+    background-size: cover;
+    display: block;
+    animation-name: sakuraFall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes sakuraFall {
+    0% {
+        transform: translateX(0) translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    20% {
+        transform: translateX(-10px) translateY(20vh) rotate(40deg);
+    }
+
+    40% {
+        transform: translateX(10px) translateY(40vh) rotate(90deg);
+    }
+
+    60% {
+        transform: translateX(-15px) translateY(60vh) rotate(130deg);
+    }
+
+    80% {
+        transform: translateX(12px) translateY(85vh) rotate(170deg);
+        opacity: 0.85;
+    }
+
+    100% {
+        transform: translateX(8px) translateY(100vh) rotate(190deg) scale(0.8);
+        opacity: 0;
+    }
+}
+
+.m-r-10 {
+    margin-right: 10px;
+}
+
+.p-t-10 {
+    padding-top: 10px;
+}
+
+.f-inline-start {
+    float: inline-start;
+}
+
+.f-inline-end {
+    float: inline-end;
+}
+
+.success {
+    color: #00ad06 !important;
+}
+
+.snack-success .mat-mdc-snackbar-surface {
+    background-color: #008f05 !important;
+}
+
+.danger {
+    color: #f44336 !important;
+}
+
+.snack-danger .mat-mdc-snackbar-surface {
+    background-color: #c23329 !important;
+}
+
+.warn {
+    color: #f7b264 !important;
+}
+
+.snack-warn .mat-mdc-snackbar-surface {
+    background-color: #f7b264 !important;
+}
+
+.info {
+    color: #5C6BC0 !important;
+}
+
+.snack-info .mat-mdc-snackbar-surface {
+    background-color: #5C6BC0 !important;
+}
+
+.splash-msg-color-base {
+    color: #5C6BC0 !important;
+}
+
+.splash-msg-color-warning {
+    color: #f7b264 !important;
+}
+
+.splash-msg-color-error {
+    color: #f44336 !important;
+}
+
+.mat-mdc-header-cell,
+.mat-mdc-footer-cell,
+.mat-mdc-cell {
+    min-width: 250px;
+    box-sizing: border-box;
+}
+
+.mat-mdc-table {
+    overflow: auto;
+}

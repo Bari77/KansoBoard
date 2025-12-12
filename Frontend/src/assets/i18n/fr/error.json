@@ -1,0 +1,17 @@
+{
+    "ERROR": {
+        "HTTP_CODE": {
+            "0": "Le serveur est inaccessible. Veuillez réessayer plus tard.",
+            "400": "Une erreur s'est produite lors de la lecture des données transmises.",
+            "401": "L'accès a cette ressource nécéssite une connection.",
+            "403": "Vous n'avez pas le droit d'accédé a cette ressource.",
+            "404": "Ressource non trouvée.",
+            "500": "Une erreur s'est produite.",
+            "503": "Serveur en maintenance ou inaccessible.",
+            "504": "Le serveur a mis trop de temps a répondre."
+        },
+        "ERR_EXPIRED_SESSION": "Votre session a expiré. Veuillez vous reconnecter.",
+        "ERR_RENEW_SESSION": "Impossible de renouveler votre session. Merci de vous reconnecter.",
+        "ERR_LOGIN_FAILED": "Une erreur s'est produite lors de votre authentification."
+    }
+}

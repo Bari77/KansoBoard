@@ -1,0 +1,55 @@
+mat-toolbar {
+    background-image: url(assets/img/branch.png);
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: 161px;
+}
+
+.container {
+    padding: 5px;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+}
+
+.logo {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.avatar {
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
+
+    &:hover {
+        filter: grayscale(0.5);
+    }
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.avatar {
+    background-image: url('https://material.angular.dev/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
+
+.settings {
+    color: #4287f5;
+}
+
+.light {
+    color: #FFC107;
+}
+
+.dark {
+    color: #424242;
+}
+
+.version {
+    font-size: 15px;
+    margin-left: 10px;
+}

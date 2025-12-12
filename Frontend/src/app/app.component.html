@@ -1,0 +1,19 @@
+@if (appStore.loading()) {
+<app-loading></app-loading>
+} @else {
+<div class="light-mode global-container">
+    <mat-toolbar>
+        <img [routerLink]="'/home'" src="assets/img/favicon.ico" alt="Logo" width="45px" height="45px" class="logo" />
+        <span [routerLink]="'/home'" style="cursor: pointer">{{ "GLOBAL.TITLE" | translate }}</span>
+        <span class="spacer"></span>
+        @if (tokenData()) {
+        <img [src]="tokenData()?.avatar ?? 'assets/img/avatar.png'" [routerLink]="'users/profile'" class="avatar"
+            alt="Avatar">
+        }
+    </mat-toolbar>
+
+    <div class="container">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+}

@@ -1,0 +1,13 @@
+<div>
+    <div>
+        <p class="f-inline-start">{{ data.message }}</p>
+
+        <button mat-raised-button (click)="onActionClick()" class="f-inline-end">
+            {{ data.action }}
+        </button>
+    </div>
+
+    @if (data.duration) {
+    <mat-progress-bar [value]="progress()" mode="determinate" class="p-t-10"></mat-progress-bar>
+    }
+</div>

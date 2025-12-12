@@ -1,0 +1,10 @@
+{
+    "SIGNUP": {
+        "TITLE": "Inscription",
+        "EMAIL": "Email",
+        "PSEUDO": "Pseudo",
+        "PASSWORD": "Mot de passe",
+        "LOGIN": "Se connecter",
+        "SIGNUP": "S'inscrire"
+    }
+}

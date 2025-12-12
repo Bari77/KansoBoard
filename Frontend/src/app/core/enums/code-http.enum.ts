@@ -1,0 +1,10 @@
+export enum CodeHttp {
+    SERVER_OFF = 0,
+    SUCCESS = 200,
+    AUTH_ERROR = 401,
+    DENIED_ACCESS = 403,
+    NOT_FOUND = 404,
+    SERVER_ERROR = 500,
+    SERVER_MAINTENANCE = 503,
+    TIMEOUT = 504,
+}

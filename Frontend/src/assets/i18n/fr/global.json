@@ -1,0 +1,9 @@
+{
+    "GLOBAL": {
+        "TITLE": "KansoBoard",
+        "CONFIRM": "Confirmer",
+        "CLOSE": "Fermer",
+        "CANCEL": "Annuler",
+        "LOADING": "Loading..."
+    }
+}

@@ -1,0 +1,13 @@
+<mat-dialog-content>
+    {{ data.message | translate }}
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onCancelClick()" aria-label="Cancel action">
+        <mat-icon class="danger">close</mat-icon>
+        {{ "GLOBAL.CANCEL" | translate }}
+    </button>
+    <button mat-button [mat-dialog-close]="confirm()" cdkFocusInitial aria-label="Confirm action">
+        <mat-icon class="success">check</mat-icon>
+        {{ "GLOBAL.CONFIRM" | translate }}
+    </button>
+</mat-dialog-actions>

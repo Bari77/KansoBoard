@@ -1,0 +1,41 @@
+<div [formGroup]="form" (keyup.enter)="submit()" class="signup-wrapper">
+    <mat-card class="signup-card">
+        <mat-card-header>
+            <mat-card-title>{{ "SIGNUP.TITLE" | translate }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field appearance="outline">
+                <mat-label>{{ "SIGNUP.EMAIL" | translate }}</mat-label>
+                <input matInput type="email" formControlName="email" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>{{ "SIGNUP.PSEUDO" | translate }}</mat-label>
+                <input matInput type="email" formControlName="pseudo" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>{{ "SIGNUP.PASSWORD" | translate }}</mat-label>
+                <input matInput type="password" formControlName="password" />
+            </mat-form-field>
+            @if (error()) {
+            <p class="error">{{ error() | translate }}</p>
+            }
+        </mat-card-content>
+
+        <mat-card-actions>
+            <button mat-button [routerLink]="'/auth/login'">
+                <ng-container>{{ "SIGNUP.LOGIN" | translate }}</ng-container>
+            </button>
+            <button mat-raised-button [disabled]="loading() || form.invalid" (click)="submit()">
+                @if (!loading()) {
+                <ng-container>{{ "SIGNUP.SIGNUP" | translate }}</ng-container>
+                } @else {
+                <ng-container>
+                    <mat-spinner diameter="20"></mat-spinner>
+                </ng-container>
+                }
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

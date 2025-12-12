@@ -1,0 +1,36 @@
+<div [formGroup]="form" (keyup.enter)="submit()" class="login-wrapper">
+    <mat-card class="login-card">
+        <mat-card-header>
+            <mat-card-title>{{ "LOGIN.TITLE" | translate }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field appearance="outline">
+                <mat-label>{{ "LOGIN.EMAIL" | translate }}</mat-label>
+                <input matInput type="email" formControlName="email" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>{{ "LOGIN.PASSWORD" | translate }}</mat-label>
+                <input matInput type="password" formControlName="password" />
+            </mat-form-field>
+            @if (error()) {
+            <p class="error">{{ error() | translate }}</p>
+            }
+        </mat-card-content>
+
+        <mat-card-actions>
+            <button mat-button [routerLink]="'/auth/signup'">
+                <ng-container>{{ "LOGIN.SIGNUP" | translate }}</ng-container>
+            </button>
+            <button mat-raised-button [disabled]="loading() || form.invalid" (click)="submit()">
+                @if (!loading()) {
+                <ng-container>{{ "LOGIN.LOGIN" | translate }}</ng-container>
+                } @else {
+                <ng-container>
+                    <mat-spinner diameter="20"></mat-spinner>
+                </ng-container>
+                }
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>
