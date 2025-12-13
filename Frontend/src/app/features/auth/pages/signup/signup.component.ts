@@ -52,7 +52,7 @@ export class SignupComponent {
             await this.authStore.register(this.form.value.email!, this.form.value.pseudo!, this.form.value.password!);
             await this.router.navigate(['/login']);
         } catch {
-            this.error.set("ERROR.ERR_LOGIN_FAILED");
+            this.error.set("ERROR.ERR_SIGNUP_FAILED");
         } finally {
             this.loading.set(false);
         }

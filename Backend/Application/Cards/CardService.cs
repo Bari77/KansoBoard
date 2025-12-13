@@ -8,34 +8,49 @@ namespace Application.Cards;
 
 public class CardService(KansoDbContext db, IWebhookService webhooks) : ICardService
 {
-    public async Task<Card> CreateAsync(Guid columnId, string title, string? description, CardType type, CardPriority priority)
+    public async Task<Card> CreateAsync(
+        Guid columnId,
+        string title,
+        string? description,
+        CardType type,
+        CardPriority priority)
     {
+        await using var tx = await db.Database.BeginTransactionAsync();
+
         var column = await db.Columns
             .Include(c => c.Board)
                 .ThenInclude(b => b.Project)
             .FirstAsync(c => c.Id == columnId);
 
-        var board = column.Board;
-        var project = board.Project;
+        var project = column.Board.Project;
 
-        var nextNumber = await db.Cards
-            .Where(c => c.Column.Board.ProjectId == project.Id)
-            .MaxAsync(c => (uint?)c.Number) ?? 0;
+        var counter = await db.ProjectCounters.FirstAsync(c => c.ProjectId == project.Id);
+        var number = counter.NextCardNumber;
+        counter.NextCardNumber++;
 
         var card = new Card
         {
-            Number = nextNumber + 1,
+            Number = number,
             ColumnId = columnId,
             Title = title,
             Description = description,
             Type = type,
-            Priority = priority,
+            Priority = priority
         };
 
         db.Cards.Add(card);
-        await db.SaveChangesAsync();
 
-        await webhooks.TriggerAsync(project.Id, WebhookFormatter.StandardizedCardPayload("card.created", project, board, column, card));
+        await db.SaveChangesAsync();
+        await tx.CommitAsync();
+
+        await webhooks.TriggerAsync(
+            project.Id,
+            WebhookFormatter.StandardizedCardPayload(
+                "card.created",
+                project,
+                column.Board,
+                column,
+                card));
 
         return card;
     }

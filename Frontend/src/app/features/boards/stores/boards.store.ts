@@ -1,6 +1,7 @@
 import { computed, inject, Injectable, resource, signal } from '@angular/core';
 import { BoardsService } from '@features/boards/services/boards.service';
 import { firstValueFrom } from 'rxjs';
+import { Board } from '../models/board.model';
 
 @Injectable()
 export class BoardsStore {
@@ -22,11 +23,12 @@ export class BoardsStore {
         this.boardsResource.reload();
     }
 
-    public async create(name: string): Promise<void> {
-        if (!this.projectId()) return;
+    public async create(name: string): Promise<Board | null> {
+        if (!this.projectId()) return null;
 
-        await firstValueFrom(this.boardsService.create(this.projectId()!, name));
+        const board = await firstValueFrom(this.boardsService.create(this.projectId()!, name));
         this.boardsResource.reload();
+        return board;
     }
 
     public async update(id: string, name: string): Promise<void> {

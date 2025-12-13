@@ -1,3 +1,4 @@
+import { ClipboardModule } from "@angular/cdk/clipboard";
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
 import { Component, computed, inject, input } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
@@ -18,12 +19,13 @@ import { CardsStore } from "@features/cards/stores/cards.store";
 import { ColumnDialogComponent } from "@features/columns/components/column-dialog/column-dialog.component";
 import { Column } from "@features/columns/models/column.model";
 import { ColumnsStore } from "@features/columns/stores/columns.store";
+import { ConfigStore } from "@features/configs/store/config.store";
 import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
     selector: "app-column",
     standalone: true,
-    imports: [MatCardModule, MatToolbarModule, MatButtonModule, MatGridListModule, MatIconModule, TranslateModule, MatTooltipModule, DragDropModule, CardComponent],
+    imports: [MatCardModule, MatToolbarModule, MatButtonModule, MatGridListModule, MatIconModule, TranslateModule, MatTooltipModule, DragDropModule, CardComponent, ClipboardModule],
     templateUrl: "./column.component.html",
     styleUrls: ["./column.component.scss"],
 })
@@ -32,12 +34,14 @@ export class ColumnComponent {
     public readonly connectedColumns = computed(() => this.columnsStore.columns().map(c => c.id));
     public readonly cards = computed(() => this.cardsStore.getByColumn(this.column().id));
     public readonly dropListId = computed(() => this.column().id);
+    public readonly config = computed(() => this.configStore.appConfig());
     public readonly columnsStore = inject(ColumnsStore);
     public readonly cardsStore = inject(CardsStore);
 
     private readonly router = inject(Router);
     private readonly dialog = inject(MatDialog);
     private readonly toastService = inject(ToastService);
+    private readonly configStore = inject(ConfigStore);
 
     public open(id: string): void {
         this.router.navigate(["/board", id]);

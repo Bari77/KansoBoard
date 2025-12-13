@@ -4,8 +4,6 @@
             <span routerLink="/projects" class="cursor-pointer">{{ "PROJECTS.TITLE" | translate }}</span>
             <mat-icon>chevron_right</mat-icon>
             <span>{{ projectsStore.getName(id()!) }}</span>
-            <mat-icon>chevron_right</mat-icon>
-            <span>{{ "BOARDS.TITLE" | translate }}</span>
         </mat-card-title>
         <span class="spacer"></span>
         <button mat-icon-button [matTooltip]="'BOARDS.LINK' | translate" class="info">
@@ -42,6 +40,12 @@
         <mat-card class="board-card" [routerLink]="['/boards', board.id]">
             <mat-card-header>
                 <mat-card-title class="board-title">{{ board.name }}</mat-card-title>
+                @if (config().devMode) {
+                <button mat-icon-button [matTooltip]="'GLOBAL.COPY_ID' | translate" [cdkCopyToClipboard]="board.id"
+                    (click)="$event.stopPropagation()" class="warn copy-id-button">
+                    <mat-icon>content_copy</mat-icon>
+                </button>
+                }
                 <span class="spacer"></span>
                 <button mat-icon-button [matTooltip]="'GLOBAL.EDIT' | translate"
                     (click)="edit(board); $event.stopPropagation()" class="info">

@@ -22,6 +22,7 @@ import { CardsService } from "@features/cards/services/cards.service";
 import { CardsStore } from "@features/cards/stores/cards.store";
 import { ColumnsService } from "@features/columns/services/columns.service";
 import { ColumnsStore } from "@features/columns/stores/columns.store";
+import { ConfigStore } from "@features/configs/store/config.store";
 import { ProjectsService } from "@features/projects/services/projects.service";
 import { ProjectsStore } from "@features/projects/stores/projects.store";
 import { TranslateService, provideTranslateService } from "@ngx-translate/core";
@@ -40,7 +41,7 @@ export const appConfig: ApplicationConfig = {
         }),
         provideRouter(appRoutes),
         provideHttpClient(withInterceptors([errorInterceptor, tokenInterceptor])),
-        provideAppInitializer(() => zip(inject(TranslateService).reloadLang("fr"))),
+        provideAppInitializer(() => zip(inject(TranslateService).reloadLang("fr"), inject(ConfigStore).initApp())),
         provideAnimationsAsync(),
         provideNativeDateAdapter(),
         provideTranslateService({
@@ -70,6 +71,7 @@ export const appConfig: ApplicationConfig = {
         ColumnsService,
         CardsService,
 
+        ConfigStore,
         AppStore,
         AuthStore,
         TokenStore,

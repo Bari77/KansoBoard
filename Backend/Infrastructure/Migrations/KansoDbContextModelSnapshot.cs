@@ -169,6 +169,20 @@ namespace Infrastructure.Migrations
                     b.ToTable("ProjectApiKeys");
                 });
 
+            modelBuilder.Entity("Domain.Entities.ProjectCounter", b =>
+                {
+                    b.Property<Guid>("ProjectId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<uint>("NextCardNumber")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ProjectId");
+
+                    b.ToTable("ProjectCounters");
+                });
+
             modelBuilder.Entity("Domain.Entities.ProjectUser", b =>
                 {
                     b.Property<Guid>("UserId")

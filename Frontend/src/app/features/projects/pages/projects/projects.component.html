@@ -33,6 +33,12 @@
         <mat-card class="project-card" [routerLink]="project.id">
             <mat-card-header>
                 <mat-card-title class="project-title">{{ project.name }}</mat-card-title>
+                @if (config().devMode) {
+                <button mat-icon-button [matTooltip]="'GLOBAL.COPY_ID' | translate" [cdkCopyToClipboard]="project.id"
+                    (click)="$event.stopPropagation()" class="warn copy-id-button">
+                    <mat-icon>content_copy</mat-icon>
+                </button>
+                }
                 <span class="spacer"></span>
                 <button mat-icon-button [matTooltip]="'GLOBAL.EDIT' | translate"
                     (click)="edit(project); $event.stopPropagation()" class="info">

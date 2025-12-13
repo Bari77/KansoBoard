@@ -5,6 +5,12 @@
 
     <mat-card-header cdkDragHandle>
         <mat-card-title>{{ column().name }}</mat-card-title>
+        @if (config().devMode) {
+        <button mat-icon-button [matTooltip]="'GLOBAL.COPY_ID' | translate" [cdkCopyToClipboard]="column().id"
+            (click)="$event.stopPropagation()" class="warn copy-id-button">
+            <mat-icon>content_copy</mat-icon>
+        </button>
+        }
         <span class="spacer"></span>
         <button mat-icon-button [matTooltip]="'COLUMNS.ADD_CARD' | translate"
             (click)="addCard(); $event.stopPropagation()" class="success">

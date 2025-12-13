@@ -15,6 +15,13 @@ public class ProjectService(KansoDbContext db, IProjectUserService projectUsers)
         };
 
         db.Projects.Add(project);
+
+        db.ProjectCounters.Add(new ProjectCounter
+        {
+            ProjectId = project.Id,
+            NextCardNumber = 1
+        });
+
         await db.SaveChangesAsync();
 
         await projectUsers.AddUserAsync(project.Id, userId);

@@ -10,9 +10,6 @@
             <mat-spinner class="title-spinner"></mat-spinner>
             }
             <mat-icon>chevron_right</mat-icon>
-            <span [routerLink]="['/projects', boardStore.board()?.projectId]" class="cursor-pointer">{{ "BOARDS.TITLE" |
-                translate }}</span>
-            <mat-icon>chevron_right</mat-icon>
             @if (boardStore.board()?.name) {
             <span>{{ boardStore.board()?.name }}</span>
             } @else {

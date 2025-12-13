@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(KansoDbContext))]
-    [Migration("20251213180540_OrderCard")]
-    partial class OrderCard
+    [Migration("20251213204131_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -170,6 +170,20 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProjectApiKeys");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ProjectCounter", b =>
+                {
+                    b.Property<Guid>("ProjectId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<uint>("NextCardNumber")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ProjectId");
+
+                    b.ToTable("ProjectCounters");
                 });
 
             modelBuilder.Entity("Domain.Entities.ProjectUser", b =>

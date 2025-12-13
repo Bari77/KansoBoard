@@ -3,10 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
 
-public class KansoDbContext : DbContext
+public class KansoDbContext(DbContextOptions<KansoDbContext> options) : DbContext(options)
 {
-    public KansoDbContext(DbContextOptions<KansoDbContext> options) : base(options) { }
-
     public DbSet<User> Users => Set<User>();
     public DbSet<Project> Projects => Set<Project>();
     public DbSet<ProjectUser> ProjectUsers => Set<ProjectUser>();
@@ -16,6 +14,7 @@ public class KansoDbContext : DbContext
     public DbSet<Invitation> Invitations => Set<Invitation>();
     public DbSet<ProjectApiKey> ProjectApiKeys => Set<ProjectApiKey>();
     public DbSet<Webhook> Webhooks => Set<Webhook>();
+    public DbSet<ProjectCounter> ProjectCounters => Set<ProjectCounter>();
 
     protected override void OnModelCreating(ModelBuilder model)
     {
@@ -31,5 +30,12 @@ public class KansoDbContext : DbContext
             .HasOne(pu => pu.Project)
             .WithMany(p => p.Users)
             .HasForeignKey(pu => pu.ProjectId);
+
+        model.Entity<ProjectCounter>()
+            .HasKey(pc => pc.ProjectId);
+
+        model.Entity<ProjectCounter>()
+            .Property(pc => pc.NextCardNumber)
+            .IsRequired();
     }
 }

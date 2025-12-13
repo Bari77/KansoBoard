@@ -6,6 +6,7 @@
         "LOADING": "Loading...",
         "CONFIRM": "Confirmer",
         "CREATE": "Créer",
+        "COPY_ID": "Copier l'id",
         "EDIT": "Modifier",
         "DELETE": "Supprimer",
         "SAVE": "Sauvegarder",

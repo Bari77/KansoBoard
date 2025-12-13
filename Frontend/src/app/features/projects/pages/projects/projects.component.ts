@@ -1,4 +1,5 @@
-import { Component, inject } from "@angular/core";
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { Component, computed, inject } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatDialog } from "@angular/material/dialog";
@@ -11,6 +12,7 @@ import { RouterLink } from "@angular/router";
 import { AskDialogComponent } from "@core/layout/dialogs/ask-dialog/ask-dialog.component";
 import { AskDialogData } from "@core/models/ask-dialog.model";
 import { ToastService } from "@core/services/toast.service";
+import { ConfigStore } from '@features/configs/store/config.store';
 import { ProjectDialogComponent } from "@features/projects/components/project-dialog/project-dialog.component";
 import { Project } from "@features/projects/models/project.model";
 import { ProjectsStore } from "@features/projects/stores/projects.store";
@@ -19,15 +21,17 @@ import { TranslateModule } from "@ngx-translate/core";
 @Component({
     selector: "app-projects",
     standalone: true,
-    imports: [MatCardModule, MatToolbarModule, MatButtonModule, MatGridListModule, MatIconModule, TranslateModule, MatTooltipModule, RouterLink, MatProgressSpinner],
+    imports: [MatCardModule, MatToolbarModule, MatButtonModule, MatGridListModule, MatIconModule, TranslateModule, MatTooltipModule, RouterLink, MatProgressSpinner, ClipboardModule],
     templateUrl: "./projects.component.html",
     styleUrls: ["./projects.component.scss"],
 })
 export class ProjectsComponent {
     public readonly projectsStore = inject(ProjectsStore);
+    public readonly config = computed(() => this.configStore.appConfig());
 
     private readonly dialog = inject(MatDialog);
     private readonly toastService = inject(ToastService);
+    private readonly configStore = inject(ConfigStore);
 
     constructor() {
         this.projectsStore.reload();
