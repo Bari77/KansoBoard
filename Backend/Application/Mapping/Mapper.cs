@@ -19,6 +19,7 @@ public static class Mapper
             c.Id,
             c.Number,
             c.Title,
+            c.Order,
             c.Description,
             c.Type,
             c.Priority,

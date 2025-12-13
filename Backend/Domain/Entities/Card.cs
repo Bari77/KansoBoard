@@ -7,6 +7,7 @@ public class Card
     public Guid Id { get; set; } = Guid.NewGuid();
     public uint Number { get; set; }
     public string Title { get; set; } = default!;
+    public int Order { get; set; }
     public string? Description { get; set; }
 
     public CardType Type { get; set; }

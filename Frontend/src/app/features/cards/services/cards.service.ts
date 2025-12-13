@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BaseService } from "@shared/services/base.service";
 import { Observable } from "rxjs";
+import { CardOrderDto } from "../dto/card-order.dto";
 import { CardDto } from "../dto/card.dto";
 import { Card } from "../models/card.model";
 
@@ -51,5 +52,9 @@ export class CardsService extends BaseService {
 
     public move(id: string, newColumnId: string): Observable<void> {
         return this.httpPostVoid(`${id}/move`, { newColumnId });
+    }
+
+    public reorder(columnId: string, orders: CardOrderDto[]): Observable<void> {
+        return this.httpPostVoid(`${columnId}/reorder`, orders);
     }
 }

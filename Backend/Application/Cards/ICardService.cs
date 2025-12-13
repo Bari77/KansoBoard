@@ -12,4 +12,7 @@ public interface ICardService
     Task<bool> DeleteAsync(Guid id);
     Task<bool> AssignAsync(Guid id, Guid? userId);
     Task<bool> MoveAsync(Guid id, Guid newColumnId);
+    Task<bool> ReorderAsync(Guid id, List<CardOrderDto> orders);
 }
+
+public record CardOrderDto(Guid Id, int Order);

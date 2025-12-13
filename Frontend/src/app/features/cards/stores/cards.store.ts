@@ -69,6 +69,21 @@ export class CardsStore {
         this.cardsResource.reload();
     }
 
+    public async reorder(columnId: string, reordered: Card[]) {
+        if (reordered.length === 0) return;
+
+        const payload = reordered.map((card, index) => ({
+            id: card.id,
+            order: index + 1,
+        }));
+
+        await firstValueFrom(
+            this.cardsService.reorder(columnId, payload)
+        );
+
+        this.cardsResource.reload();
+    }
+
     public getByColumn(columnId: string): Card[] {
         return this.cards().filter(c => c.columnId === columnId);
     }

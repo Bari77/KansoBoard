@@ -105,9 +105,7 @@ export class ColumnComponent {
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
 
-            // TODO: si tu as un endpoint pour l’ordre, appelle-le ici
-            // await this.cardsStore.reorderWithinColumn(...)
-
+            await this.cardsStore.reorder(this.column().id, event.container.data);
             return;
         }
 

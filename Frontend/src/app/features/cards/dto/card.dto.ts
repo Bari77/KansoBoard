@@ -2,6 +2,7 @@ export interface CardDto {
     id: string;
     number: number;
     title: string;
+    order: number;
     description?: string | null;
     type: number;
     priority: number;

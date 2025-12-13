@@ -50,6 +50,7 @@ public class CardService(KansoDbContext db, IWebhookService webhooks) : ICardSer
             .AsNoTracking()
             .Include(c => c.Column)
             .Where(c => c.Column.BoardId == boardId)
+            .OrderBy(c => c.Order)
             .ToListAsync();
 
     public async Task<Card?> UpdateAsync(Guid id, string title, string? description, CardType type, CardPriority priority)
@@ -157,12 +158,49 @@ public class CardService(KansoDbContext db, IWebhookService webhooks) : ICardSer
         var board = column.Board;
         var project = board.Project;
         var assigned = card.AssignedTo;
+        var columnId = card.ColumnId;
 
         db.Cards.Remove(card);
         await db.SaveChangesAsync();
 
-        await webhooks.TriggerAsync(project.Id, WebhookFormatter.StandardizedCardPayload("card.deleted", project, board, column, card, assigned));
+        var siblings = await db.Cards
+            .Where(c => c.ColumnId == columnId)
+            .OrderBy(c => c.Order)
+            .ToListAsync();
 
+        for (int i = 0; i < siblings.Count; i++)
+            siblings[i].Order = i + 1;
+
+        await db.SaveChangesAsync();
+
+        await webhooks.TriggerAsync(
+            project.Id,
+            WebhookFormatter.StandardizedCardPayload(
+                "card.deleted",
+                project,
+                board,
+                column,
+                card,
+                assigned
+            )
+        );
+
+        return true;
+    }
+
+    public async Task<bool> ReorderAsync(Guid id, List<CardOrderDto> orders)
+    {
+        var cards = await db.Cards
+            .Where(c => c.ColumnId == id)
+            .ToListAsync();
+
+        foreach (var card in cards)
+        {
+            var dto = orders.First(o => o.Id == card.Id);
+            card.Order = dto.Order;
+        }
+
+        await db.SaveChangesAsync();
         return true;
     }
 }

@@ -242,7 +242,7 @@ button:disabled {
 
 .card-drag-preview {
     box-sizing: border-box;
-    width: 365px;
+    width: 350px;
     height: 60px;
     border-radius: 12px;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
@@ -250,7 +250,7 @@ button:disabled {
 
 .card-drag-placeholder {
     flex: 0 0 auto;
-    width: 365px;
+    width: 350px;
     height: 60px;
     border: 2px dashed rgba(0, 0, 0, 0.3);
     border-radius: 12px;
@@ -340,4 +340,12 @@ button mat-icon {
 
 .mat-mdc-dialog-title {
     display: flex !important;
+}
+
+.mat-mdc-button>.mat-icon,
+.mat-mdc-unelevated-button>.mat-icon,
+.mat-mdc-raised-button>.mat-icon,
+.mat-mdc-outlined-button>.mat-icon,
+.mat-tonal-button>.mat-icon {
+    margin-top: 5px;
 }

@@ -157,6 +157,26 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
 
         return await service.MoveAsync(id, req.NewColumnId) ? Ok() : NotFound();
     }
+
+    [HttpPost("{id:guid}/reorder")]
+    public async Task<IActionResult> Reorder(Guid id, List<CardOrderDto> orders)
+    {
+        var projectId = await resolver.GetProjectIdFromColumn(id);
+        if (projectId is null) return Forbid();
+
+        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        {
+            if (apiId != projectId) return Forbid();
+        }
+        else
+        {
+            var userId = User.GetUserId();
+            if (userId is null) return Unauthorized();
+            if (!await auth.CanAccessProjectAsync(userId.Value, projectId.Value)) return Forbid();
+        }
+
+        return await service.ReorderAsync(id, orders) ? NoContent() : NotFound();
+    }
 }
 
 public record CreateCardRequest(Guid ColumnId, string Title, string? Description, CardType Type, CardPriority Priority);
