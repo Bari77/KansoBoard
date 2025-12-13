@@ -13,7 +13,7 @@
         "EDIT_OK": "Le projet a bien été modifié.",
         "EDIT_KO": "La modification du projet a échoué, veuillez réessayer.",
         "DIALOG": {
-            "EDIT": "Modifer le projet",
+            "EDIT": "Modifier le projet",
             "NEW": "Nouveau projet",
             "NAME": "Nom du projet"
         }

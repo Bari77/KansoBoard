@@ -1,5 +1,5 @@
 {
-    "COLUMN": {
+    "COLUMNS": {
         "NEW": "Ajouter une colonne",
         "ADD_CARD": "Ajouter une carte",
         "EMPTY": "Aucunes colonnes",
@@ -13,7 +13,7 @@
         "EDIT_OK": "La colonne a bien été modifiée.",
         "EDIT_KO": "La modification de la colonne a échouée, veuillez réessayer.",
         "DIALOG": {
-            "EDIT": "Modifer la colonne",
+            "EDIT": "Modifier la colonne",
             "NEW": "Nouvelle colonne",
             "NAME": "Nom de la colonne"
         }

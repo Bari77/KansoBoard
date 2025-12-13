@@ -14,7 +14,7 @@
         "EDIT_OK": "Le board a bien été modifié.",
         "EDIT_KO": "La modification du board a échoué, veuillez réessayer.",
         "DIALOG": {
-            "EDIT": "Modifer le board",
+            "EDIT": "Modifier le board",
             "NEW": "Nouveau board",
             "NAME": "Nom du board"
         }

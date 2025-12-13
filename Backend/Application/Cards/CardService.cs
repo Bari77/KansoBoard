@@ -45,10 +45,11 @@ public class CardService(KansoDbContext db, IWebhookService webhooks) : ICardSer
             .AsNoTracking()
             .FirstOrDefaultAsync(c => c.Id == id);
 
-    public async Task<List<Card>> GetByColumnAsync(Guid columnId)
+    public async Task<List<Card>> GetByBoardAsync(Guid boardId)
         => await db.Cards
             .AsNoTracking()
-            .Where(c => c.ColumnId == columnId)
+            .Include(c => c.Column)
+            .Where(c => c.Column.BoardId == boardId)
             .ToListAsync();
 
     public async Task<Card?> UpdateAsync(Guid id, string title, string? description, CardType type, CardPriority priority)

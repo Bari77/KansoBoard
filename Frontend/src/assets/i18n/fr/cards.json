@@ -1,0 +1,21 @@
+{
+    "CARDS": {
+        "TITLE": "Cartes",
+        "NEW": "Nouvelle carte",
+        "DELETE_ASK": "Confirmez-vous souhaiter supprimer définitivement cette carte ?",
+        "DELETE_OK": "La carte a bien été supprimée.",
+        "DELETE_KO": "La suppression de la carte a échouée, veuillez réessayer.",
+        "CREATE_OK": "La carte a bien été créé.",
+        "CREATE_KO": "La création de la carte a échouée, veuillez réessayer.",
+        "EDIT_OK": "La carte a bien été modifié.",
+        "EDIT_KO": "La modification de la carte a échouée, veuillez réessayer.",
+        "DIALOG": {
+            "EDIT": "Modifier la carte",
+            "NEW": "Nouvelle carte",
+            "TITLE": "Titre de la carte",
+            "DESCRIPTION": "Description de la carte",
+            "TYPE": "Type de la carte",
+            "PRIORITY": "Priorité de la carte"
+        }
+    }
+}

@@ -1,14 +1,14 @@
-<div mat-dialog-title>
+<mat-card-header mat-dialog-title>
     @if (column().id) {
-    {{ "COLUMN.DIALOG.EDIT" | translate }}
+    {{ "COLUMNS.DIALOG.EDIT" | translate }}
     } @else {
-    {{ "COLUMN.DIALOG.NEW" | translate }}
+    {{ "COLUMNS.DIALOG.NEW" | translate }}
     }
-</div>
+</mat-card-header>
 
 <mat-dialog-content>
     <mat-form-field appearance="outline">
-        <mat-label>{{ "COLUMN.DIALOG.NAME" | translate }}</mat-label>
+        <mat-label>{{ "COLUMNS.DIALOG.NAME" | translate }}</mat-label>
         <input matInput [(ngModel)]="column().name" />
     </mat-form-field>
 </mat-dialog-content>

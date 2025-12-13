@@ -1,5 +1,5 @@
 import { computed, inject, resource, signal } from "@angular/core";
-import { delay, firstValueFrom } from "rxjs";
+import { firstValueFrom } from "rxjs";
 import { Column } from "../models/column.model";
 import { ColumnsService } from "../services/columns.service";
 
@@ -14,7 +14,7 @@ export class ColumnsStore {
             const id = this.boardId();
             return id != null ? { id } : null;
         },
-        loader: ({ params }) => firstValueFrom(this.columnsService.getByBoard(params!.id).pipe(delay(500))),
+        loader: ({ params }) => firstValueFrom(this.columnsService.getByBoard(params!.id)),
     });
 
     public setBoard(boardId: string | null) {

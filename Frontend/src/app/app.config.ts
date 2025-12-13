@@ -18,6 +18,8 @@ import { TokenStore } from "@features/auth/stores/token.store";
 import { BoardsService } from "@features/boards/services/boards.service";
 import { BoardStore } from "@features/boards/stores/board.store";
 import { BoardsStore } from "@features/boards/stores/boards.store";
+import { CardsService } from "@features/cards/services/cards.service";
+import { CardsStore } from "@features/cards/stores/cards.store";
 import { ColumnsService } from "@features/columns/services/columns.service";
 import { ColumnsStore } from "@features/columns/stores/columns.store";
 import { ProjectsService } from "@features/projects/services/projects.service";
@@ -66,6 +68,7 @@ export const appConfig: ApplicationConfig = {
         ProjectsService,
         BoardsService,
         ColumnsService,
+        CardsService,
 
         AppStore,
         AuthStore,
@@ -73,6 +76,7 @@ export const appConfig: ApplicationConfig = {
         ProjectsStore,
         BoardsStore,
         BoardStore,
-        ColumnsStore
+        ColumnsStore,
+        CardsStore
     ],
 };

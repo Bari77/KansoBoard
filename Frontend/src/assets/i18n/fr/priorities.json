@@ -1,0 +1,9 @@
+{
+    "PRIORITIES": {
+        "0": "Bas",
+        "1": "Normal",
+        "2": "Haut",
+        "3": "Urgent",
+        "4": "Immédiat"
+    }
+}

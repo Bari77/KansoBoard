@@ -14,7 +14,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
     return next(req).pipe(
         catchError((err: HttpErrorResponse) => {
-            if (err.status === CodeHttp.AUTH_ERROR) {
+            if (err.status === CodeHttp.AUTH_ERROR || err.status === CodeHttp.UNSUPPORTED_MEDIA_TYPE) {
                 return throwError(() => err);
             }
 

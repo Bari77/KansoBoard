@@ -20,7 +20,7 @@
             }
         </mat-card-title>
         <span class="spacer"></span>
-        <button mat-icon-button [matTooltip]="'COLUMN.NEW' | translate" (click)="newColumn()" class="success">
+        <button mat-icon-button [matTooltip]="'COLUMNS.NEW' | translate" (click)="newColumn()" class="success">
             <mat-icon>add</mat-icon>
         </button>
     </mat-card-header>
@@ -35,18 +35,25 @@
 @if (columnsStore.columns().length === 0) {
 <mat-card class="empty-card">
     <mat-card-content>
-        <h2>{{ "COLUMN.EMPTY" | translate }}</h2>
-        <p>{{ "COLUMN.EMPTY_PHRASE" | translate }}</p>
+        <h2>{{ "COLUMNS.EMPTY" | translate }}</h2>
+        <p>{{ "COLUMNS.EMPTY_PHRASE" | translate }}</p>
         <br>
         <button mat-raised-button (click)="newColumn()">
-            {{ "COLUMN.CREATE" | translate }}
+            {{ "COLUMNS.CREATE" | translate }}
         </button>
     </mat-card-content>
 </mat-card>
 } @else {
-<div cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)" class="board-container">
+<div cdkDropList cdkDropListGroup cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropColumn($event)"
+    class="board-container">
     @for (column of columnsStore.columns(); track column.id) {
-    <app-column [column]="column"></app-column>
+    <app-column cdkDrag [cdkDragData]="column" [column]="column"></app-column>
+
+    <ng-template cdkDragPreview>
+        <div class="column-drag-preview">
+            <app-column [column]="column"></app-column>
+        </div>
+    </ng-template>
     }
 </div>
 }

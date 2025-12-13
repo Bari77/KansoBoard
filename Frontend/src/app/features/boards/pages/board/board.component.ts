@@ -11,6 +11,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { ToastService } from "@core/services/toast.service";
 import { BoardStore } from "@features/boards/stores/board.store";
+import { CardsStore } from "@features/cards/stores/cards.store";
 import { ColumnDialogComponent } from "@features/columns/components/column-dialog/column-dialog.component";
 import { ColumnComponent } from "@features/columns/components/column/column.component";
 import { Column } from "@features/columns/models/column.model";
@@ -29,6 +30,7 @@ export class BoardComponent {
     public readonly projectsStore = inject(ProjectsStore);
     public readonly boardStore = inject(BoardStore);
     public readonly columnsStore = inject(ColumnsStore);
+    public readonly cardsStore = inject(CardsStore);
 
     public readonly id = computed(() => this.route.snapshot.paramMap.get("guid"));
 
@@ -40,6 +42,7 @@ export class BoardComponent {
     constructor() {
         this.boardStore.setBoard(this.id());
         this.columnsStore.setBoard(this.id());
+        this.cardsStore.setBoard(this.id());
     }
 
     public open(id: string): void {
@@ -57,21 +60,19 @@ export class BoardComponent {
 
             try {
                 await this.columnsStore.create(result.name);
-                this.toastService.success("COLUMN.CREATE_OK");
+                this.toastService.success("COLUMNS.CREATE_OK");
             } catch {
-                this.toastService.error("COLUMN.CREATE_KO");
+                this.toastService.error("COLUMNS.CREATE_KO");
             }
         });
     }
 
-    public drop(event: CdkDragDrop<unknown>): void {
-        if (event.previousIndex === event.currentIndex) {
-            return;
-        }
+    public async dropColumn(event: CdkDragDrop<Column[]>): Promise<void> {
+        if (event.previousIndex === event.currentIndex) return;
 
-        const columns = [...this.columnsStore.columns()];
-        moveItemInArray(columns, event.previousIndex, event.currentIndex);
+        const reordered = [...this.columnsStore.columns()];
+        moveItemInArray(reordered, event.previousIndex, event.currentIndex);
 
-        this.columnsStore.reorder(this.id()!, columns);
+        await this.columnsStore.reorder(this.id()!, reordered);
     }
 }

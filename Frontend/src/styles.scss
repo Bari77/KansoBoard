@@ -178,25 +178,91 @@ button:disabled {
     color: #f44336 !important;
 }
 
-.cdk-drag-placeholder {
+.card.type-analyse {
+    border-left: 4px solid #f7b264;
+}
+
+.card.type-feature {
+    border-left: 4px solid #5C6BC0;
+}
+
+.card.type-bug {
+    border-left: 4px solid #f44336;
+}
+
+.card.priority-low {
+    background: rgb(236, 236, 236);
+}
+
+.card.priority-normal {
+    background: white;
+}
+
+.card.priority-high {
+    background: rgba(255, 198, 40, 0.25);
+}
+
+.card.priority-urgent {
+    background: rgba(255, 152, 0, 0.25);
+}
+
+.card.priority-immediate {
+    background: rgba(244, 67, 54, 0.25);
+    font-weight: 600;
+}
+
+.avatar {
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
+
+    &:hover {
+        filter: grayscale(0.5);
+    }
+}
+
+.column-drag-preview {
+    box-sizing: border-box;
+    width: 400px;
+    height: 750px;
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+.column-drag-placeholder {
     flex: 0 0 auto;
-    width: 300px;
+    width: 400px;
     height: 750px;
     border: 2px dashed rgba(0, 0, 0, 0.3);
     border-radius: 12px;
     background: rgba(0, 0, 0, 0.03);
 }
 
-.cdk-drag-preview {
+.card-drag-preview {
     box-sizing: border-box;
-    width: 300px;
-    height: 750px;
+    width: 365px;
+    height: 60px;
     border-radius: 12px;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
 }
 
+.card-drag-placeholder {
+    flex: 0 0 auto;
+    width: 365px;
+    height: 60px;
+    border: 2px dashed rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.03);
+}
+
 .cdk-drop-list-dragging .column {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+[cdkDragHandle] {
+    cursor: grab;
 }
 
 /* --- Flex grid ultra light --- */
@@ -248,6 +314,7 @@ button mat-icon {
     padding-bottom: 3px;
 }
 
+.mat-mdc-dialog-title,
 .mat-mdc-card-header {
     padding: 15px !important;
 }
@@ -269,4 +336,8 @@ button mat-icon {
 
 .mat-mdc-table {
     overflow: auto;
+}
+
+.mat-mdc-dialog-title {
+    display: flex !important;
 }

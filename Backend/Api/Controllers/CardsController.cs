@@ -13,10 +13,10 @@ namespace Api.Controllers;
 [Route("api/[controller]")]
 public class CardsController(ICardService service, IProjectAuthorizationService auth, IProjectContextResolver resolver) : ControllerBase
 {
-    [HttpGet("column/{columnId:guid}")]
-    public async Task<IActionResult> GetByColumn(Guid columnId)
+    [HttpGet("board/{boardId:guid}")]
+    public async Task<IActionResult> GetByBoard(Guid boardId)
     {
-        var projectId = await resolver.GetProjectIdFromColumn(columnId);
+        var projectId = await resolver.GetProjectIdFromBoard(boardId);
         if (projectId is null) return Forbid();
 
         if (HttpContext.Items["ApiProjectId"] is Guid apiId)
@@ -30,7 +30,7 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
             if (!await auth.CanAccessProjectAsync(userId.Value, projectId.Value)) return Forbid();
         }
 
-        var result = await service.GetByColumnAsync(columnId);
+        var result = await service.GetByBoardAsync(boardId);
         return Ok(result.Select(Mapper.ToDto));
     }
 

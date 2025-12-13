@@ -1,10 +1,10 @@
-<div mat-dialog-title>
+<mat-card-header mat-dialog-title>
     @if (board().id) {
     {{ "BOARDS.DIALOG.EDIT" | translate }}
     } @else {
     {{ "BOARDS.DIALOG.NEW" | translate }}
     }
-</div>
+</mat-card-header>
 
 <mat-dialog-content>
     <mat-form-field appearance="outline">

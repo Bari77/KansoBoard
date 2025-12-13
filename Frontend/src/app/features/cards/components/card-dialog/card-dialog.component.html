@@ -1,0 +1,53 @@
+<mat-card-header mat-dialog-title>
+    @if (card().id) {
+    {{ "CARDS.DIALOG.EDIT" | translate }}
+    } @else {
+    {{ "CARDS.DIALOG.NEW" | translate }}
+    }
+    <span class="spacer"></span>
+    <button mat-icon-button [matTooltip]="'GLOBAL.DELETE' | translate" (click)="delete(); $event.stopPropagation()"
+        class="danger">
+        <mat-icon>delete</mat-icon>
+    </button>
+</mat-card-header>
+
+<mat-dialog-content>
+    <mat-form-field appearance="outline">
+        <mat-label>{{ "CARDS.DIALOG.TITLE" | translate }}</mat-label>
+        <input matInput [(ngModel)]="card().title" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>{{ "CARDS.DIALOG.DESCRIPTION" | translate }}</mat-label>
+        <textarea matInput [(ngModel)]="card().description" rows="5"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>{{ "CARDS.DIALOG.TYPE" | translate }}</mat-label>
+        <mat-select [(ngModel)]="card().type">
+            @for (type of types(); track type) {
+            <mat-option [value]="type">{{ "TYPES." + type | translate }}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>{{ "CARDS.DIALOG.PRIORITY" | translate }}</mat-label>
+        <mat-select [(ngModel)]="card().priority">
+            @for (priority of priorities(); track priority) {
+            <mat-option [value]="priority">{{ "PRIORITIES." + priority | translate }}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="close()">
+        {{ "GLOBAL.CANCEL" | translate}}
+    </button>
+
+    <button mat-raised-button color="primary" [disabled]="!canConfirm()" (click)="confirm()">
+        @if (card().id) {
+        {{ "GLOBAL.SAVE" | translate }}
+        } @else {
+        {{ "GLOBAL.CREATE" | translate }}
+        }
+    </button>
+</mat-dialog-actions>

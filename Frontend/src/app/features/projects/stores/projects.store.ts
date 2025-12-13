@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, resource } from "@angular/core";
 import { ProjectsService } from "@features/projects/services/projects.service";
-import { delay, firstValueFrom } from "rxjs";
+import { firstValueFrom } from "rxjs";
 
 @Injectable()
 export class ProjectsStore {
@@ -9,7 +9,7 @@ export class ProjectsStore {
 
     private readonly projectsService = inject(ProjectsService);
     private readonly projectsResource = resource({
-        loader: () => firstValueFrom(this.projectsService.list().pipe(delay(500))),
+        loader: () => firstValueFrom(this.projectsService.list()),
     });
 
     public async create(name: string): Promise<void> {

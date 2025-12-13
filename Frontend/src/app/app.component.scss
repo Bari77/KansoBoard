@@ -16,23 +16,6 @@ mat-toolbar {
     margin-right: 10px;
 }
 
-.avatar {
-    cursor: pointer;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
-
-    &:hover {
-        filter: grayscale(0.5);
-    }
-}
-
-.avatar {
-    background-image: url('https://material.angular.dev/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-}
-
 .settings {
     color: #4287f5;
 }

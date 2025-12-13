@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, resource, signal } from '@angular/core';
 import { BoardsService } from '@features/boards/services/boards.service';
-import { delay, firstValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class BoardStore {
@@ -14,7 +14,7 @@ export class BoardStore {
             const id = this.boardId();
             return id != null ? { id } : null;
         },
-        loader: ({ params }) => firstValueFrom(this.boardsService.get(params!.id).pipe(delay(500))),
+        loader: ({ params }) => firstValueFrom(this.boardsService.get(params!.id)),
     });
 
     public setBoard(boardId: string | null): void {
