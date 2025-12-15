@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, resource, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, resource, signal } from '@angular/core';
 import { BoardsService } from '@features/boards/services/boards.service';
 import { firstValueFrom } from 'rxjs';
 import { Board } from '../models/board.model';
@@ -7,6 +7,7 @@ import { Board } from '../models/board.model';
 export class BoardsStore {
     public readonly boards = computed(() => this.boardsResource.value() ?? []);
     public readonly loading = computed(() => this.boardsResource.isLoading());
+    public readonly showLoader = signal(false);
 
     private readonly boardsService = inject(BoardsService);
     private readonly projectId = signal<string | null>(null);
@@ -17,6 +18,19 @@ export class BoardsStore {
         },
         loader: ({ params }) => firstValueFrom(this.boardsService.getByProject(params!.id)),
     });
+
+    constructor() {
+        let timeout: any;
+
+        effect(() => {
+            if (this.loading()) {
+                timeout = setTimeout(() => this.showLoader.set(true), 100);
+            } else {
+                clearTimeout(timeout);
+                this.showLoader.set(false);
+            }
+        });
+    }
 
     public setProject(projectId: string | null): void {
         this.projectId.set(projectId);

@@ -1,0 +1,30 @@
+<mat-card-header mat-dialog-title>
+    {{ "INVITATIONS.CREATE" | translate }}
+</mat-card-header>
+
+<mat-dialog-content>
+    <p [innerHTML]="'INVITATIONS.DETAILS' | translate"></p>
+    <div class="url" [cdkCopyToClipboard]="data">
+        <button mat-icon-button [matTooltip]="'GLOBAL.COPY' | translate" [cdkCopyToClipboard]="data"
+            (click)="$event.stopPropagation()" class="warn">
+            <mat-icon>content_copy</mat-icon>
+        </button>
+        <b>{{data}}</b>
+    </div>
+    <div class="chips-container w-100">
+        <mat-chip [matTooltip]="'INVITATIONS.VALIDITY' | translate">
+            <mat-icon class="info">timer</mat-icon>
+            <span>{{ "INVITATIONS.MAX_TIME" | translate }}</span>
+        </mat-chip>
+        <mat-chip [matTooltip]="'INVITATIONS.NB_PARTAGE' | translate">
+            <mat-icon class="info">all_inclusive</mat-icon>
+            <span>{{ "INVITATIONS.USAGE" | translate }}</span>
+        </mat-chip>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button (click)="close()">
+        {{ "GLOBAL.CLOSE" | translate}}
+    </button>
+</mat-dialog-actions>

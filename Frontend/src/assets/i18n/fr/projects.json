@@ -2,6 +2,7 @@
     "PROJECTS": {
         "TITLE": "Projets",
         "NEW": "Nouveau projet",
+        "JOIN": "Rejoindre avec un code",
         "EMPTY": "Aucun projet",
         "EMPTY_PHRASE": "Créez votre premier projet pour commencer à organiser votre board.",
         "CREATE": "Créer mon premier projet",
@@ -12,6 +13,9 @@
         "CREATE_KO": "La création du projet a échoué, veuillez réessayer.",
         "EDIT_OK": "Le projet a bien été modifié.",
         "EDIT_KO": "La modification du projet a échoué, veuillez réessayer.",
+        "JOIN_OK": "Vous avez correctement rejoins le projet.",
+        "JOIN_KO": "Rejoindre le projet a échoué, veuillez réessayer",
+        "ALREADY_JOIN": "Vous êtes déjà un membre de ce projet",
         "DIALOG": {
             "EDIT": "Modifier le projet",
             "NEW": "Nouveau projet",

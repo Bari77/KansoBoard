@@ -2,6 +2,9 @@
     <mat-card-header>
         <mat-card-title>{{ "PROJECTS.TITLE" | translate }}</mat-card-title>
         <span class="spacer"></span>
+        <button mat-icon-button [matTooltip]="'PROJECTS.JOIN' | translate" (click)="join()" class="info">
+            <mat-icon>qr_code</mat-icon>
+        </button>
         <button mat-icon-button [matTooltip]="'PROJECTS.NEW' | translate" (click)="new()" class="success">
             <mat-icon>add</mat-icon>
         </button>
@@ -10,11 +13,11 @@
 
 <br>
 
-@if (projectsStore.loading()) {
+@if (projectsStore.showLoader()) {
 <div class="loader">
-    <mat-spinner></mat-spinner>
+    <img src="assets/img/loader.gif" alt="Loader">
 </div>
-} @else {
+} @else if (!projectsStore.loading()) {
 @if (projectsStore.projects().length === 0) {
 <mat-card class="empty-card">
     <mat-card-content>

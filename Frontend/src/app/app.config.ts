@@ -23,6 +23,8 @@ import { CardsStore } from "@features/cards/stores/cards.store";
 import { ColumnsService } from "@features/columns/services/columns.service";
 import { ColumnsStore } from "@features/columns/stores/columns.store";
 import { ConfigStore } from "@features/configs/store/config.store";
+import { InvitationsService } from "@features/invitations/services/invitations.service";
+import { InvitationsStore } from "@features/invitations/stores/invitations.store";
 import { ProjectsService } from "@features/projects/services/projects.service";
 import { ProjectsStore } from "@features/projects/stores/projects.store";
 import { TranslateService, provideTranslateService } from "@ngx-translate/core";
@@ -70,6 +72,7 @@ export const appConfig: ApplicationConfig = {
         BoardsService,
         ColumnsService,
         CardsService,
+        InvitationsService,
 
         ConfigStore,
         AppStore,
@@ -79,6 +82,7 @@ export const appConfig: ApplicationConfig = {
         BoardsStore,
         BoardStore,
         ColumnsStore,
-        CardsStore
+        CardsStore,
+        InvitationsStore
     ],
 };

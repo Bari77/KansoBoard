@@ -6,7 +6,7 @@
             <span>{{ projectsStore.getName(id()!) }}</span>
         </mat-card-title>
         <span class="spacer"></span>
-        <button mat-icon-button [matTooltip]="'BOARDS.LINK' | translate" class="info">
+        <button mat-icon-button [matTooltip]="'BOARDS.LINK' | translate" (click)="getInvitation()" class="info">
             <mat-icon>link</mat-icon>
         </button>
         <button mat-icon-button [matTooltip]="'BOARDS.NEW' | translate" (click)="new()" class="success">
@@ -17,11 +17,11 @@
 
 <br>
 
-@if (boardsStore.loading()) {
+@if (showLoader() || boardsStore.showLoader()) {
 <div class="loader">
-    <mat-spinner></mat-spinner>
+    <img src="assets/img/loader.gif" alt="Loader">
 </div>
-} @else {
+} @else if (!boardsStore.loading()) {
 @if (boardsStore.boards().length === 0) {
 <mat-card class="empty-card">
     <mat-card-content>

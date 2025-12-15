@@ -1,11 +1,10 @@
 import { ClipboardModule } from "@angular/cdk/clipboard";
-import { Component, computed, inject } from "@angular/core";
+import { Component, computed, inject, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatDialog } from "@angular/material/dialog";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatIconModule } from "@angular/material/icon";
-import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
@@ -16,6 +15,8 @@ import { BoardDialogComponent } from "@features/boards/components/board-dialog/b
 import { Board } from "@features/boards/models/board.model";
 import { BoardsStore } from "@features/boards/stores/boards.store";
 import { ConfigStore } from "@features/configs/store/config.store";
+import { InvitationDialogComponent } from "@features/invitations/components/invitation-dialog/invitation-dialog.component";
+import { InvitationsStore } from "@features/invitations/stores/invitations.store";
 import { Project } from "@features/projects/models/project.model";
 import { ProjectsStore } from "@features/projects/stores/projects.store";
 import { TranslateModule } from "@ngx-translate/core";
@@ -23,7 +24,7 @@ import { TranslateModule } from "@ngx-translate/core";
 @Component({
     selector: "app-project",
     standalone: true,
-    imports: [MatCardModule, MatToolbarModule, MatButtonModule, MatGridListModule, MatIconModule, TranslateModule, MatTooltipModule, RouterLink, MatProgressSpinner, ClipboardModule],
+    imports: [MatCardModule, MatToolbarModule, MatButtonModule, MatGridListModule, MatIconModule, TranslateModule, MatTooltipModule, RouterLink, ClipboardModule],
     templateUrl: "./project.component.html",
     styleUrls: ["./project.component.scss"],
 })
@@ -33,12 +34,14 @@ export class ProjectComponent {
 
     public readonly id = computed(() => this.route.snapshot.paramMap.get("guid"));
     public readonly config = computed(() => this.configStore.appConfig());
+    public readonly showLoader = signal(false);
 
     private readonly route = inject(ActivatedRoute);
     private readonly router = inject(Router);
     private readonly dialog = inject(MatDialog);
     private readonly toastService = inject(ToastService);
     private readonly configStore = inject(ConfigStore);
+    private readonly invitationsStore = inject(InvitationsStore);
 
     constructor() {
         this.boardsStore.setProject(this.id());
@@ -98,6 +101,16 @@ export class ProjectComponent {
             } catch {
                 this.toastService.error("BOARDS.DELETE_KO");
             }
+        });
+    }
+
+    public async getInvitation(): Promise<void> {
+        this.showLoader.set(true);
+        const token = await this.invitationsStore.create(this.id()!);
+        this.showLoader.set(false);
+        this.dialog.open<InvitationDialogComponent, string, string>(InvitationDialogComponent, {
+            data: token,
+            width: "400px",
         });
     }
 }

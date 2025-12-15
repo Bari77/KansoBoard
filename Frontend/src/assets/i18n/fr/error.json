@@ -13,6 +13,7 @@
         "ERR_EXPIRED_SESSION": "Votre session a expiré. Veuillez vous reconnecter.",
         "ERR_RENEW_SESSION": "Impossible de renouveler votre session. Merci de vous reconnecter.",
         "ERR_LOGIN_FAILED": "Une erreur s'est produite lors de votre authentification.",
-        "ERR_SIGNUP_FAILED": "Une erreur s'est produite lors de votre inscription."
+        "ERR_SIGNUP_FAILED": "Une erreur s'est produite lors de votre inscription.",
+        "ERR_INVITATION_NOT_FOUND": "L'invitation est invalide"
     }
 }

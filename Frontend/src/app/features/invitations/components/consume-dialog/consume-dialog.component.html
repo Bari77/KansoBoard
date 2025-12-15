@@ -1,0 +1,20 @@
+<mat-card-header mat-dialog-title>
+    {{ "INVITATIONS.CONSUME" | translate }}
+</mat-card-header>
+
+<mat-dialog-content>
+    <mat-form-field appearance="outline">
+        <mat-label>{{ "INVITATIONS.DIALOG.CODE" | translate }}</mat-label>
+        <input matInput [(ngModel)]="code" />
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="close()">
+        {{ "GLOBAL.CANCEL" | translate}}
+    </button>
+
+    <button mat-raised-button color="primary" [disabled]="!canConfirm()" (click)="confirm()">
+        {{ "GLOBAL.USE" | translate }}
+    </button>
+</mat-dialog-actions>

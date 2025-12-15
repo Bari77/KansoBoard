@@ -1,0 +1,14 @@
+{
+    "INVITATIONS": {
+        "CREATE": "Création d'une invitation",
+        "DETAILS": "Partagez ce lien pour inviter une personne à rejoindre ce projet.",
+        "MAX_TIME": "7 jours",
+        "USAGE": "Illimité",
+        "VALIDITY": "Validité",
+        "NB_PARTAGE": "Nombre de partage",
+        "CONSUME": "Rejoindre avec un code",
+        "DIALOG": {
+            "CODE": "Code"
+        }
+    }
+}

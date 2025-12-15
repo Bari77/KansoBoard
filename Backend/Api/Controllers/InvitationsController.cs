@@ -40,8 +40,8 @@ public class InvitationsController(IInvitationService service, IAuthService auth
         var user = await authService.GetUserFromTokenAsync(token);
         if (user is null) return Unauthorized();
 
-        var ok = await service.ConsumeAsync(req.Token, user.Id);
-        return ok ? Ok() : BadRequest();
+        var consumeResult = await service.ConsumeAsync(req.Token, user.Id);
+        return consumeResult != null ? Ok(consumeResult) : BadRequest();
     }
 }
 

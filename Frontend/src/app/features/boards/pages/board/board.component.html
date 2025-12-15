@@ -24,11 +24,11 @@
 </mat-card>
 
 <br>
-@if (boardStore.loading()) {
+@if (boardStore.showLoader() || columnsStore.loading() || cardsStore.loading()) {
 <div class="loader">
-    <mat-spinner></mat-spinner>
+    <img src="assets/img/loader.gif" alt="Loader">
 </div>
-} @else {
+} @else if (!boardStore.loading()) {
 @if (columnsStore.columns().length === 0) {
 <mat-card class="empty-card">
     <mat-card-content>

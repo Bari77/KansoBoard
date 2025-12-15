@@ -71,10 +71,12 @@ public class AuthService(KansoDbContext db, IConfiguration config) : IAuthServic
         var handler = new JwtSecurityTokenHandler();
         var jwt = handler.ReadJwtToken(token);
 
-        var userId = jwt.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub)?.Value;
-        if (userId is null) return null;
+        var userIdClaim = jwt.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub)?.Value;
 
-        return await db.Users.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+        if (!Guid.TryParse(userIdClaim, out var userId))
+            return null;
+
+        return await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
     }
 
     private string GenerateSalt()
