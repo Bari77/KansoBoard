@@ -1,6 +1,6 @@
 ﻿using Application.Webhooks;
+using Contracts.Cards;
 using Domain.Entities;
-using Domain.Enums;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 

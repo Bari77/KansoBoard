@@ -2,6 +2,7 @@
 using Application.Authorization;
 using Application.Boards;
 using Application.Mapping;
+using Contracts.Boards;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -111,7 +112,3 @@ public class BoardsController(IBoardService service, IProjectAuthorizationServic
         return deleted ? NoContent() : NotFound();
     }
 }
-
-public record CreateBoardRequest(Guid ProjectId, string Name);
-
-public record UpdateBoardRequest(string Name);

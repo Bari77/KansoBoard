@@ -38,9 +38,9 @@ export class CardComponent {
 
             try {
                 await this.cardsStore.update(result.id, result.title, result.description, result.type, result.priority);
-                this.toastService.success("COLUMNS.EDIT_OK");
+                this.toastService.success("CARDS.EDIT_OK");
             } catch {
-                this.toastService.error("COLUMNS.EDIT_KO");
+                this.toastService.error("CARDS.EDIT_KO");
             }
         });
     }

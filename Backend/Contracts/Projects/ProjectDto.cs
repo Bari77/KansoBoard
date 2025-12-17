@@ -1,3 +1,3 @@
-﻿namespace Domain.Dtos;
+﻿namespace Contracts.Projects;
 
 public record ProjectDto(Guid Id, string Name);

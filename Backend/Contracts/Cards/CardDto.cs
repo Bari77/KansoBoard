@@ -1,6 +1,4 @@
-﻿using Domain.Enums;
-
-namespace Domain.Dtos;
+﻿namespace Contracts.Cards;
 
 public record CardDto(
     Guid Id,

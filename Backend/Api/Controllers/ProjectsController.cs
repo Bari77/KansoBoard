@@ -2,6 +2,7 @@
 using Application.Authorization;
 using Application.Mapping;
 using Application.Projects;
+using Contracts.Projects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -86,7 +87,3 @@ public class ProjectsController(IProjectService service, IProjectAuthorizationSe
         return deleted ? NoContent() : NotFound();
     }
 }
-
-public record CreateProjectRequest(string Name);
-
-public record UpdateProjectRequest(string Name);

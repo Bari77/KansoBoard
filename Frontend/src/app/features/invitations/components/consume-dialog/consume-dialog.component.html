@@ -3,6 +3,7 @@
 </mat-card-header>
 
 <mat-dialog-content>
+    <p [innerHTML]="'INVITATIONS.CONSUME_ORDERS' | translate"></p>
     <mat-form-field appearance="outline">
         <mat-label>{{ "INVITATIONS.DIALOG.CODE" | translate }}</mat-label>
         <input matInput [(ngModel)]="code" />

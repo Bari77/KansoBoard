@@ -1,6 +1,7 @@
 ﻿using Api.Extensions;
 using Application.ApiKeys;
 using Application.Authorization;
+using Contracts.ApiKeys;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -49,7 +50,3 @@ public class ApiKeysController(IApiKeyService service, IProjectAuthorizationServ
         return Ok(await service.ListAsync(projectId));
     }
 }
-
-public record CreateApiKeysRequest(TimeSpan? Lifetime);
-
-public record RevokeApiKeysRequest(string Key);

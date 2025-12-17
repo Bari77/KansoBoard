@@ -1,4 +1,8 @@
-﻿using Domain.Dtos;
+﻿using Contracts.Boards;
+using Contracts.Cards;
+using Contracts.Columns;
+using Contracts.Projects;
+using Contracts.Users;
 using Domain.Entities;
 
 namespace Application.Mapping;

@@ -1,7 +1,8 @@
 {
     "INVITATIONS": {
         "CREATE": "Création d'une invitation",
-        "DETAILS": "Partagez ce lien pour inviter une personne à rejoindre ce projet.",
+        "INVITATION_ORDERS": "Partagez ce code d'invitation à saisir dans l'écran des projets, afin d'inviter une personne à rejoindre ce projet.",
+        "CONSUME_ORDERS": "Saisissez le code d'invitation que vous avez reçu afin de rejoindre le projet associé.",
         "MAX_TIME": "7 jours",
         "USAGE": "Illimité",
         "VALIDITY": "Validité",

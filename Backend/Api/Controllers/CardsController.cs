@@ -2,7 +2,7 @@
 using Application.Authorization;
 using Application.Cards;
 using Application.Mapping;
-using Domain.Enums;
+using Contracts.Cards;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -178,11 +178,3 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
         return await service.ReorderAsync(id, orders) ? NoContent() : NotFound();
     }
 }
-
-public record CreateCardRequest(Guid ColumnId, string Title, string? Description, CardType Type, CardPriority Priority);
-
-public record UpdateCardRequest(string Title, string? Description, CardType Type, CardPriority Priority);
-
-public record AssignUserRequest(Guid? UserId);
-
-public record MoveCardRequest(Guid NewColumnId);

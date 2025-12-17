@@ -1,4 +1,4 @@
-﻿namespace Domain.Enums;
+﻿namespace Contracts.Cards;
 
 public enum CardPriority
 {

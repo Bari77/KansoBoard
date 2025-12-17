@@ -2,6 +2,7 @@
 using Application.Authorization;
 using Application.Columns;
 using Application.Mapping;
+using Contracts.Columns;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -136,7 +137,3 @@ public class ColumnsController(IColumnService service, IProjectAuthorizationServ
         return await service.ReorderAsync(id, orders) ? NoContent() : NotFound();
     }
 }
-
-public record CreateColumnRequest(Guid BoardId, string Name);
-
-public record UpdateColumnRequest(string Name);

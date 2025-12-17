@@ -1,5 +1,5 @@
-﻿using Domain.Entities;
-using Domain.Enums;
+﻿using Contracts.Cards;
+using Domain.Entities;
 
 namespace Application.Cards;
 
@@ -14,5 +14,3 @@ public interface ICardService
     Task<bool> MoveAsync(Guid id, Guid newColumnId);
     Task<bool> ReorderAsync(Guid id, List<CardOrderDto> orders);
 }
-
-public record CardOrderDto(Guid Id, int Order);

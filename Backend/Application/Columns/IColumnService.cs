@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Contracts.Columns;
+using Domain.Entities;
 
 namespace Application.Columns;
 
@@ -11,5 +12,3 @@ public interface IColumnService
     Task<bool> DeleteAsync(Guid id);
     Task<bool> ReorderAsync(Guid id, List<ColumnOrderDto> orders);
 }
-
-public record ColumnOrderDto(Guid Id, int Order);

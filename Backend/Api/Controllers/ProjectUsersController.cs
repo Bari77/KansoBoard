@@ -2,6 +2,7 @@
 using Application.Authorization;
 using Application.Mapping;
 using Application.ProjectUsers;
+using Contracts.ProjectUsers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -64,7 +65,3 @@ public class ProjectUsersController(IProjectUserService service, IProjectAuthori
         return await service.RemoveUserAsync(projectId, req.UserId) ? Ok() : NotFound();
     }
 }
-
-public record AddUserRequest(Guid UserId);
-
-public record RemoveUserRequest(Guid UserId);

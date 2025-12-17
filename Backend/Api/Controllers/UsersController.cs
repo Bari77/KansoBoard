@@ -1,5 +1,6 @@
 ﻿using Application.Mapping;
 using Application.Users;
+using Contracts.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,5 +24,3 @@ public class UsersController(IUserService service) : ControllerBase
         return await service.DeleteAsync(id) ? NoContent() : NotFound();
     }
 }
-
-public record UpdateUserRequest(string Pseudo, string? AvatarUrl);

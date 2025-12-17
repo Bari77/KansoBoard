@@ -1,6 +1,7 @@
 ﻿using Api.Extensions;
 using Application.Authorization;
 using Application.Webhooks;
+using Contracts.Webhooks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,8 +12,6 @@ namespace Api.Controllers;
 [Route("api/[controller]")]
 public class WebhooksController(IWebhookService service, IProjectAuthorizationService auth) : ControllerBase
 {
-    public record AddWebhookRequest(string Url);
-
     [HttpPost("{projectId:guid}")]
     public async Task<IActionResult> Add(Guid projectId, AddWebhookRequest req)
     {

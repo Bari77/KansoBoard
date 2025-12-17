@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Contracts.Columns;
+using Domain.Entities;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 

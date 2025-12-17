@@ -1,5 +1,6 @@
 ﻿using Application.Auth;
 using Application.Mapping;
+using Contracts.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,9 +45,3 @@ public class AuthController(IAuthService service) : ControllerBase
         return user is null ? Unauthorized() : Ok(Mapper.ToDto(user));
     }
 }
-
-public record RegisterRequest(string Email, string Pseudo, string Password);
-
-public record LoginRequest(string Email, string Password);
-
-public record RefreshRequest(string RefreshToken);

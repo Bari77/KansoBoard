@@ -2,6 +2,7 @@
 using Application.Auth;
 using Application.Authorization;
 using Application.Invitations;
+using Contracts.Invitations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,7 +45,3 @@ public class InvitationsController(IInvitationService service, IAuthService auth
         return consumeResult != null ? Ok(consumeResult) : BadRequest();
     }
 }
-
-public record CreateInvitationRequest(TimeSpan? Lifetime);
-
-public record ConsumeInvitationRequest(string Token);

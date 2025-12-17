@@ -1,4 +1,4 @@
-﻿using Domain.Enums;
+﻿using Contracts.Cards;
 
 namespace Domain.Entities;
 

@@ -1,3 +1,3 @@
-﻿namespace Domain.Dtos;
+﻿namespace Contracts.Boards;
 
 public record BoardDto(Guid Id, string Name, Guid ProjectId);
