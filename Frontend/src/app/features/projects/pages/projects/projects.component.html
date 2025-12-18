@@ -13,11 +13,6 @@
 
 <br>
 
-@if (projectsStore.showLoader()) {
-<div class="loader">
-    <img src="assets/img/loader.gif" alt="Loader">
-</div>
-} @else if (!projectsStore.loading()) {
 @if (projectsStore.projects().length === 0) {
 <mat-card class="empty-card">
     <mat-card-content>
@@ -56,5 +51,4 @@
     </div>
     }
 </div>
-}
 }

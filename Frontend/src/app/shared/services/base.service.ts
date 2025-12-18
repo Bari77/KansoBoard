@@ -308,6 +308,9 @@ export abstract class BaseService {
     ): Observable<Tmodel | Tmodel[] | null> {
         return this.http.get<Tdto | Tdto[]>(this.getURL(url), { params: params }).pipe(
             map((res) => {
+                if (!res) {
+                    return null;
+                }
                 let result;
                 if (isList) {
                     result = (res as Tdto[]).map((dto) => {

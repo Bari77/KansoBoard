@@ -27,14 +27,8 @@
             <button mat-button [routerLink]="'/auth/login'">
                 <ng-container>{{ "SIGNUP.LOGIN" | translate }}</ng-container>
             </button>
-            <button mat-raised-button [disabled]="loading() || form.invalid" (click)="submit()">
-                @if (!loading()) {
+            <button mat-raised-button [disabled]="form.invalid" (click)="submit()">
                 <ng-container>{{ "SIGNUP.SIGNUP" | translate }}</ng-container>
-                } @else {
-                <ng-container>
-                    <mat-spinner diameter="20"></mat-spinner>
-                </ng-container>
-                }
             </button>
         </mat-card-actions>
     </mat-card>

@@ -6,7 +6,6 @@ import { firstValueFrom } from "rxjs";
 @Injectable()
 export class CardsStore {
     public readonly cards = computed(() => this.cardsResource.value() ?? []);
-    public readonly loading = computed(() => this.cardsResource.isLoading());
 
     private readonly cardsService = inject(CardsService);
     private readonly boardId = signal<string | null>(null);

@@ -31,7 +31,6 @@ import { TranslateModule } from '@ngx-translate/core';
 export class SignupComponent {
     public readonly fb = inject(FormBuilder);
 
-    public readonly loading = signal(false);
     public readonly error = signal('');
     public readonly form = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
@@ -45,7 +44,6 @@ export class SignupComponent {
     async submit() {
         if (this.form.invalid) return;
 
-        this.loading.set(true);
         this.error.set("");
 
         try {
@@ -53,8 +51,6 @@ export class SignupComponent {
             await this.router.navigate(['/login']);
         } catch {
             this.error.set("ERROR.ERR_SIGNUP_FAILED");
-        } finally {
-            this.loading.set(false);
         }
     }
 }

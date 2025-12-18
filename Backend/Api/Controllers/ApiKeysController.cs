@@ -22,8 +22,7 @@ public class ApiKeysController(IApiKeyService service, IProjectAuthorizationServ
         if (!await auth.CanAccessProjectAsync(userId.Value, projectId))
             return Forbid();
 
-        var key = await service.CreateAsync(projectId, req.Lifetime);
-        return Ok(key);
+        return Ok(await service.CreateAsync(projectId, req.Lifetime));
     }
 
     [HttpPost("{projectId:guid}/revoke")]
@@ -39,7 +38,7 @@ public class ApiKeysController(IApiKeyService service, IProjectAuthorizationServ
     }
 
     [HttpGet("{projectId:guid}")]
-    public async Task<IActionResult> List(Guid projectId)
+    public async Task<IActionResult> Get(Guid projectId)
     {
         var userId = User.GetUserId();
         if (userId is null) return Unauthorized();
@@ -47,6 +46,6 @@ public class ApiKeysController(IApiKeyService service, IProjectAuthorizationServ
         if (!await auth.CanAccessProjectAsync(userId.Value, projectId))
             return Forbid();
 
-        return Ok(await service.ListAsync(projectId));
+        return Ok(await service.GetAsync(projectId));
     }
 }

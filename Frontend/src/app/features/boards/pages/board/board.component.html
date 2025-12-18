@@ -24,11 +24,6 @@
 </mat-card>
 
 <br>
-@if (boardStore.showLoader() || columnsStore.loading() || cardsStore.loading()) {
-<div class="loader">
-    <img src="assets/img/loader.gif" alt="Loader">
-</div>
-} @else if (!boardStore.loading()) {
 @if (columnsStore.columns().length === 0) {
 <mat-card class="empty-card">
     <mat-card-content>
@@ -53,5 +48,4 @@
     </ng-template>
     }
 </div>
-}
 }

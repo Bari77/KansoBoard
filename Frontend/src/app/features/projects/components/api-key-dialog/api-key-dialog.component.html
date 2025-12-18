@@ -1,0 +1,38 @@
+<mat-card-header mat-dialog-title>
+    {{ "API_KEYS.TITLE" | translate }}
+</mat-card-header>
+
+<mat-dialog-content>
+    <p [innerHTML]="'API_KEYS.KEYS_ORDERS' | translate"></p>
+    <div class="url" [cdkCopyToClipboard]="apiKey()?.key ?? ''">
+        @if (apiKey()?.key) {
+        <button mat-icon-button [matTooltip]="'GLOBAL.COPY' | translate" [cdkCopyToClipboard]="apiKey()?.key ?? ''"
+            (click)="$event.stopPropagation()" class="warn">
+            <mat-icon>content_copy</mat-icon>
+        </button>
+        <button mat-icon-button [matTooltip]="'API_KEYS.RENEW_ASK' | translate"
+            (click)="new(); $event.stopPropagation()" class="info">
+            <mat-icon>refresh</mat-icon>
+        </button>
+        <b>{{apiKey()?.key}}</b>
+        } @else {
+        <button mat-icon-button [matTooltip]="'API_KEYS.NEW_ASK' | translate" [cdkCopyToClipboard]="apiKey()?.key ?? ''"
+            (click)="new(); $event.stopPropagation()" class="success">
+            <mat-icon>add</mat-icon>
+        </button>
+        <b>&nbsp;</b>
+        }
+    </div>
+    <div class="chips-container w-100">
+        <mat-chip [matTooltip]="'API_KEYS.VALIDITY' | translate">
+            <mat-icon class="info">all_inclusive</mat-icon>
+            <span>{{ "API_KEYS.MAX_TIME" | translate }}</span>
+        </mat-chip>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button [disabled]="loadingStore.loading()" (click)="close()">
+        {{ "GLOBAL.CLOSE" | translate}}
+    </button>
+</mat-dialog-actions>

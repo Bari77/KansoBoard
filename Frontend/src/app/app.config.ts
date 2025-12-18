@@ -9,9 +9,12 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from "@angular/material/snack-bar";
 import { BrowserModule } from "@angular/platform-browser";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 import { provideRouter } from "@angular/router";
+import { GlobalLoaderOverlayDirective } from "@core/directives/loader.directive";
 import { errorInterceptor } from "@core/interceptors/error.interceptor";
+import { loaderInterceptor } from "@core/interceptors/loader.interceptor";
 import { tokenInterceptor } from "@core/interceptors/token.interceptor";
 import { ToastService } from "@core/services/toast.service";
+import { LoadingStore } from "@core/stores/loading.store";
 import { AuthService } from "@features/auth/services/auth.service";
 import { AuthStore } from "@features/auth/stores/auth.store";
 import { TokenStore } from "@features/auth/stores/token.store";
@@ -25,7 +28,9 @@ import { ColumnsStore } from "@features/columns/stores/columns.store";
 import { ConfigStore } from "@features/configs/store/config.store";
 import { InvitationsService } from "@features/invitations/services/invitations.service";
 import { InvitationsStore } from "@features/invitations/stores/invitations.store";
+import { ApiKeysService } from "@features/projects/services/api-keys.service";
 import { ProjectsService } from "@features/projects/services/projects.service";
+import { ApiKeysStore } from "@features/projects/stores/api-keys.store";
 import { ProjectsStore } from "@features/projects/stores/projects.store";
 import { TranslateService, provideTranslateService } from "@ngx-translate/core";
 import { provideTranslateHttpLoader } from "@ngx-translate/http-loader";
@@ -42,7 +47,7 @@ export const appConfig: ApplicationConfig = {
             eventCoalescing: true,
         }),
         provideRouter(appRoutes),
-        provideHttpClient(withInterceptors([errorInterceptor, tokenInterceptor])),
+        provideHttpClient(withInterceptors([loaderInterceptor, errorInterceptor, tokenInterceptor])),
         provideAppInitializer(() => zip(inject(TranslateService).reloadLang("fr"), inject(ConfigStore).initApp())),
         provideAnimationsAsync(),
         provideNativeDateAdapter(),
@@ -65,6 +70,8 @@ export const appConfig: ApplicationConfig = {
         { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { width: "500px" } },
         { provide: LOCALE_ID, useValue: "fr-FR" },
 
+        GlobalLoaderOverlayDirective,
+
         ToastService,
         StorageService,
         AuthService,
@@ -73,7 +80,9 @@ export const appConfig: ApplicationConfig = {
         ColumnsService,
         CardsService,
         InvitationsService,
+        ApiKeysService,
 
+        LoadingStore,
         ConfigStore,
         AppStore,
         AuthStore,
@@ -83,6 +92,7 @@ export const appConfig: ApplicationConfig = {
         BoardStore,
         ColumnsStore,
         CardsStore,
-        InvitationsStore
+        InvitationsStore,
+        ApiKeysStore,
     ],
 };

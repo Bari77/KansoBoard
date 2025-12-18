@@ -5,7 +5,6 @@ import { ColumnsService } from "../services/columns.service";
 
 export class ColumnsStore {
     public readonly columns = computed(() => this.columnsResource.value() ?? []);
-    public readonly loading = computed(() => this.columnsResource.isLoading());
 
     private readonly columnsService = inject(ColumnsService);
     private readonly boardId = signal<string | null>(null);

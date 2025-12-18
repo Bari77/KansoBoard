@@ -1,4 +1,5 @@
-﻿using Contracts.Boards;
+﻿using Contracts.ApiKeys;
+using Contracts.Boards;
 using Contracts.Cards;
 using Contracts.Columns;
 using Contracts.Projects;
@@ -11,6 +12,9 @@ public static class Mapper
 {
     public static ProjectDto ToDto(Project p)
         => new(p.Id, p.Name);
+
+    public static ProjectApiKeyDto ToDto(ProjectApiKey p)
+        => new(p.Id, p.ProjectId, p.Key, p.CreatedAt, p.ExpiresAt, p.Revoked);
 
     public static BoardDto ToDto(Board b)
         => new(b.Id, b.Name, b.ProjectId);

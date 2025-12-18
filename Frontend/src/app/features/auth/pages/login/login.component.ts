@@ -31,7 +31,6 @@ import { TranslateModule } from '@ngx-translate/core';
 export class LoginComponent {
     public readonly fb = inject(FormBuilder);
 
-    public readonly loading = signal(false);
     public readonly error = signal('');
     public readonly form = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
@@ -44,7 +43,6 @@ export class LoginComponent {
     async submit() {
         if (this.form.invalid) return;
 
-        this.loading.set(true);
         this.error.set("");
 
         try {
@@ -52,8 +50,6 @@ export class LoginComponent {
             await this.router.navigate(['/projects']);
         } catch {
             this.error.set("ERROR.ERR_LOGIN_FAILED");
-        } finally {
-            this.loading.set(false);
         }
     }
 }

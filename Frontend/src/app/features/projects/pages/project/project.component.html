@@ -6,6 +6,11 @@
             <span>{{ projectsStore.getName(id()!) }}</span>
         </mat-card-title>
         <span class="spacer"></span>
+        @if (config().devMode) {
+        <button mat-icon-button [matTooltip]="'BOARDS.API_KEYS' | translate" (click)="apiKey()" class="info">
+            <mat-icon>key</mat-icon>
+        </button>
+        }
         <button mat-icon-button [matTooltip]="'BOARDS.LINK' | translate" (click)="getInvitation()" class="info">
             <mat-icon>link</mat-icon>
         </button>
@@ -17,11 +22,6 @@
 
 <br>
 
-@if (showLoader() || boardsStore.showLoader()) {
-<div class="loader">
-    <img src="assets/img/loader.gif" alt="Loader">
-</div>
-} @else if (!boardsStore.loading()) {
 @if (boardsStore.boards().length === 0) {
 <mat-card class="empty-card">
     <mat-card-content>
@@ -60,5 +60,4 @@
     </div>
     }
 </div>
-}
 }

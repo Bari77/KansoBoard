@@ -3,6 +3,7 @@
         "TITLE": "Boards",
         "NEW": "Nouveau board",
         "LINK": "Lien d'invitation",
+        "API_KEYS": "Clés d'API",
         "EMPTY": "Aucun board",
         "EMPTY_PHRASE": "Créez votre premier board pour commencer à organiser votre board.",
         "CREATE": "Créer mon premier board",

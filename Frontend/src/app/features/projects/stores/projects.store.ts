@@ -1,30 +1,15 @@
-import { computed, effect, inject, Injectable, resource, signal } from "@angular/core";
+import { computed, inject, Injectable, resource } from "@angular/core";
 import { ProjectsService } from "@features/projects/services/projects.service";
 import { firstValueFrom } from "rxjs";
 
 @Injectable()
 export class ProjectsStore {
     public readonly projects = computed(() => this.projectsResource.value() ?? []);
-    public readonly loading = computed(() => this.projectsResource.isLoading());
-    public readonly showLoader = signal(false);
 
     private readonly projectsService = inject(ProjectsService);
     private readonly projectsResource = resource({
         loader: () => firstValueFrom(this.projectsService.list()),
     });
-
-    constructor() {
-        let timeout: any;
-
-        effect(() => {
-            if (this.loading()) {
-                timeout = setTimeout(() => this.showLoader.set(true), 100);
-            } else {
-                clearTimeout(timeout);
-                this.showLoader.set(false);
-            }
-        });
-    }
 
     public async create(name: string): Promise<void> {
         await firstValueFrom(this.projectsService.create(name));

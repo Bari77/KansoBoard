@@ -9,8 +9,19 @@ public class ApiKeyService(KansoDbContext db) : IApiKeyService
 {
     public async Task<string> CreateAsync(Guid projectId, TimeSpan? lifetime = null)
     {
-        var key = Convert.ToBase64String(RandomNumberGenerator.GetBytes(48))
-            .Replace("=", "").Replace("/", "").Replace("+", "");
+        const string prefix = "kanso_";
+        const string chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+        const int length = 15;
+
+        var buffer = RandomNumberGenerator.GetBytes(length);
+        var keyBody = new char[length];
+
+        for (var i = 0; i < length; i++)
+        {
+            keyBody[i] = chars[buffer[i] % chars.Length];
+        }
+
+        var key = prefix + new string(keyBody);
 
         var apiKey = new ProjectApiKey
         {
@@ -26,16 +37,6 @@ public class ApiKeyService(KansoDbContext db) : IApiKeyService
         return key;
     }
 
-    public async Task<Guid?> ValidateAsync(string key)
-    {
-        var apiKey = await db.ProjectApiKeys.FirstOrDefaultAsync(k =>
-            k.Key == key &&
-            !k.Revoked &&
-            (k.ExpiresAt == null || k.ExpiresAt > DateTime.UtcNow));
-
-        return apiKey?.ProjectId;
-    }
-
     public async Task<bool> RevokeAsync(string key)
     {
         var apiKey = await db.ProjectApiKeys.FirstOrDefaultAsync(k => k.Key == key);
@@ -46,11 +47,21 @@ public class ApiKeyService(KansoDbContext db) : IApiKeyService
         return true;
     }
 
-    public async Task<List<ProjectApiKey>> ListAsync(Guid projectId)
+    public async Task<ProjectApiKey?> GetAsync(Guid projectId)
     {
         return await db.ProjectApiKeys
             .AsNoTracking()
-            .Where(k => k.ProjectId == projectId)
-            .ToListAsync();
+            .Where(k => k.ProjectId == projectId && !k.Revoked)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<Guid?> ValidateAsync(string key)
+    {
+        var apiKey = await db.ProjectApiKeys.FirstOrDefaultAsync(k =>
+            k.Key == key &&
+            !k.Revoked &&
+            (k.ExpiresAt == null || k.ExpiresAt > DateTime.UtcNow));
+
+        return apiKey?.ProjectId;
     }
 }

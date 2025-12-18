@@ -11,13 +11,16 @@ import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { AskDialogComponent } from "@core/layout/dialogs/ask-dialog/ask-dialog.component";
 import { AskDialogData } from "@core/models/ask-dialog.model";
 import { ToastService } from "@core/services/toast.service";
+import { LoadingStore } from "@core/stores/loading.store";
 import { BoardDialogComponent } from "@features/boards/components/board-dialog/board-dialog.component";
 import { Board } from "@features/boards/models/board.model";
 import { BoardsStore } from "@features/boards/stores/boards.store";
 import { ConfigStore } from "@features/configs/store/config.store";
 import { InvitationDialogComponent } from "@features/invitations/components/invitation-dialog/invitation-dialog.component";
 import { InvitationsStore } from "@features/invitations/stores/invitations.store";
+import { ApiKeyDialogComponent } from "@features/projects/components/api-key-dialog/api-key-dialog.component";
 import { Project } from "@features/projects/models/project.model";
+import { ApiKeysStore } from "@features/projects/stores/api-keys.store";
 import { ProjectsStore } from "@features/projects/stores/projects.store";
 import { TranslateModule } from "@ngx-translate/core";
 
@@ -29,6 +32,7 @@ import { TranslateModule } from "@ngx-translate/core";
     styleUrls: ["./project.component.scss"],
 })
 export class ProjectComponent {
+    public readonly loadingStore = inject(LoadingStore);
     public readonly projectsStore = inject(ProjectsStore);
     public readonly boardsStore = inject(BoardsStore);
 
@@ -42,9 +46,11 @@ export class ProjectComponent {
     private readonly toastService = inject(ToastService);
     private readonly configStore = inject(ConfigStore);
     private readonly invitationsStore = inject(InvitationsStore);
+    private readonly apiKeysStore = inject(ApiKeysStore);
 
     constructor() {
         this.boardsStore.setProject(this.id());
+        this.apiKeysStore.setProject(this.id());
     }
 
     public new(): void {
@@ -105,12 +111,13 @@ export class ProjectComponent {
     }
 
     public async getInvitation(): Promise<void> {
-        this.showLoader.set(true);
-        const token = await this.invitationsStore.create(this.id()!);
-        this.showLoader.set(false);
         this.dialog.open<InvitationDialogComponent, string, string>(InvitationDialogComponent, {
-            data: token,
+            data: await this.invitationsStore.create(this.id()!),
             width: "400px",
         });
+    }
+
+    public async apiKey(): Promise<void> {
+        this.dialog.open<ApiKeyDialogComponent, string, string>(ApiKeyDialogComponent);
     }
 }

@@ -1,0 +1,11 @@
+{
+    "API_KEYS": {
+        "TITLE": "Clé d'API",
+        "KEYS_ORDERS": "Avec une clé d'API, vous pouvez utiliser le KansoBoard API pour gérer vos projets, tâches et autres ressources de manière programmatique.",
+        "NEW_ASK": "Demander une clé API",
+        "RENEW_ASK": "Demander une nouvelle clé API",
+        "MAX_TIME": "Illimité",
+        "VALIDITY": "Validité",
+        "CLOSE": "Fermer"
+    }
+}

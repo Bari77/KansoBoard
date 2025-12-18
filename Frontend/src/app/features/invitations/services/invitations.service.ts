@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class InvitationsService extends BaseService {
     protected override baseUrlService = "Invitations";
 
-    public create(projectId: string, lifetime: string): Observable<string> {
+    public create(projectId: string, lifetime: string = "7.00:00:00"): Observable<string> {
         return this.httpPostString(`${projectId}/create`, { projectId, lifetime });
     }
 
