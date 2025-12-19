@@ -1,8 +1,8 @@
-﻿using ApiClient.Boards;
-using ApiClient.Cards;
-using ApiClient.Columns;
+﻿using KansoBoard.ApiClient.Boards;
+using KansoBoard.ApiClient.Cards;
+using KansoBoard.ApiClient.Columns;
 
-namespace ApiClient;
+namespace KansoBoard.ApiClient;
 
 public sealed class KansoBoardApiClient(HttpClient http) : IKansoBoardApiClient
 {

@@ -1,7 +1,7 @@
-﻿using Contracts.Cards;
-using Domain.Entities;
+﻿using KansoBoard.Contracts.Cards;
+using KansoBoard.Domain.Entities;
 
-namespace Application.Cards;
+namespace KansoBoard.Application.Cards;
 
 public interface ICardService
 {

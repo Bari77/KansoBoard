@@ -1,8 +1,8 @@
-﻿using Contracts.Cards;
+﻿using KansoBoard.Contracts.Cards;
 using System.Net;
 using System.Net.Http.Json;
 
-namespace ApiClient.Cards;
+namespace KansoBoard.ApiClient.Cards;
 
 internal sealed class CardsApi(HttpClient http) : ICardsApi
 {

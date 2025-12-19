@@ -1,9 +1,9 @@
-﻿using Application.Columns;
-using Domain.Entities;
-using Infrastructure;
+﻿using KansoBoard.Application.Columns;
+using KansoBoard.Domain.Entities;
+using KansoBoard.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Boards;
+namespace KansoBoard.Application.Boards;
 
 public class BoardService(KansoDbContext db, IColumnService columnService) : IBoardService
 {

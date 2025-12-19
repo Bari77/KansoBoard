@@ -1,7 +1,7 @@
-﻿using Domain.Entities;
+﻿using KansoBoard.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure;
+namespace KansoBoard.Infrastructure;
 
 public class KansoDbContext(DbContextOptions<KansoDbContext> options) : DbContext(options)
 {

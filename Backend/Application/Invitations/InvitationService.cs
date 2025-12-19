@@ -1,9 +1,9 @@
-﻿using Application.ProjectUsers;
-using Domain.Entities;
-using Infrastructure;
+﻿using KansoBoard.Application.ProjectUsers;
+using KansoBoard.Domain.Entities;
+using KansoBoard.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Invitations;
+namespace KansoBoard.Application.Invitations;
 
 public class InvitationService(KansoDbContext db, IProjectUserService projectUsers) : IInvitationService
 {

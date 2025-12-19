@@ -1,11 +1,11 @@
-﻿using Api.Extensions;
-using Application.Authorization;
-using Application.Webhooks;
-using Contracts.Webhooks;
+﻿using KansoBoard.Api.Extensions;
+using KansoBoard.Application.Authorization;
+using KansoBoard.Application.Webhooks;
+using KansoBoard.Contracts.Webhooks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers;
+namespace KansoBoard.Api.Controllers;
 
 [Authorize]
 [ApiController]

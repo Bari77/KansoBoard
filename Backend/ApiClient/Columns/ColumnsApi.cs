@@ -1,8 +1,8 @@
-﻿using Contracts.Columns;
+﻿using KansoBoard.Contracts.Columns;
 using System.Net;
 using System.Net.Http.Json;
 
-namespace ApiClient.Columns;
+namespace KansoBoard.ApiClient.Columns;
 
 internal sealed class ColumnsApi(HttpClient http) : IColumnsApi
 {

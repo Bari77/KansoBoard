@@ -1,4 +1,4 @@
-﻿namespace ApiClient;
+﻿namespace KansoBoard.ApiClient;
 
 public sealed class KansoBoardApiClientOptions
 {

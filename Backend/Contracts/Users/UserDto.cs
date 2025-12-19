@@ -1,3 +1,3 @@
-﻿namespace Contracts.Users;
+﻿namespace KansoBoard.Contracts.Users;
 
 public record UserDto(Guid Id, string Email, string Pseudo, string? AvatarUrl);

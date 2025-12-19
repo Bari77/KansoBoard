@@ -1,3 +1,3 @@
-﻿namespace Contracts.Projects;
+﻿namespace KansoBoard.Contracts.Projects;
 
 public record CreateProjectRequest(string Name);

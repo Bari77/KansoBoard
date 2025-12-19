@@ -1,12 +1,12 @@
-﻿using Api.Extensions;
-using Application.Authorization;
-using Application.Mapping;
-using Application.ProjectUsers;
-using Contracts.ProjectUsers;
+﻿using KansoBoard.Api.Extensions;
+using KansoBoard.Application.Authorization;
+using KansoBoard.Application.Mapping;
+using KansoBoard.Application.ProjectUsers;
+using KansoBoard.Contracts.ProjectUsers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers;
+namespace KansoBoard.Api.Controllers;
 
 [Authorize]
 [ApiController]

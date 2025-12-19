@@ -1,3 +1,3 @@
-﻿namespace Contracts.Users;
+﻿namespace KansoBoard.Contracts.Users;
 
 public record UpdateUserRequest(string Pseudo, string? AvatarUrl);

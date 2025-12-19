@@ -1,10 +1,10 @@
-﻿using Application.Mapping;
-using Application.Users;
-using Contracts.Users;
+﻿using KansoBoard.Application.Mapping;
+using KansoBoard.Application.Users;
+using KansoBoard.Contracts.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers;
+namespace KansoBoard.Api.Controllers;
 
 [Authorize]
 [ApiController]

@@ -1,5 +1,5 @@
-﻿using Domain.Entities;
-using Infrastructure;
+﻿using KansoBoard.Domain.Entities;
+using KansoBoard.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -8,7 +8,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Application.Auth;
+namespace KansoBoard.Application.Auth;
 
 public class AuthService(KansoDbContext db, IConfiguration config) : IAuthService
 {

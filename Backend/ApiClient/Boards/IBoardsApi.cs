@@ -1,6 +1,6 @@
-﻿using Contracts.Boards;
+﻿using KansoBoard.Contracts.Boards;
 
-namespace ApiClient.Boards
+namespace KansoBoard.ApiClient.Boards
 {
     public interface IBoardsApi
     {

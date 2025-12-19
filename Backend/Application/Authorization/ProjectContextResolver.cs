@@ -1,7 +1,7 @@
-﻿using Infrastructure;
+﻿using KansoBoard.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Authorization;
+namespace KansoBoard.Application.Authorization;
 
 public class ProjectContextResolver(KansoDbContext db) : IProjectContextResolver
 {

@@ -1,8 +1,8 @@
-﻿using Domain.Entities;
-using Infrastructure;
+﻿using KansoBoard.Domain.Entities;
+using KansoBoard.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.ProjectUsers;
+namespace KansoBoard.Application.ProjectUsers;
 
 public class ProjectUserService(KansoDbContext db) : IProjectUserService
 {

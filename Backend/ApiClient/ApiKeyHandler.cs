@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 
-namespace ApiClient;
+namespace KansoBoard.ApiClient;
 
 internal sealed class ApiKeyHandler(IOptions<KansoBoardApiClientOptions> options) : DelegatingHandler
 {

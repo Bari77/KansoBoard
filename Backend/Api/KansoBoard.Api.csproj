@@ -23,9 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\Application.csproj" />
-    <ProjectReference Include="..\Contracts\Contracts.csproj" />
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Application\KansoBoard.Application.csproj" />
+    <ProjectReference Include="..\Contracts\KansoBoard.Contracts.csproj" />
+    <ProjectReference Include="..\Infrastructure\KansoBoard.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

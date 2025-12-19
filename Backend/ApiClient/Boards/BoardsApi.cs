@@ -1,8 +1,8 @@
-﻿using Contracts.Boards;
+﻿using KansoBoard.Contracts.Boards;
 using System.Net;
 using System.Net.Http.Json;
 
-namespace ApiClient.Boards;
+namespace KansoBoard.ApiClient.Boards;
 
 internal sealed class BoardsApi(HttpClient http) : IBoardsApi
 {

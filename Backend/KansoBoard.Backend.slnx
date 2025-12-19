@@ -1,8 +1,8 @@
 <Solution>
-  <Project Path="Api/Api.csproj" />
-  <Project Path="ApiClient/ApiClient.csproj" Id="828960f0-2d70-4fcf-aa4e-72d0affb0d0b" />
-  <Project Path="Application/Application.csproj" />
-  <Project Path="Contracts/Contracts.csproj" Id="f00eca09-597b-4e42-a3ba-4d9c2ffc4ea5" />
-  <Project Path="Domain/Domain.csproj" />
-  <Project Path="Infrastructure/Infrastructure.csproj" />
+  <Project Path="Api/KansoBoard.Api.csproj" />
+  <Project Path="ApiClient/KansoBoard.ApiClient.csproj" Id="828960f0-2d70-4fcf-aa4e-72d0affb0d0b" />
+  <Project Path="Application/KansoBoard.Application.csproj" />
+  <Project Path="Contracts/KansoBoard.Contracts.csproj" Id="f00eca09-597b-4e42-a3ba-4d9c2ffc4ea5" />
+  <Project Path="Domain/KansoBoard.Domain.csproj" />
+  <Project Path="Infrastructure/KansoBoard.Infrastructure.csproj" />
 </Solution>

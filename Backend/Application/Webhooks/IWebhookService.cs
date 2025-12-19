@@ -1,4 +1,4 @@
-﻿namespace Application.Webhooks;
+﻿namespace KansoBoard.Application.Webhooks;
 
 public interface IWebhookService
 {

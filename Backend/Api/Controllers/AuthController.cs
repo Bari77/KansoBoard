@@ -1,10 +1,10 @@
-﻿using Application.Auth;
-using Application.Mapping;
-using Contracts.Auth;
+﻿using KansoBoard.Application.Auth;
+using KansoBoard.Application.Mapping;
+using KansoBoard.Contracts.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers;
+namespace KansoBoard.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

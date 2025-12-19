@@ -1,6 +1,6 @@
-﻿using Application.ApiKeys;
+﻿using KansoBoard.Application.ApiKeys;
 
-namespace Api.Middleware;
+namespace KansoBoard.Api.Middleware;
 
 public class ApiKeyMiddleware(RequestDelegate next)
 {

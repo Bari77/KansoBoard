@@ -1,6 +1,6 @@
-﻿using Domain.Entities;
+﻿using KansoBoard.Domain.Entities;
 
-namespace Application.Auth;
+namespace KansoBoard.Application.Auth;
 
 public interface IAuthService
 {

@@ -1,10 +1,10 @@
-﻿using Application.Webhooks;
-using Contracts.Cards;
-using Domain.Entities;
-using Infrastructure;
+﻿using KansoBoard.Application.Webhooks;
+using KansoBoard.Contracts.Cards;
+using KansoBoard.Domain.Entities;
+using KansoBoard.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Cards;
+namespace KansoBoard.Application.Cards;
 
 public class CardService(KansoDbContext db, IWebhookService webhooks) : ICardService
 {

@@ -1,6 +1,6 @@
-﻿using Domain.Entities;
+﻿using KansoBoard.Domain.Entities;
 
-namespace Application.ProjectUsers;
+namespace KansoBoard.Application.ProjectUsers;
 
 public interface IProjectUserService
 {

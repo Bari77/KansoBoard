@@ -1,6 +1,6 @@
-﻿using Domain.Entities;
+﻿using KansoBoard.Domain.Entities;
 
-namespace Application.Boards;
+namespace KansoBoard.Application.Boards;
 
 public interface IBoardService
 {

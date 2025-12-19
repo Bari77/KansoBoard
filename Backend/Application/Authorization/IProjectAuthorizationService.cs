@@ -1,4 +1,4 @@
-﻿namespace Application.Authorization;
+﻿namespace KansoBoard.Application.Authorization;
 
 public interface IProjectAuthorizationService
 {

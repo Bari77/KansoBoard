@@ -1,9 +1,9 @@
-﻿using Domain.Entities;
-using Infrastructure;
+﻿using KansoBoard.Domain.Entities;
+using KansoBoard.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Json;
 
-namespace Application.Webhooks;
+namespace KansoBoard.Application.Webhooks;
 
 public class WebhookService(KansoDbContext db, IHttpClientFactory http) : IWebhookService
 {

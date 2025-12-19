@@ -1,6 +1,6 @@
-﻿using Contracts.Cards;
+﻿using KansoBoard.Contracts.Cards;
 
-namespace Domain.Entities;
+namespace KansoBoard.Domain.Entities;
 
 public class Card
 {

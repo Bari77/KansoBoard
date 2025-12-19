@@ -1,4 +1,4 @@
-﻿namespace Application.Invitations;
+﻿namespace KansoBoard.Application.Invitations;
 
 public interface IInvitationService
 {

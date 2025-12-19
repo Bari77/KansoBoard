@@ -1,3 +1,3 @@
-﻿namespace Contracts.Cards;
+﻿namespace KansoBoard.Contracts.Cards;
 
 public record AssignUserRequest(Guid? UserId);

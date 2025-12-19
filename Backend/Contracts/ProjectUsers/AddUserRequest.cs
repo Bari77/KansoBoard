@@ -1,3 +1,3 @@
-﻿namespace Contracts.ProjectUsers;
+﻿namespace KansoBoard.Contracts.ProjectUsers;
 
 public record AddUserRequest(Guid UserId);

@@ -1,12 +1,12 @@
-﻿using Api.Extensions;
-using Application.Auth;
-using Application.Authorization;
-using Application.Invitations;
-using Contracts.Invitations;
+﻿using KansoBoard.Api.Extensions;
+using KansoBoard.Application.Auth;
+using KansoBoard.Application.Authorization;
+using KansoBoard.Application.Invitations;
+using KansoBoard.Contracts.Invitations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers;
+namespace KansoBoard.Api.Controllers;
 
 [Authorize]
 [ApiController]

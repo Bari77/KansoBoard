@@ -1,9 +1,9 @@
-﻿using Contracts.Columns;
-using Domain.Entities;
-using Infrastructure;
+﻿using KansoBoard.Contracts.Columns;
+using KansoBoard.Domain.Entities;
+using KansoBoard.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Columns;
+namespace KansoBoard.Application.Columns;
 
 public class ColumnService(KansoDbContext db) : IColumnService
 {

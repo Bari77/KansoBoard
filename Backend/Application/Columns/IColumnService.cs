@@ -1,7 +1,7 @@
-﻿using Contracts.Columns;
-using Domain.Entities;
+﻿using KansoBoard.Contracts.Columns;
+using KansoBoard.Domain.Entities;
 
-namespace Application.Columns;
+namespace KansoBoard.Application.Columns;
 
 public interface IColumnService
 {

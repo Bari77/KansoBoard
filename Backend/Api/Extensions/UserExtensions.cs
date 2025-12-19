@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace Api.Extensions;
+namespace KansoBoard.Api.Extensions;
 
 public static class UserExtensions
 {

@@ -1,6 +1,6 @@
-﻿using Domain.Entities;
+﻿using KansoBoard.Domain.Entities;
 
-namespace Application.ApiKeys;
+namespace KansoBoard.Application.ApiKeys;
 
 public interface IApiKeyService
 {

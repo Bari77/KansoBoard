@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities;
+﻿namespace KansoBoard.Domain.Entities;
 
 public class Column
 {

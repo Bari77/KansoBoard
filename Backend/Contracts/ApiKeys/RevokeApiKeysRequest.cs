@@ -1,3 +1,3 @@
-﻿namespace Contracts.ApiKeys;
+﻿namespace KansoBoard.Contracts.ApiKeys;
 
 public record RevokeApiKeysRequest(string Key);

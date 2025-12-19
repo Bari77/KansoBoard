@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace ApiClient;
+namespace KansoBoard.ApiClient;
 
 public static class ServiceCollectionExtensions
 {

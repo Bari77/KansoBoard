@@ -1,9 +1,9 @@
-﻿using Domain.Entities;
-using Infrastructure;
+﻿using KansoBoard.Domain.Entities;
+using KansoBoard.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
-namespace Application.ApiKeys;
+namespace KansoBoard.Application.ApiKeys;
 
 public class ApiKeyService(KansoDbContext db) : IApiKeyService
 {

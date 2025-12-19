@@ -1,6 +1,6 @@
-﻿using Contracts.Columns;
+﻿using KansoBoard.Contracts.Columns;
 
-namespace ApiClient.Columns
+namespace KansoBoard.ApiClient.Columns
 {
     public interface IColumnsApi
     {

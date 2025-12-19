@@ -1,6 +1,6 @@
-﻿using Domain.Entities;
+﻿using KansoBoard.Domain.Entities;
 
-namespace Application.Webhooks
+namespace KansoBoard.Application.Webhooks
 {
     public static class WebhookFormatter
     {

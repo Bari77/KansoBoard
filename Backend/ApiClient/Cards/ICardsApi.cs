@@ -1,6 +1,6 @@
-﻿using Contracts.Cards;
+﻿using KansoBoard.Contracts.Cards;
 
-namespace ApiClient.Cards;
+namespace KansoBoard.ApiClient.Cards;
 
 public interface ICardsApi
 {

@@ -1,6 +1,6 @@
-﻿using Application.ProjectUsers;
+﻿using KansoBoard.Application.ProjectUsers;
 
-namespace Application.Authorization;
+namespace KansoBoard.Application.Authorization;
 
 public class ProjectAuthorizationService(IProjectUserService projectUsers) : IProjectAuthorizationService
 {

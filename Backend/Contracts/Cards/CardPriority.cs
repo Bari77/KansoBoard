@@ -1,4 +1,4 @@
-﻿namespace Contracts.Cards;
+﻿namespace KansoBoard.Contracts.Cards;
 
 public enum CardPriority
 {

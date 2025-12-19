@@ -1,12 +1,12 @@
-﻿using Contracts.ApiKeys;
-using Contracts.Boards;
-using Contracts.Cards;
-using Contracts.Columns;
-using Contracts.Projects;
-using Contracts.Users;
-using Domain.Entities;
+﻿using KansoBoard.Contracts.ApiKeys;
+using KansoBoard.Contracts.Boards;
+using KansoBoard.Contracts.Cards;
+using KansoBoard.Contracts.Columns;
+using KansoBoard.Contracts.Projects;
+using KansoBoard.Contracts.Users;
+using KansoBoard.Domain.Entities;
 
-namespace Application.Mapping;
+namespace KansoBoard.Application.Mapping;
 
 public static class Mapper
 {
