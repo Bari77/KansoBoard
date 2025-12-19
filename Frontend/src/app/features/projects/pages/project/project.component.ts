@@ -1,5 +1,5 @@
 import { ClipboardModule } from "@angular/cdk/clipboard";
-import { Component, computed, inject, signal } from "@angular/core";
+import { Component, computed, inject } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatDialog } from "@angular/material/dialog";
@@ -8,10 +8,9 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
-import { AskDialogComponent } from "@core/layout/dialogs/ask-dialog/ask-dialog.component";
+import { AskDialogComponent } from "@core/layout/dialogs/components/ask-dialog/ask-dialog.component";
 import { AskDialogData } from "@core/models/ask-dialog.model";
 import { ToastService } from "@core/services/toast.service";
-import { LoadingStore } from "@core/stores/loading.store";
 import { BoardDialogComponent } from "@features/boards/components/board-dialog/board-dialog.component";
 import { Board } from "@features/boards/models/board.model";
 import { BoardsStore } from "@features/boards/stores/boards.store";
@@ -20,7 +19,6 @@ import { InvitationDialogComponent } from "@features/invitations/components/invi
 import { InvitationsStore } from "@features/invitations/stores/invitations.store";
 import { ApiKeyDialogComponent } from "@features/projects/components/api-key-dialog/api-key-dialog.component";
 import { Project } from "@features/projects/models/project.model";
-import { ApiKeysStore } from "@features/projects/stores/api-keys.store";
 import { ProjectsStore } from "@features/projects/stores/projects.store";
 import { TranslateModule } from "@ngx-translate/core";
 
@@ -32,13 +30,11 @@ import { TranslateModule } from "@ngx-translate/core";
     styleUrls: ["./project.component.scss"],
 })
 export class ProjectComponent {
-    public readonly loadingStore = inject(LoadingStore);
     public readonly projectsStore = inject(ProjectsStore);
     public readonly boardsStore = inject(BoardsStore);
 
     public readonly id = computed(() => this.route.snapshot.paramMap.get("guid"));
     public readonly config = computed(() => this.configStore.appConfig());
-    public readonly showLoader = signal(false);
 
     private readonly route = inject(ActivatedRoute);
     private readonly router = inject(Router);
@@ -46,12 +42,6 @@ export class ProjectComponent {
     private readonly toastService = inject(ToastService);
     private readonly configStore = inject(ConfigStore);
     private readonly invitationsStore = inject(InvitationsStore);
-    private readonly apiKeysStore = inject(ApiKeysStore);
-
-    constructor() {
-        this.boardsStore.setProject(this.id());
-        this.apiKeysStore.setProject(this.id());
-    }
 
     public new(): void {
         const dialogRef = this.dialog.open<BoardDialogComponent, Project, Project>(

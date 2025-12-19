@@ -9,7 +9,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { Router } from "@angular/router";
-import { AskDialogComponent } from "@core/layout/dialogs/ask-dialog/ask-dialog.component";
+import { AskDialogComponent } from "@core/layout/dialogs/components/ask-dialog/ask-dialog.component";
 import { AskDialogData } from "@core/models/ask-dialog.model";
 import { ToastService } from "@core/services/toast.service";
 import { CardDialogComponent } from "@features/cards/components/card-dialog/card-dialog.component";

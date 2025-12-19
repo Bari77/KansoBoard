@@ -7,7 +7,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatTooltipModule } from "@angular/material/tooltip";
-import { AskDialogComponent } from "@core/layout/dialogs/ask-dialog/ask-dialog.component";
+import { AskDialogComponent } from "@core/layout/dialogs/components/ask-dialog/ask-dialog.component";
 import { AskDialogData } from "@core/models/ask-dialog.model";
 import { ToastService } from "@core/services/toast.service";
 import { CardPriority } from "@features/cards/enums/card-priority.enum";

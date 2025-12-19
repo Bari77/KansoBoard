@@ -8,7 +8,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { Router, RouterLink } from "@angular/router";
-import { AskDialogComponent } from "@core/layout/dialogs/ask-dialog/ask-dialog.component";
+import { AskDialogComponent } from "@core/layout/dialogs/components/ask-dialog/ask-dialog.component";
 import { AskDialogData } from "@core/models/ask-dialog.model";
 import { ToastService } from "@core/services/toast.service";
 import { ConfigStore } from '@features/configs/store/config.store';
@@ -35,10 +35,6 @@ export class ProjectsComponent {
     private readonly toastService = inject(ToastService);
     private readonly configStore = inject(ConfigStore);
     private readonly invitationStore = inject(InvitationsStore);
-
-    constructor() {
-        this.projectsStore.reload();
-    }
 
     public new(): void {
         const dialogRef = this.dialog.open<ProjectDialogComponent, Project, Project>(

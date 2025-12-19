@@ -39,12 +39,6 @@ export class BoardComponent {
     private readonly dialog = inject(MatDialog);
     private readonly toastService = inject(ToastService);
 
-    constructor() {
-        this.boardStore.setBoard(this.id());
-        this.columnsStore.setBoard(this.id());
-        this.cardsStore.setBoard(this.id());
-    }
-
     public open(id: string): void {
         this.router.navigate(["/board", id]);
     }

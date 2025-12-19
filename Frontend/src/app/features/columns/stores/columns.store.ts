@@ -1,4 +1,5 @@
 import { computed, inject, resource, signal } from "@angular/core";
+import { PromiseUtils } from "@shared/utils/promise.utils";
 import { firstValueFrom } from "rxjs";
 import { Column } from "../models/column.model";
 import { ColumnsService } from "../services/columns.service";
@@ -49,5 +50,9 @@ export class ColumnsStore {
     public async delete(id: string) {
         await firstValueFrom(this.columnsService.delete(id));
         this.columnsResource.reload();
+    }
+
+    public async loaded(): Promise<void> {
+        return PromiseUtils.waitUntilFalse(() => this.columnsResource.isLoading());
     }
 }

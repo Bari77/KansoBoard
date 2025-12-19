@@ -30,7 +30,6 @@ import { TranslateModule } from "@ngx-translate/core";
 })
 export class InvitationDialogComponent {
     public readonly data = inject<string>(MAT_DIALOG_DATA);
-    // public readonly url = computed(() => `${window.location.host}/invitation/${this.data}`);
 
     private readonly dialogRef = inject(MatDialogRef<InvitationDialogComponent>);
 

@@ -1,5 +1,6 @@
 import { computed, inject, Injectable, resource, signal } from '@angular/core';
 import { BoardsService } from '@features/boards/services/boards.service';
+import { PromiseUtils } from '@shared/utils/promise.utils';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable()
@@ -19,5 +20,9 @@ export class BoardStore {
     public setBoard(boardId: string | null): void {
         this.boardId.set(boardId);
         this.boardResource.reload();
+    }
+
+    public async loaded(): Promise<void> {
+        return PromiseUtils.waitUntilFalse(() => this.boardResource.isLoading());
     }
 }

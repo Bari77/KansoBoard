@@ -1,6 +1,7 @@
 import { computed, inject, Injectable, resource, signal } from "@angular/core";
+import { ApiKeysService } from "@features/projects/services/api-keys.service";
+import { PromiseUtils } from "@shared/utils/promise.utils";
 import { firstValueFrom } from "rxjs";
-import { ApiKeysService } from "../services/api-keys.service";
 
 @Injectable()
 export class ApiKeysStore {
@@ -35,5 +36,9 @@ export class ApiKeysStore {
 
     public reload(): void {
         this.apiKeyResource.reload();
+    }
+
+    public async loaded(): Promise<void> {
+        return PromiseUtils.waitUntilFalse(() => this.apiKeyResource.isLoading());
     }
 }

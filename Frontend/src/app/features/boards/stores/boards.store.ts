@@ -1,5 +1,6 @@
 import { computed, inject, Injectable, resource, signal } from '@angular/core';
 import { BoardsService } from '@features/boards/services/boards.service';
+import { PromiseUtils } from '@shared/utils/promise.utils';
 import { firstValueFrom } from 'rxjs';
 import { Board } from '../models/board.model';
 
@@ -7,8 +8,6 @@ import { Board } from '../models/board.model';
 export class BoardsStore {
     public readonly boards = computed(() => this.boardsResource.value() ?? []);
 
-    private readonly boardsService = inject(BoardsService);
-    private readonly projectId = signal<string | null>(null);
     private readonly boardsResource = resource({
         params: () => {
             const id = this.projectId();
@@ -16,6 +15,8 @@ export class BoardsStore {
         },
         loader: ({ params }) => firstValueFrom(this.boardsService.getByProject(params!.id)),
     });
+    private readonly boardsService = inject(BoardsService);
+    private readonly projectId = signal<string | null>(null);
 
     public setProject(projectId: string | null): void {
         this.projectId.set(projectId);
@@ -42,5 +43,9 @@ export class BoardsStore {
 
     public getName(id: string): string | undefined {
         return this.boards().find((f) => f.id == id)?.name;
+    }
+
+    public async loaded(): Promise<void> {
+        return PromiseUtils.waitUntilFalse(() => this.boardsResource.isLoading());
     }
 }

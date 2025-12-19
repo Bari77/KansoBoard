@@ -1,5 +1,6 @@
 import { computed, inject, Injectable, resource } from "@angular/core";
 import { ProjectsService } from "@features/projects/services/projects.service";
+import { PromiseUtils } from "@shared/utils/promise.utils";
 import { firstValueFrom } from "rxjs";
 
 @Injectable()
@@ -32,5 +33,9 @@ export class ProjectsStore {
 
     public getName(id: string | null | undefined): string | undefined {
         return this.projects().find((f) => f.id == id)?.name;
+    }
+
+    public async loaded(): Promise<void> {
+        return PromiseUtils.waitUntilFalse(() => this.projectsResource.isLoading());
     }
 }

@@ -1,6 +1,7 @@
 import { computed, inject, Injectable, resource, signal } from "@angular/core";
 import { Card } from "@features/cards/models/card.model";
 import { CardsService } from "@features/cards/services/cards.service";
+import { PromiseUtils } from "@shared/utils/promise.utils";
 import { firstValueFrom } from "rxjs";
 
 @Injectable()
@@ -85,5 +86,9 @@ export class CardsStore {
 
     public getByColumn(columnId: string): Card[] {
         return this.cards().filter(c => c.columnId === columnId);
+    }
+
+    public async loaded(): Promise<void> {
+        return PromiseUtils.waitUntilFalse(() => this.cardsResource.isLoading());
     }
 }

@@ -1,6 +1,6 @@
 import { Injectable, inject } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { ToastSnackComponent } from "@core/layout/snacks/toast-snack/toast-snack.component";
+import { ToastSnackComponent } from "@core/layout/snacks/components/toast-snack/toast-snack.component";
 import { ToastSnackData } from "@core/models/snack-data.model";
 import { TranslateService } from "@ngx-translate/core";
 
