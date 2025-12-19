@@ -1,10 +1,11 @@
-<mat-card class="card cursor-pointer" cdkDrag [cdkDragData]="card()"
-    [class.type-analyse]="card().type === cardType.Analyse" [class.type-feature]="card().type === cardType.Feature"
-    [class.type-bug]="card().type === cardType.Bug" [class.priority-low]="card().priority === cardPriority.Low"
+<mat-card cdkDrag [cdkDragData]="card()" [class.type-analyse]="card().type === cardType.Analyse"
+    [class.type-feature]="card().type === cardType.Feature" [class.type-bug]="card().type === cardType.Bug"
+    [class.priority-low]="card().priority === cardPriority.Low"
     [class.priority-normal]="card().priority === cardPriority.Normal"
     [class.priority-high]="card().priority === cardPriority.High"
     [class.priority-urgent]="card().priority === cardPriority.Urgent"
-    [class.priority-immediate]="card().priority === cardPriority.Immediate" (click)="edit()">
+    [class.priority-immediate]="card().priority === cardPriority.Immediate" (click)="edit()"
+    class="card cursor-pointer">
     <ng-template cdkDragPlaceholder>
         <div class="card-drag-placeholder"></div>
     </ng-template>

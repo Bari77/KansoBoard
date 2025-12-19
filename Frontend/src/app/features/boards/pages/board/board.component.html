@@ -36,10 +36,10 @@
     </mat-card-content>
 </mat-card>
 } @else {
-<div cdkDropList cdkDropListGroup cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropColumn($event)"
-    class="board-container">
+<div cdkDropList cdkDropListGroup cdkDropListOrientation="horizontal" [cdkDropListData]="columnsStore.columns()"
+    (cdkDropListDropped)="dropColumn($event)" class="board-container">
     @for (column of columnsStore.columns(); track column.id) {
-    <app-column cdkDrag [cdkDragData]="column" [column]="column"></app-column>
+    <app-column [column]="column"></app-column>
 
     <ng-template cdkDragPreview>
         <div class="column-drag-preview">
