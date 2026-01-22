@@ -1,0 +1,59 @@
+name: Docker CD
+
+on:
+  workflow_call:
+    inputs:
+      directory:
+        required: true
+        type: string
+      app_env:
+        required: true
+        type: string
+      tag:
+        required: true
+        type: string
+      image_name:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Build versioned image
+      run: |
+        docker build \
+          -f ${{ inputs.directory }}/Dockerfile \
+          -t registry.bariserv.net/${{ inputs.image_name }}:${{ inputs.version }} \
+          --build-arg APP_ENV=${{ inputs.app_env }} \
+          .
+
+    - name: Push ${{ inputs.image_name }}:${{ inputs.version }}
+      run: |
+        docker push registry.bariserv.net/${{ inputs.image_name }}:${{ inputs.version }}
+
+    - name: Tag ${{ inputs.tag }}
+      run: |
+        docker tag registry.bariserv.net/${{ inputs.image_name }}:${{ inputs.version }} \
+                     registry.bariserv.net/${{ inputs.image_name }}:${{ inputs.tag }}
+
+    - name: Push ${{ inputs.image_name }}:${{ inputs.version }}:${{ inputs.tag }}
+      run: |
+        docker push registry.bariserv.net/${{ inputs.image_name }}:${{ inputs.tag }}
+    - name: Build summary
+      run: |
+        echo "### 🚀 Build Summary" >> $GITHUB_STEP_SUMMARY
+        echo "- **Environment :** ${{ inputs.app_env }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Module :** ${{ inputs.directory }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Image Docker :** registry.bariserv.net/${{ inputs.image_name }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Version :** \`${{ inputs.version }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Branche :** \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Commit :** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Runner build number :** ${{ github.run_number }}" >> $GITHUB_STEP_SUMMARY
