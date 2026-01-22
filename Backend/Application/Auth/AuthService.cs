@@ -60,7 +60,7 @@ public class AuthService(KansoDbContext db, IConfiguration config) : IAuthServic
         if (user is null) return null;
 
         user.RefreshToken = GenerateRefreshToken();
-        user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(7);
+        user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(30);
         await db.SaveChangesAsync();
 
         return GenerateJwt(user);
@@ -105,13 +105,13 @@ public class AuthService(KansoDbContext db, IConfiguration config) : IAuthServic
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
-            claims: new[]
-            {
+            claims:
+            [
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim("pseudo", user.Pseudo)
-            },
-            expires: DateTime.UtcNow.AddHours(1),
+            ],
+            expires: DateTime.UtcNow.AddDays(7),
             signingCredentials: creds
         );
 
