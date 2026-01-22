@@ -2,6 +2,6 @@
 
 public sealed class KansoBoardApiClientOptions
 {
-    public required string BaseUrl { get; init; }
-    public string? ApiKey { get; init; }
+    public required string BaseUrl { get; set; }
+    public string? ApiKey { get; set; }
 }
