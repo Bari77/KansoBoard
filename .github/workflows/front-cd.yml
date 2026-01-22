@@ -1,0 +1,50 @@
+name: CD - Front (Docker)
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+    paths:
+      - 'Frontend/**'
+      - '.github/workflows/front-cd.yml'
+
+run-name: "Front #${{ github.run_number }}"
+
+jobs:
+  detect-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Extract version from CHANGELOG.md
+      id: version
+      run: |
+        VERSION=$(grep -E '^# \[v[0-9]+\.[0-9]+\.[0-9]+' CHANGELOG.md | head -1 | sed -E 's/# \[v(.+)\].*/\1/')
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+  build-staging:
+    if: github.ref == 'refs/heads/develop'
+    needs: detect-version
+    uses: ./.github/workflows/docker-wf.yml
+    with:
+      directory: "Frontend"
+      app_env: "staging"
+      tag: "staging"
+      image_name: "kansoboard/front"
+      version: ${{ needs.detect-version.outputs.version }}
+
+  build-prod:
+    if: github.ref == 'refs/heads/main'
+    needs: detect-version
+    uses: ./.github/workflows/docker-wf.yml
+    with:
+      directory: "Frontend"
+      app_env: "prod"
+      tag: "latest"
+      image_name: "kansoboard/front"
+      version: ${{ needs.detect-version.outputs.version }}
+
