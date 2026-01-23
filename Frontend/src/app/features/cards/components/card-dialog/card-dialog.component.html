@@ -22,6 +22,24 @@
         <mat-label>{{ "CARDS.DIALOG.DESCRIPTION" | translate }}</mat-label>
         <textarea matInput [(ngModel)]="card().description" rows="5"></textarea>
     </mat-form-field>
+    @if (card().id) {
+    <mat-form-field appearance="outline">
+        <mat-label>{{ "CARDS.DIALOG.ASSIGNED_TO" | translate }}</mat-label>
+        <input type="text" matInput [formControl]="assignedControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="assignUser($event)">
+            @for (option of filteredUsers | async; track option) {
+            <mat-option [value]="option">
+                <img [src]="option.avatarUrl ?? 'assets/img/avatar.png'" class="avatar">
+                {{ option.pseudo }}
+            </mat-option>
+            }
+        </mat-autocomplete>
+        <button mat-icon-button matTextSuffix [matTooltip]="'CARDS.DIALOG.UNASSIGN' | translate"
+            (click)="unassignUser(); $event.stopPropagation()" class="danger unassign-button">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </mat-form-field>
+    }
     <mat-form-field appearance="outline">
         <mat-label>{{ "CARDS.DIALOG.TYPE" | translate }}</mat-label>
         <mat-select [(ngModel)]="card().type">

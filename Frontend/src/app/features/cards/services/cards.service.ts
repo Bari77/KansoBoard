@@ -46,8 +46,8 @@ export class CardsService extends BaseService {
         return this.httpDelete(id);
     }
 
-    public assign(id: string, userId: string): Observable<void> {
-        return this.httpPostVoid(`${id}/assign`, { userId });
+    public assign(id: string, userId: string | null): Observable<void> {
+        return this.httpPostVoid(`${id}/assign`, { userId: userId });
     }
 
     public move(id: string, newColumnId: string): Observable<void> {

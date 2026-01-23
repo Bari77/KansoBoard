@@ -8,6 +8,8 @@ import { CardPriority } from '@features/cards/enums/card-priority.enum';
 import { CardType } from '@features/cards/enums/card-type.enum';
 import { Card } from '@features/cards/models/card.model';
 import { CardsStore } from '@features/cards/stores/cards.store';
+import { User } from '@features/users/models/user.model';
+import { ProjectUsersStore } from '@features/users/stores/project-users.store';
 import { CardDialogComponent } from '../card-dialog/card-dialog.component';
 
 @Component({
@@ -26,6 +28,7 @@ export class CardComponent {
     private readonly dialog = inject(MatDialog);
     private readonly toastService = inject(ToastService);
     private readonly cardsStore = inject(CardsStore);
+    private readonly projectUsersStore = inject(ProjectUsersStore);
 
     public edit(): void {
         const dialogRef = this.dialog.open<CardDialogComponent, Card, Card>(
@@ -43,5 +46,9 @@ export class CardComponent {
                 this.toastService.error("CARDS.EDIT_KO");
             }
         });
+    }
+
+    public getAssignedUser(): User | undefined {
+        return this.projectUsersStore.getUser(this.card().assignedToUserId);
     }
 }

@@ -59,7 +59,7 @@ export class CardsStore {
         this.cardsResource.reload();
     }
 
-    public async assign(id: string, userId: string) {
+    public async assign(id: string, userId: string | null) {
         await firstValueFrom(this.cardsService.assign(id, userId));
         this.cardsResource.reload();
     }
