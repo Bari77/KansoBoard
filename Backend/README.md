@@ -22,8 +22,8 @@ dotnet ef migrations add YourMigrationName --project ../Infrastructure --startup
 Examples:
 
 ```sh
-dotnet ef migrations add AddCardPriority
-dotnet ef migrations add RenameBoardTable
+dotnet ef migrations add AddCardPriority --project ../Infrastructure --startup-project .
+dotnet ef migrations add RenameBoardTable --project ../Infrastructure --startup-project .
 ```
 
 The generated files will appear in:

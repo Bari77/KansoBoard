@@ -20,7 +20,7 @@ public static class Mapper
         => new(b.Id, b.Name, b.ProjectId);
 
     public static ColumnDto ToDto(Column c)
-        => new(c.Id, c.Name, c.Order, c.BoardId);
+        => new(c.Id, c.Name, c.Order, c.Locked, c.BoardId);
 
     public static CardDto ToDto(Card c)
         => new(

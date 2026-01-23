@@ -5,7 +5,7 @@ namespace KansoBoard.Application.Columns;
 
 public interface IColumnService
 {
-    Task<Column> CreateAsync(Guid boardId, string name);
+    Task<Column> CreateAsync(Guid boardId, string name, bool locked = false);
     Task<List<Column>> GetByBoardAsync(Guid boardId);
     Task<Column?> GetByIdAsync(Guid id);
     Task<Column?> UpdateAsync(Guid id, string name);

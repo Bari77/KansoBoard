@@ -264,6 +264,10 @@ button:disabled {
     cursor: grab;
 }
 
+.cdk-drag-disabled>[cdkDragHandle] {
+    cursor: not-allowed;
+}
+
 /* --- Flex grid ultra light --- */
 .row {
     display: flex;

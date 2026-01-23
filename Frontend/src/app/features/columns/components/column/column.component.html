@@ -1,10 +1,15 @@
-<mat-card cdkDrag [cdkDragData]="column()" class="column">
+<mat-card cdkDrag [cdkDragData]="column()" [cdkDragDisabled]="column().locked" class="column">
     <ng-template cdkDragPlaceholder>
         <div class="column-drag-placeholder"></div>
     </ng-template>
 
     <mat-card-header cdkDragHandle>
-        <mat-card-title>{{ column().name }}</mat-card-title>
+        <mat-card-title>
+            @if (column().locked) {
+            <mat-icon class="locked-icon">lock</mat-icon>
+            }
+            {{ column().name }}
+        </mat-card-title>
         @if (config().devMode) {
         <button mat-icon-button [matTooltip]="'GLOBAL.COPY_ID' | translate" [cdkCopyToClipboard]="column().id"
             (click)="$event.stopPropagation()" class="warn copy-id-button">
@@ -16,6 +21,7 @@
             (click)="addCard(); $event.stopPropagation()" class="success">
             <mat-icon>add</mat-icon>
         </button>
+        @if (!column().locked) {
         <button mat-icon-button [matTooltip]="'GLOBAL.EDIT' | translate" (click)="edit(); $event.stopPropagation()"
             class="info">
             <mat-icon>edit</mat-icon>
@@ -24,6 +30,7 @@
             class="danger">
             <mat-icon>delete</mat-icon>
         </button>
+        }
     </mat-card-header>
 
     <mat-card-content cdkDropList cdkDropListOrientation="vertical" [cdkDropListData]="cards()"
