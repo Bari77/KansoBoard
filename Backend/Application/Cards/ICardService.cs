@@ -13,4 +13,5 @@ public interface ICardService
     Task<bool> AssignAsync(Guid id, Guid? userId);
     Task<bool> MoveAsync(Guid id, Guid newColumnId);
     Task<bool> ReorderAsync(Guid id, List<CardOrderDto> orders);
+    Task<bool> TransferAsync(Guid id, Guid boardId);
 }

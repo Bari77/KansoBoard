@@ -84,6 +84,11 @@ export class CardsStore {
         this.cardsResource.reload();
     }
 
+    public async transfer(id: string, boardId: string) {
+        await firstValueFrom(this.cardsService.transfer(id, boardId));
+        this.cardsResource.reload();
+    }
+
     public getByColumn(columnId: string): Card[] {
         return this.cards().filter(c => c.columnId === columnId);
     }

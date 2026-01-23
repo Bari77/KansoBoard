@@ -218,4 +218,41 @@ public class CardService(KansoDbContext db, IWebhookService webhooks) : ICardSer
         await db.SaveChangesAsync();
         return true;
     }
+
+    public async Task<bool> TransferAsync(Guid id, Guid boardId)
+    {
+        var card = await db.Cards
+        .Include(c => c.Column)
+        .FirstOrDefaultAsync(c => c.Id == id);
+
+        if (card is null)
+            return false;
+
+        var sourceColumnId = card.ColumnId;
+        var sourceBoardId = card.Column.BoardId;
+
+        var targetNewColumn = await db.Columns
+            .Where(c => c.BoardId == boardId && c.Locked && c.Name == "New")
+            .SingleOrDefaultAsync();
+
+        if (targetNewColumn is null)
+            return false;
+
+        var maxOrderInTarget = await db.Cards
+            .Where(c => c.ColumnId == targetNewColumn.Id)
+            .MaxAsync(c => (int?)c.Order) ?? 0;
+
+        await db.Cards
+            .Where(c => c.ColumnId == sourceColumnId && c.Order > card.Order)
+            .ExecuteUpdateAsync(c =>
+                c.SetProperty(x => x.Order, x => x.Order - 1)
+            );
+
+        card.ColumnId = targetNewColumn.Id;
+        card.Order = maxOrderInTarget + 1;
+
+        await db.SaveChangesAsync();
+
+        return true;
+    }
 }

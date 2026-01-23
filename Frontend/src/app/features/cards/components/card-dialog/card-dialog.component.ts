@@ -7,11 +7,13 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from "@angu
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
+import { MatMenuModule } from "@angular/material/menu";
 import { MatSelectModule } from "@angular/material/select";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { AskDialogComponent } from "@core/layout/dialogs/components/ask-dialog/ask-dialog.component";
 import { AskDialogData } from "@core/models/ask-dialog.model";
 import { ToastService } from "@core/services/toast.service";
+import { BoardsStore } from "@features/boards/stores/boards.store";
 import { CardPriority } from "@features/cards/enums/card-priority.enum";
 import { CardType } from "@features/cards/enums/card-type.enum";
 import { Card } from "@features/cards/models/card.model";
@@ -35,6 +37,7 @@ import { map, Observable, startWith } from "rxjs";
         MatTooltipModule,
         MatIconModule,
         MatAutocompleteModule,
+        MatMenuModule,
         ReactiveFormsModule,
         AsyncPipe,
     ],
@@ -47,6 +50,7 @@ export class CardDialogComponent {
     public readonly types = computed(() => Object.values(CardType).filter(v => typeof v === 'number'));
     public readonly priorities = computed(() => Object.values(CardPriority).filter(v => typeof v === 'number'));
     public readonly projectUsersStore = inject(ProjectUsersStore);
+    public readonly boardsStore = inject(BoardsStore);
     public readonly assignedControl = new FormControl<User | undefined>(this.getAssignedUser());
     public readonly filteredUsers: Observable<User[]>;
 
@@ -111,6 +115,11 @@ export class CardDialogComponent {
     public unassignUser(): void {
         this.cardsStore.assign(this.card().id, null);
         this.assignedControl.setValue(undefined);
+    }
+
+    public transfer(boardId: string): void {
+        this.cardsStore.transfer(this.card().id, boardId);
+        this.close();
     }
 
     public displayFn(user: User): string {

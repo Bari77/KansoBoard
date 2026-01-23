@@ -6,6 +6,17 @@
     }
     <span class="spacer"></span>
     @if (card().id) {
+    <button mat-icon-button [matMenuTriggerFor]="menu" [matTooltip]="'CARDS.DIALOG.TRANSFER' | translate"
+        (click)="$event.stopPropagation()" class="info">
+        <mat-icon>swap_horiz</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        @for (board of boardsStore.boards(); track $index) {
+        <button mat-menu-item (click)="transfer(board.id)">
+            <span>{{board.name}}</span>
+        </button>
+        }
+    </mat-menu>
     <button mat-icon-button [matTooltip]="'GLOBAL.DELETE' | translate" (click)="delete(); $event.stopPropagation()"
         class="danger">
         <mat-icon>delete</mat-icon>

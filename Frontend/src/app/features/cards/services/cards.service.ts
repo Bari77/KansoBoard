@@ -57,4 +57,8 @@ export class CardsService extends BaseService {
     public reorder(columnId: string, orders: CardOrderDto[]): Observable<void> {
         return this.httpPostVoid(`${columnId}/reorder`, orders);
     }
+
+    public transfer(id: string, boardId: string) {
+        return this.httpPostVoid(`${id}/transfer`, { boardId });
+    }
 }
