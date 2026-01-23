@@ -38,6 +38,7 @@ export class ColumnsStore {
         const payload = reordered.map((column, index) => ({
             id: column.id,
             order: index + 1,
+            locked: column.locked,
         }));
 
         await firstValueFrom(

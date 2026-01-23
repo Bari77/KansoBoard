@@ -7,23 +7,42 @@ namespace KansoBoard.Application.Columns;
 
 public class ColumnService(KansoDbContext db) : IColumnService
 {
-    public async Task<Column> CreateAsync(Guid boardId, string name)
+    public async Task<Column> CreateAsync(Guid boardId, string name, bool locked = false)
     {
-        var maxOrder = await db.Columns
-            .Where(c => c.BoardId == boardId)
-            .MaxAsync(c => (int?)c.Order) ?? 0;
+        var doneColumn = await db.Columns
+            .Where(c => c.BoardId == boardId && c.Locked && c.Name == "Done")
+            .SingleOrDefaultAsync();
+
+        int newOrder;
+
+        if (doneColumn is null)
+        {
+            newOrder = await db.Columns
+                .Where(c => c.BoardId == boardId)
+                .MaxAsync(c => (int?)c.Order) ?? 0;
+
+            newOrder++;
+        }
+        else
+        {
+            newOrder = doneColumn.Order;
+            doneColumn.Order++;
+        }
 
         var column = new Column
         {
             BoardId = boardId,
             Name = name,
-            Order = maxOrder + 1
+            Order = newOrder,
+            Locked = locked
         };
 
         db.Columns.Add(column);
         await db.SaveChangesAsync();
+
         return column;
     }
+
 
     public async Task<List<Column>> GetByBoardAsync(Guid boardId)
         => await db.Columns
@@ -51,7 +70,7 @@ public class ColumnService(KansoDbContext db) : IColumnService
     public async Task<bool> DeleteAsync(Guid id)
     {
         var col = await db.Columns.FirstOrDefaultAsync(c => c.Id == id);
-        if (col is null)
+        if (col is null || col.Locked)
             return false;
 
         db.Columns.Remove(col);

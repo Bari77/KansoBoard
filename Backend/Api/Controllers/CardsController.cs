@@ -193,4 +193,35 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
 
         return await service.ReorderAsync(id, orders) ? NoContent() : NotFound();
     }
+
+    [HttpPost("{id:guid}/transfer")]
+    public async Task<IActionResult> Transfer(Guid id, TransferCardRequest req)
+    {
+        var sourceProjectId = await resolver.GetProjectIdFromCard(id);
+        if (sourceProjectId is null) return Forbid();
+
+        var targetProjectId = await resolver.GetProjectIdFromBoard(req.BoardId);
+        if (targetProjectId is null) return NotFound();
+
+        if (sourceProjectId != targetProjectId)
+            return Forbid();
+
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
+        {
+            if (Guid.Parse(apiProjectId) != sourceProjectId)
+                return Forbid();
+        }
+        else
+        {
+            var userId = User.GetUserId();
+            if (userId is null) return Unauthorized();
+            if (!await auth.CanAccessProjectAsync(userId.Value, sourceProjectId.Value))
+                return Forbid();
+        }
+
+        var result = await service.TransferAsync(id, req.BoardId);
+
+        return result ? Ok() : NotFound();
+    }
 }

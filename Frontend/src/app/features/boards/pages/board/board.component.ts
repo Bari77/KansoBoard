@@ -64,7 +64,14 @@ export class BoardComponent {
     public async dropColumn(event: CdkDragDrop<Column[]>): Promise<void> {
         if (event.previousIndex === event.currentIndex) return;
 
-        const reordered = [...this.columnsStore.columns()];
+        const columns = this.columnsStore.columns();
+        const dragged = columns[event.previousIndex];
+        const target = columns[event.currentIndex];
+
+        if (dragged.locked) return;
+        if (target?.locked) return;
+
+        const reordered = [...columns];
         moveItemInArray(reordered, event.previousIndex, event.currentIndex);
 
         await this.columnsStore.reorder(this.id()!, reordered);

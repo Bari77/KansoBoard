@@ -5,10 +5,11 @@ export class Column {
         public id: string = "",
         public name: string = "",
         public order: number = 0,
+        public locked: boolean = false,
         public boardId: string = "",
     ) { }
 
     public static fromDto(dto: ColumnDto): Column {
-        return new Column(dto.id, dto.name, dto.order, dto.boardId);
+        return new Column(dto.id, dto.name, dto.order, dto.locked, dto.boardId);
     }
 }

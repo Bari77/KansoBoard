@@ -18,9 +18,10 @@ public class BoardService(KansoDbContext db, IColumnService columnService) : IBo
         db.Boards.Add(board);
         await db.SaveChangesAsync();
 
+        await columnService.CreateAsync(board.Id, "New", true);
         await columnService.CreateAsync(board.Id, "Todo");
-        await columnService.CreateAsync(board.Id, "Doing");
-        await columnService.CreateAsync(board.Id, "Done");
+        await columnService.CreateAsync(board.Id, "In progress");
+        await columnService.CreateAsync(board.Id, "Done", true);
 
         return board;
     }

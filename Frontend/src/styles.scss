@@ -264,6 +264,10 @@ button:disabled {
     cursor: grab;
 }
 
+.cdk-drag-disabled>[cdkDragHandle] {
+    cursor: not-allowed;
+}
+
 /* --- Flex grid ultra light --- */
 .row {
     display: flex;
@@ -347,4 +351,8 @@ button mat-icon {
 .mat-mdc-outlined-button>.mat-icon,
 .mat-tonal-button>.mat-icon {
     margin-top: 5px;
+}
+
+.mat-mdc-menu-content {
+    max-height: 200px;
 }

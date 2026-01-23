@@ -16,8 +16,8 @@
         </mat-card-title>
         <span class="spacer"></span>
         @if (card().assignedToUserId) {
-        <img [src]="card().assignedToUserId ?? 'assets/img/avatar.png'" [matTooltip]="'NomUser'" class="avatar"
-            alt="Avatar">
+        <img [src]="getAssignedUser()?.avatarUrl ?? 'assets/img/avatar.png'" [matTooltip]="getAssignedUser()?.pseudo"
+            class="avatar" alt="Avatar">
         }
     </mat-card-header>
 </mat-card>

@@ -6,6 +6,21 @@
     }
     <span class="spacer"></span>
     @if (card().id) {
+    <button mat-icon-button [matMenuTriggerFor]="menu" [matTooltip]="'CARDS.DIALOG.TRANSFER' | translate"
+        (click)="$event.stopPropagation()" class="info">
+        <mat-icon>swap_horiz</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        @for (board of boardsStore.boards(); track $index) {
+        <button mat-menu-item (click)="transfer(board.id)">
+            <span>{{board.name}}</span>
+        </button>
+        }
+    </mat-menu>
+    <button mat-icon-button [matTooltip]="'CARDS.DIALOG.DUPLICATE' | translate"
+        (click)="duplicate(); $event.stopPropagation()" class="info">
+        <mat-icon>copy_all</mat-icon>
+    </button>
     <button mat-icon-button [matTooltip]="'GLOBAL.DELETE' | translate" (click)="delete(); $event.stopPropagation()"
         class="danger">
         <mat-icon>delete</mat-icon>
@@ -22,6 +37,24 @@
         <mat-label>{{ "CARDS.DIALOG.DESCRIPTION" | translate }}</mat-label>
         <textarea matInput [(ngModel)]="card().description" rows="5"></textarea>
     </mat-form-field>
+    @if (card().id) {
+    <mat-form-field appearance="outline">
+        <mat-label>{{ "CARDS.DIALOG.ASSIGNED_TO" | translate }}</mat-label>
+        <input type="text" matInput [formControl]="assignedControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="assignUser($event)">
+            @for (option of filteredUsers | async; track option) {
+            <mat-option [value]="option">
+                <img [src]="option.avatarUrl ?? 'assets/img/avatar.png'" class="avatar">
+                {{ option.pseudo }}
+            </mat-option>
+            }
+        </mat-autocomplete>
+        <button mat-icon-button matTextSuffix [matTooltip]="'CARDS.DIALOG.UNASSIGN' | translate"
+            (click)="unassignUser(); $event.stopPropagation()" class="danger unassign-button">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </mat-form-field>
+    }
     <mat-form-field appearance="outline">
         <mat-label>{{ "CARDS.DIALOG.TYPE" | translate }}</mat-label>
         <mat-select [(ngModel)]="card().type">

@@ -59,7 +59,7 @@ export class CardsStore {
         this.cardsResource.reload();
     }
 
-    public async assign(id: string, userId: string) {
+    public async assign(id: string, userId: string | null) {
         await firstValueFrom(this.cardsService.assign(id, userId));
         this.cardsResource.reload();
     }
@@ -81,6 +81,11 @@ export class CardsStore {
             this.cardsService.reorder(columnId, payload)
         );
 
+        this.cardsResource.reload();
+    }
+
+    public async transfer(id: string, boardId: string) {
+        await firstValueFrom(this.cardsService.transfer(id, boardId));
         this.cardsResource.reload();
     }
 

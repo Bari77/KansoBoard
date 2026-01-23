@@ -12,10 +12,14 @@
         "DIALOG": {
             "EDIT": "Modifier la carte",
             "NEW": "Nouvelle carte",
-            "TITLE": "Titre de la carte",
-            "DESCRIPTION": "Description de la carte",
-            "TYPE": "Type de la carte",
-            "PRIORITY": "Priorité de la carte"
+            "TRANSFER": "Transférer",
+            "DUPLICATE": "Dupliquer",
+            "TITLE": "Titre",
+            "ASSIGNED_TO": "Assigné à",
+            "UNASSIGN": "Désassigné",
+            "DESCRIPTION": "Description",
+            "TYPE": "Type",
+            "PRIORITY": "Priorité"
         }
     }
 }
