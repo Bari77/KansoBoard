@@ -22,7 +22,7 @@ public class AuthController(IAuthService service) : ControllerBase
     public async Task<IActionResult> Login(LoginRequest req)
     {
         var token = await service.LoginAsync(req.Email, req.Password);
-        return token is null ? Unauthorized() : Ok(token);
+        return token is null ? BadRequest() : Ok(token);
     }
 
     [HttpPost("refresh")]
