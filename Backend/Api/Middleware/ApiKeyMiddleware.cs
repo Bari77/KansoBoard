@@ -1,4 +1,5 @@
 ﻿using KansoBoard.Application.ApiKeys;
+using System.Security.Claims;
 
 namespace KansoBoard.Api.Middleware;
 
@@ -12,12 +13,20 @@ public class ApiKeyMiddleware(RequestDelegate next)
 
             if (raw.StartsWith("ApiKey "))
             {
-                var key = raw.Substring("ApiKey ".Length).Trim();
+                var key = raw["ApiKey ".Length..].Trim();
                 var projectId = await apiKeys.ValidateAsync(key);
 
                 if (projectId is not null)
                 {
-                    ctx.Items["ApiProjectId"] = projectId.Value;
+                    var claims = new[]
+                    {
+                        new Claim(ClaimTypes.NameIdentifier, projectId.Value.ToString()),
+                        new Claim("ApiProjectId", projectId.Value.ToString())
+                    };
+
+                    var identity = new ClaimsIdentity(claims, "ApiKey");
+                    ctx.User = new ClaimsPrincipal(identity);
+
                     await next(ctx);
                     return;
                 }

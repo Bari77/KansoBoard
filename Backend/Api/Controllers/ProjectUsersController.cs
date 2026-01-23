@@ -16,9 +16,11 @@ public class ProjectUsersController(IProjectUserService service, IProjectAuthori
     [HttpGet("{projectId:guid}/users")]
     public async Task<IActionResult> GetUsers(Guid projectId)
     {
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != projectId) return Forbid();
+            if (Guid.Parse(apiProjectId) != projectId)
+                return Forbid();
         }
         else
         {
@@ -34,9 +36,11 @@ public class ProjectUsersController(IProjectUserService service, IProjectAuthori
     [HttpPost("{projectId:guid}/add")]
     public async Task<IActionResult> AddUser(Guid projectId, AddUserRequest req)
     {
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != projectId) return Forbid();
+            if (Guid.Parse(apiProjectId) != projectId)
+                return Forbid();
         }
         else
         {
@@ -51,9 +55,11 @@ public class ProjectUsersController(IProjectUserService service, IProjectAuthori
     [HttpPost("{projectId:guid}/remove")]
     public async Task<IActionResult> RemoveUser(Guid projectId, RemoveUserRequest req)
     {
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != projectId) return Forbid();
+            if (Guid.Parse(apiProjectId) != projectId)
+                return Forbid();
         }
         else
         {

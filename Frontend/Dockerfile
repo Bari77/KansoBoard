@@ -4,16 +4,22 @@
 FROM node:22 AS build
 WORKDIR /src
 
+RUN curl -fsSL https://bun.sh/install | bash
+
+ENV BUN_INSTALL=/root/.bun
+ENV PATH=$BUN_INSTALL/bin:$PATH
+
 ARG APP_ENV=prod
 
 COPY Frontend/package*.json ./Frontend/
 
 WORKDIR /src/Frontend
-RUN npm ci --legacy-peer-deps
+
+RUN bun install --frozen-lockfile
 
 COPY Frontend/ /src/Frontend/
 
-RUN npm run build-${APP_ENV}
+RUN bun run build-${APP_ENV}
 
 # ==========================================
 # 👉 Runtime stage
