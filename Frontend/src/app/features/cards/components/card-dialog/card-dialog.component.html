@@ -17,6 +17,10 @@
         </button>
         }
     </mat-menu>
+    <button mat-icon-button [matTooltip]="'CARDS.DIALOG.DUPLICATE' | translate"
+        (click)="duplicate(); $event.stopPropagation()" class="info">
+        <mat-icon>copy_all</mat-icon>
+    </button>
     <button mat-icon-button [matTooltip]="'GLOBAL.DELETE' | translate" (click)="delete(); $event.stopPropagation()"
         class="danger">
         <mat-icon>delete</mat-icon>

@@ -122,6 +122,11 @@ export class CardDialogComponent {
         this.close();
     }
 
+    public duplicate(): void {
+        this.cardsStore.create(this.card().columnId, this.card().title, this.card().description, this.card().type, this.card().priority);
+        this.close();
+    }
+
     public displayFn(user: User): string {
         return user && user.pseudo ? user.pseudo : "";
     }
