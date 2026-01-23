@@ -26,9 +26,11 @@ public class ProjectsController(IProjectService service, IProjectAuthorizationSe
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id)
     {
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != id) return Forbid();
+            if (Guid.Parse(apiProjectId) != id)
+                return Forbid();
         }
         else
         {
@@ -54,9 +56,11 @@ public class ProjectsController(IProjectService service, IProjectAuthorizationSe
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateProjectRequest request)
     {
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != id) return Forbid();
+            if (Guid.Parse(apiProjectId) != id)
+                return Forbid();
         }
         else
         {
@@ -72,9 +76,11 @@ public class ProjectsController(IProjectService service, IProjectAuthorizationSe
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != id) return Forbid();
+            if (Guid.Parse(apiProjectId) != id)
+                return Forbid();
         }
         else
         {

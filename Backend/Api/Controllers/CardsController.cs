@@ -19,9 +19,11 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
         var projectId = await resolver.GetProjectIdFromBoard(boardId);
         if (projectId is null) return Forbid();
 
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != projectId) return Forbid();
+            if (Guid.Parse(apiProjectId) != projectId)
+                return Forbid();
         }
         else
         {
@@ -40,9 +42,11 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
         var projectId = await resolver.GetProjectIdFromCard(id);
         if (projectId is null) return Forbid();
 
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != projectId) return Forbid();
+            if (Guid.Parse(apiProjectId) != projectId)
+                return Forbid();
         }
         else
         {
@@ -61,9 +65,11 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
         var projectId = await resolver.GetProjectIdFromColumn(req.ColumnId);
         if (projectId is null) return Forbid();
 
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != projectId) return Forbid();
+            if (Guid.Parse(apiProjectId) != projectId)
+                return Forbid();
         }
         else
         {
@@ -82,9 +88,11 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
         var projectId = await resolver.GetProjectIdFromCard(id);
         if (projectId is null) return Forbid();
 
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != projectId) return Forbid();
+            if (Guid.Parse(apiProjectId) != projectId)
+                return Forbid();
         }
         else
         {
@@ -104,9 +112,11 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
         var projectId = await resolver.GetProjectIdFromCard(id);
         if (projectId is null) return Forbid();
 
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != projectId) return Forbid();
+            if (Guid.Parse(apiProjectId) != projectId)
+                return Forbid();
         }
         else
         {
@@ -124,9 +134,11 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
         var projectId = await resolver.GetProjectIdFromCard(id);
         if (projectId is null) return Forbid();
 
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != projectId) return Forbid();
+            if (Guid.Parse(apiProjectId) != projectId)
+                return Forbid();
         }
         else
         {
@@ -144,9 +156,11 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
         var projectId = await resolver.GetProjectIdFromCard(id);
         if (projectId is null) return Forbid();
 
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != projectId) return Forbid();
+            if (Guid.Parse(apiProjectId) != projectId)
+                return Forbid();
         }
         else
         {
@@ -164,9 +178,11 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
         var projectId = await resolver.GetProjectIdFromColumn(id);
         if (projectId is null) return Forbid();
 
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != projectId) return Forbid();
+            if (Guid.Parse(apiProjectId) != projectId)
+                return Forbid();
         }
         else
         {

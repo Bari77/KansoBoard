@@ -19,9 +19,11 @@ public class BoardsController(IBoardService service, IProjectAuthorizationServic
         var projectId = await resolver.GetProjectIdFromBoard(id);
         if (projectId is null) return Forbid();
 
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != projectId) return Forbid();
+            if (Guid.Parse(apiProjectId) != projectId)
+                return Forbid();
         }
         else
         {
@@ -37,9 +39,11 @@ public class BoardsController(IBoardService service, IProjectAuthorizationServic
     [HttpGet("project/{projectId:guid}")]
     public async Task<IActionResult> GetByProject(Guid projectId)
     {
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != projectId) return Forbid();
+            if (Guid.Parse(apiProjectId) != projectId)
+                return Forbid();
         }
         else
         {
@@ -55,9 +59,11 @@ public class BoardsController(IBoardService service, IProjectAuthorizationServic
     [HttpPost]
     public async Task<IActionResult> Create(CreateBoardRequest request)
     {
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != request.ProjectId) return Forbid();
+            if (Guid.Parse(apiProjectId) != request.ProjectId)
+                return Forbid();
         }
         else
         {
@@ -76,9 +82,11 @@ public class BoardsController(IBoardService service, IProjectAuthorizationServic
         var projectId = await resolver.GetProjectIdFromBoard(id);
         if (projectId is null) return Forbid();
 
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != projectId) return Forbid();
+            if (Guid.Parse(apiProjectId) != projectId)
+                return Forbid();
         }
         else
         {
@@ -97,9 +105,11 @@ public class BoardsController(IBoardService service, IProjectAuthorizationServic
         var projectId = await resolver.GetProjectIdFromBoard(id);
         if (projectId is null) return Forbid();
 
-        if (HttpContext.Items["ApiProjectId"] is Guid apiId)
+        var apiProjectId = User.FindFirst("ApiProjectId")?.Value;
+        if (apiProjectId is not null)
         {
-            if (apiId != projectId) return Forbid();
+            if (Guid.Parse(apiProjectId) != projectId)
+                return Forbid();
         }
         else
         {
