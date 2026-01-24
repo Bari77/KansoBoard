@@ -1,3 +1,9 @@
+# [v2.1.1] - 2026-01-24
+
+## Added
+
+- Avatar to backend claim.
+
 # [v2.1.0] - 2026-01-23
 
 ## Added
