@@ -104,13 +104,20 @@ public class AuthService(KansoDbContext db, IConfiguration config) : IAuthServic
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]!));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
+        var claims = new List<Claim>
+        {
+            new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new(JwtRegisteredClaimNames.Email, user.Email),
+            new("pseudo", user.Pseudo)
+        };
+
+        if (!string.IsNullOrWhiteSpace(user.AvatarUrl))
+        {
+            claims.Add(new Claim("avatar", user.AvatarUrl));
+        }
+
         var token = new JwtSecurityToken(
-            claims:
-            [
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim("pseudo", user.Pseudo)
-            ],
+            claims: claims,
             expires: DateTime.UtcNow.AddDays(7),
             signingCredentials: creds
         );
