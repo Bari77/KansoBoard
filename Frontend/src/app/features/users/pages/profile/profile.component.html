@@ -1,0 +1,59 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{ "PROFILE.TITLE" | translate }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        @if (loading()) {
+        <div class="loading-container">
+            <mat-spinner diameter="40"></mat-spinner>
+        </div>
+        } @else {
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="avatar-section">
+                @if (avatarPreview()) {
+                <img [src]="avatarPreview()!" alt="Avatar preview" class="avatar-large" />
+                } @else {
+                <img src="assets/img/avatar.png" alt="Default avatar" class="avatar-large" />
+                }
+            </div>
+
+            <div class="form-section">
+                <h3>{{ "PROFILE.AVATAR" | translate }}</h3>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>{{ "PROFILE.AVATAR_URL" | translate }}</mat-label>
+                    <input matInput formControlName="avatarUrl" (input)="onAvatarUrlChange()" />
+                </mat-form-field>
+            </div>
+
+            <div class="form-section">
+                <h3>{{ "PROFILE.INFORMATION" | translate }}</h3>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>{{ "PROFILE.PSEUDO" | translate }}</mat-label>
+                    <input matInput formControlName="pseudo" required />
+                    @if (form.get('pseudo')?.hasError('required') && form.get('pseudo')?.touched) {
+                    <mat-error>{{ "PROFILE.PSEUDO_REQUIRED" | translate }}</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+
+            <div class="form-section">
+                <h3>{{ "PROFILE.SETTINGS" | translate }}</h3>
+                <div class="toggle-container">
+                    <mat-slide-toggle [checked]="devMode()" (change)="onDevModeToggle()">
+                        <span class="toggle-label">{{ "PROFILE.DEV_MODE" | translate }}</span>
+                    </mat-slide-toggle>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading()">
+                    {{ "PROFILE.SAVE" | translate }}
+                </button>
+                <button mat-raised-button color="warn" type="button" (click)="onLogout()" [disabled]="loading()">
+                    {{ "PROFILE.LOGOUT" | translate }}
+                </button>
+            </div>
+        </form>
+        }
+    </mat-card-content>
+</mat-card>

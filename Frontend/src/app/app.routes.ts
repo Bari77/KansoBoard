@@ -29,6 +29,11 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
     },
     {
+        path: "users",
+        loadChildren: () => import("./features/users/users.routes").then((m) => m.routes),
+        canActivate: [AuthGuard],
+    },
+    {
         path: "**",
         redirectTo: "dashboard",
     },

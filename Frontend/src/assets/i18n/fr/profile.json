@@ -1,0 +1,18 @@
+{
+    "PROFILE": {
+        "TITLE": "Profil",
+        "AVATAR": "Avatar",
+        "AVATAR_URL": "URL de l'avatar",
+        "INFORMATION": "Informations",
+        "PSEUDO": "Pseudo",
+        "PSEUDO_REQUIRED": "Le pseudo est requis",
+        "SETTINGS": "Paramètres",
+        "DEV_MODE": "Mode développeur",
+        "SAVE": "Enregistrer",
+        "LOGOUT": "Se déconnecter",
+        "SUCCESS_UPDATE": "Profil mis à jour avec succès",
+        "ERROR_LOADING": "Erreur lors du chargement du profil",
+        "ERROR_UPDATE": "Erreur lors de la mise à jour du profil",
+        "ERROR_LOGOUT": "Erreur lors de la déconnexion"
+    }
+}

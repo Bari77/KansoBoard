@@ -44,4 +44,20 @@ public class AuthController(IAuthService service) : ControllerBase
 
         return user is null ? Unauthorized() : Ok(Mapper.ToDto(user));
     }
+
+    [Authorize]
+    [HttpPost("logout")]
+    public async Task<IActionResult> Logout()
+    {
+        var authHeader = Request.Headers.Authorization.FirstOrDefault();
+        if (authHeader is null) return Unauthorized();
+
+        var token = authHeader.Replace("Bearer ", "");
+        var user = await service.GetUserFromTokenAsync(token);
+
+        if (user is null) return Unauthorized();
+
+        var result = await service.LogoutAsync(user.Id);
+        return result ? Ok() : BadRequest();
+    }
 }

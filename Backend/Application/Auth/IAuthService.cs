@@ -8,4 +8,5 @@ public interface IAuthService
     Task<string?> LoginAsync(string email, string password);
     Task<string?> RefreshAsync(string refreshToken);
     Task<User?> GetUserFromTokenAsync(string token);
+    Task<bool> LogoutAsync(Guid userId);
 }

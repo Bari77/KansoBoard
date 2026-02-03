@@ -1,0 +1,61 @@
+mat-card {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.avatar-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px 0;
+}
+
+.avatar-large {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #e0e0e0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-section {
+    margin-bottom: 30px;
+
+    h3 {
+        margin-bottom: 15px;
+        color: #333;
+        font-weight: 500;
+    }
+}
+
+.full-width {
+    width: 100%;
+}
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+
+    .toggle-label {
+        margin-left: 12px;
+    }
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
