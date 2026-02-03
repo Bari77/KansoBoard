@@ -9,7 +9,7 @@ export class Card {
         public title: string = '',
         public order: number = 0,
         public description: string | null = null,
-        public type: CardType = CardType.Feature,
+        public type: CardType = CardType.Task,
         public priority: CardPriority = CardPriority.Normal,
         public columnId: string = '',
         public assignedToUserId: string | null = null,

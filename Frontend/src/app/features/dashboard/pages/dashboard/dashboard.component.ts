@@ -39,6 +39,11 @@ export class DashboardComponent implements OnInit {
         return `TYPES.${type}`;
     }
 
+    public getPriorityClass(priority: CardPriority): string {
+        const priorityNames = ['low', 'normal', 'high', 'urgent', 'immediate'];
+        return `priority-${priorityNames[priority]}`;
+    }
+
     public openCard(card: UserCard): void {
         this.router.navigate(["/boards", card.boardId, card.id]);
     }

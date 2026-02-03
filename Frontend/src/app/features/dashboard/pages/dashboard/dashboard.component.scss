@@ -17,6 +17,26 @@ table {
     }
 }
 
+tr.priority-low {
+    background-color: rgba(204, 227, 253, 0.3) !important;
+}
+
+tr.priority-normal {
+    background-color: rgba(209, 237, 217, 0.3) !important;
+}
+
+tr.priority-high {
+    background-color: rgba(255, 242, 195, 0.3) !important;
+}
+
+tr.priority-urgent {
+    background-color: rgba(255, 219, 181, 0.3) !important;
+}
+
+tr.priority-immediate {
+    background-color: rgba(255, 188, 193, 0.3) !important;
+}
+
 .projects-container {
     padding: 24px;
     text-align: center;

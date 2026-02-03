@@ -73,7 +73,7 @@ public class CardService(KansoDbContext db, IWebhookService webhooks) : ICardSer
             .AsNoTracking()
             .Include(c => c.Column)
             .Include(c => c.AssignedTo)
-            .Where(c => c.AssignedToUserId == userId)
+            .Where(c => c.AssignedToUserId == userId && !(c.Column.Locked && c.Column.Name == "Done"))
             .OrderByDescending(c => c.Priority)
             .ToListAsync();
 
