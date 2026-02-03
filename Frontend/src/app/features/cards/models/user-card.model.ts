@@ -10,7 +10,7 @@ export class UserCard extends Card {
         title: string = '',
         order: number = 0,
         description: string | null = null,
-        type: CardType = CardType.Feature,
+        type: CardType = CardType.Task,
         priority: CardPriority = CardPriority.Normal,
         columnId: string = '',
         assignedToUserId: string | null = null,

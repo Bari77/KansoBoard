@@ -1,3 +1,10 @@
+# [v2.3.0] - 2026-02-03
+
+## Added
+
+- "Task" card type;
+- Colors for dashboard.
+
 # [v2.2.0] - 2026-02-03
 
 ## Added

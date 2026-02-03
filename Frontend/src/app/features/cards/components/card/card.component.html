@@ -1,6 +1,6 @@
 <mat-card cdkDrag [cdkDragData]="card()" [class.type-analyse]="card().type === cardType.Analyse"
     [class.type-feature]="card().type === cardType.Feature" [class.type-bug]="card().type === cardType.Bug"
-    [class.priority-low]="card().priority === cardPriority.Low"
+    [class.type-task]="card().type === cardType.Task" [class.priority-low]="card().priority === cardPriority.Low"
     [class.priority-normal]="card().priority === cardPriority.Normal"
     [class.priority-high]="card().priority === cardPriority.High"
     [class.priority-urgent]="card().priority === cardPriority.Urgent"
