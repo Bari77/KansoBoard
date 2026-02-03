@@ -33,6 +33,7 @@ import { ProjectsService } from "@features/projects/services/projects.service";
 import { ApiKeysStore } from "@features/projects/stores/api-keys.store";
 import { ProjectsStore } from "@features/projects/stores/projects.store";
 import { ProjectUsersService } from "@features/users/services/project-users.service";
+import { UsersService } from "@features/users/services/users.service";
 import { ProjectUsersStore } from "@features/users/stores/project-users.store";
 import { TranslateService, provideTranslateService } from "@ngx-translate/core";
 import { provideTranslateHttpLoader } from "@ngx-translate/http-loader";
@@ -84,6 +85,7 @@ export const appConfig: ApplicationConfig = {
         InvitationsService,
         ApiKeysService,
         ProjectUsersService,
+        UsersService,
 
         LoadingStore,
         ConfigStore,

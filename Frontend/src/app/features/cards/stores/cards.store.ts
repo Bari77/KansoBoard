@@ -1,5 +1,6 @@
 import { computed, inject, Injectable, resource, signal } from "@angular/core";
 import { Card } from "@features/cards/models/card.model";
+import { UserCard } from "@features/cards/models/user-card.model";
 import { CardsService } from "@features/cards/services/cards.service";
 import { PromiseUtils } from "@shared/utils/promise.utils";
 import { firstValueFrom } from "rxjs";
@@ -7,6 +8,7 @@ import { firstValueFrom } from "rxjs";
 @Injectable()
 export class CardsStore {
     public readonly cards = computed(() => this.cardsResource.value() ?? []);
+    public readonly userCards = computed(() => this.userCardsResource.value() ?? []) as ReturnType<typeof computed<UserCard[]>>;
 
     private readonly cardsService = inject(CardsService);
     private readonly boardId = signal<string | null>(null);
@@ -17,6 +19,10 @@ export class CardsStore {
             return id != null ? { id } : null;
         },
         loader: ({ params }) => firstValueFrom(this.cardsService.getByBoard(params!.id)),
+    });
+
+    private readonly userCardsResource = resource({
+        loader: () => firstValueFrom(this.cardsService.getByCurrentUser()),
     });
 
     public setBoard(boardId: string | null) {
@@ -95,5 +101,13 @@ export class CardsStore {
 
     public async loaded(): Promise<void> {
         return PromiseUtils.waitUntilFalse(() => this.cardsResource.isLoading());
+    }
+
+    public loadUserCards(): void {
+        this.userCardsResource.reload();
+    }
+
+    public async loadedUserCards(): Promise<void> {
+        return PromiseUtils.waitUntilFalse(() => this.userCardsResource.isLoading());
     }
 }

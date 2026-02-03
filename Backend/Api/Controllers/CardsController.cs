@@ -36,6 +36,16 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
         return Ok(result.Select(Mapper.ToDto));
     }
 
+    [HttpGet("user/me")]
+    public async Task<IActionResult> GetByCurrentUser()
+    {
+        var userId = User.GetUserId();
+        if (userId is null) return Unauthorized();
+
+        var result = await service.GetByUserIdAsync(userId.Value);
+        return Ok(result.Select(Mapper.ToUserCardDto));
+    }
+
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id)
     {

@@ -1,4 +1,5 @@
-﻿using KansoBoard.Application.Mapping;
+﻿using KansoBoard.Api.Extensions;
+using KansoBoard.Application.Mapping;
 using KansoBoard.Application.Users;
 using KansoBoard.Contracts.Users;
 using Microsoft.AspNetCore.Authorization;
@@ -11,6 +12,16 @@ namespace KansoBoard.Api.Controllers;
 [Route("api/[controller]")]
 public class UsersController(IUserService service) : ControllerBase
 {
+    [HttpPut("me")]
+    public async Task<IActionResult> UpdateMe(UpdateUserRequest req)
+    {
+        var userId = User.GetUserId();
+        if (userId is null) return Unauthorized();
+
+        var user = await service.UpdateAsync(userId.Value, req.Pseudo, req.AvatarUrl);
+        return user is null ? NotFound() : Ok(Mapper.ToDto(user));
+    }
+
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> Update(Guid id, UpdateUserRequest req)
     {

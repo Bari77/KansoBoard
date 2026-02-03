@@ -1,0 +1,18 @@
+{
+    "DASHBOARD": {
+        "TITLE": "Tableau de bord",
+        "TABS": {
+            "ASSIGNED_TASKS": "Mes tâches",
+            "MY_PROJECTS": "Mes projets"
+        },
+        "MY_PROJECTS": {
+            "DESCRIPTION": "Accédez à la liste de tous vos projets.",
+            "GO_TO_PROJECTS": "Voir mes projets"
+        },
+        "CARDS": {
+            "TITLE": "Titre",
+            "PRIORITY": "Priorité",
+            "TYPE": "Type"
+        }
+    }
+}

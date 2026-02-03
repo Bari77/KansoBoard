@@ -2,12 +2,9 @@ name: CD - Back (Docker)
 
 on:
   push:
-    branches:
-      - develop
-      - main
-    paths:
-      - 'Backend/**'
-      - '.github/workflows/back-cd.yml'
+    tags:
+      - 'release/*'
+      - 'staging/*'
 
 run-name: "Back #${{ github.run_number }}"
 
@@ -27,7 +24,7 @@ jobs:
         echo "version=$VERSION" >> $GITHUB_OUTPUT
 
   build-staging:
-    if: github.ref == 'refs/heads/develop'
+    if: startsWith(github.ref, 'refs/tags/staging/')
     needs: detect-version
     uses: ./.github/workflows/docker-wf.yml
     with:
@@ -38,7 +35,7 @@ jobs:
       version: ${{ needs.detect-version.outputs.version }}
 
   build-prod:
-    if: github.ref == 'refs/heads/main'
+    if: startsWith(github.ref, 'refs/tags/release/')
     needs: detect-version
     uses: ./.github/workflows/docker-wf.yml
     with:

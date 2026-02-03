@@ -79,6 +79,18 @@ public class AuthService(KansoDbContext db, IConfiguration config) : IAuthServic
         return await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
     }
 
+    public async Task<bool> LogoutAsync(Guid userId)
+    {
+        var user = await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
+        if (user is null) return false;
+
+        user.RefreshToken = null;
+        user.RefreshTokenExpiry = null;
+        await db.SaveChangesAsync();
+
+        return true;
+    }
+
     private string GenerateSalt()
     {
         var bytes = RandomNumberGenerator.GetBytes(64);

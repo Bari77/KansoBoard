@@ -35,6 +35,20 @@ public static class Mapper
             c.AssignedToUserId
         );
 
+    public static UserCardDto ToUserCardDto(Card c)
+        => new(
+            c.Id,
+            c.Number,
+            c.Title,
+            c.Order,
+            c.Description,
+            c.Type,
+            c.Priority,
+            c.ColumnId,
+            c.AssignedToUserId,
+            c.Column.BoardId
+        );
+
     public static UserDto ToDto(User u)
         => new(u.Id, u.Email, u.Pseudo, u.AvatarUrl);
 }

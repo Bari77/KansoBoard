@@ -3,9 +3,9 @@
 } @else {
 <div class="light-mode global-container">
     <mat-toolbar>
-        <img [matTooltip]="'GLOBAL.ACCUEIL' | translate" [routerLink]="'/projects'" src="assets/img/favicon.ico"
+        <img [matTooltip]="'GLOBAL.ACCUEIL' | translate" [routerLink]="'/dashboard'" src="assets/img/favicon.ico"
             alt="Logo" width="45px" height="45px" class="logo" />
-        <span [matTooltip]="'GLOBAL.ACCUEIL' | translate" [routerLink]="'/projects'" style="cursor: pointer">{{
+        <span [matTooltip]="'GLOBAL.ACCUEIL' | translate" [routerLink]="'/dashboard'" style="cursor: pointer">{{
             "GLOBAL.TITLE" | translate }}</span>
         <span class="spacer"></span>
         @if (tokenData()) {
