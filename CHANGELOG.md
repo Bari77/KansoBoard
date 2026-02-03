@@ -1,3 +1,10 @@
+# [v2.2.0] - 2026-02-03
+
+## Added
+
+- Profile page;
+- Dashboard with assigned tasks.
+
 # [v2.1.1] - 2026-01-24
 
 ## Added
