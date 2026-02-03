@@ -1,5 +1,5 @@
 import { CdkDragDrop, DragDropModule, moveItemInArray } from "@angular/cdk/drag-drop";
-import { Component, computed, inject } from "@angular/core";
+import { AfterViewInit, Component, computed, inject } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatDialog } from "@angular/material/dialog";
@@ -11,6 +11,8 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { ToastService } from "@core/services/toast.service";
 import { BoardStore } from "@features/boards/stores/board.store";
+import { CardDialogComponent } from "@features/cards/components/card-dialog/card-dialog.component";
+import { Card } from "@features/cards/models/card.model";
 import { CardsStore } from "@features/cards/stores/cards.store";
 import { ColumnDialogComponent } from "@features/columns/components/column-dialog/column-dialog.component";
 import { ColumnComponent } from "@features/columns/components/column/column.component";
@@ -26,18 +28,30 @@ import { TranslateModule } from "@ngx-translate/core";
     templateUrl: "./board.component.html",
     styleUrls: ["./board.component.scss"],
 })
-export class BoardComponent {
+export class BoardComponent implements AfterViewInit {
     public readonly projectsStore = inject(ProjectsStore);
     public readonly boardStore = inject(BoardStore);
     public readonly columnsStore = inject(ColumnsStore);
     public readonly cardsStore = inject(CardsStore);
 
     public readonly id = computed(() => this.route.snapshot.paramMap.get("guid"));
+    public readonly cardId = computed(() => this.route.snapshot.paramMap.get("cardId"));
 
     private readonly route = inject(ActivatedRoute);
     private readonly router = inject(Router);
     private readonly dialog = inject(MatDialog);
     private readonly toastService = inject(ToastService);
+
+    public ngAfterViewInit(): void {
+        const cardId = this.cardId();
+        if (cardId) {
+            const card = this.cardsStore.cards().find(c => c.id === cardId);
+            if (card) {
+                this.openCard(card);
+                this.router.navigate(["/boards", this.id()], { replaceUrl: true });
+            }
+        }
+    }
 
     public open(id: string): void {
         this.router.navigate(["/board", id]);
@@ -75,5 +89,23 @@ export class BoardComponent {
         moveItemInArray(reordered, event.previousIndex, event.currentIndex);
 
         await this.columnsStore.reorder(this.id()!, reordered);
+    }
+
+    private openCard(card: Card): void {
+        const dialogRef = this.dialog.open<CardDialogComponent, Card, Card>(
+            CardDialogComponent,
+            { data: card }
+        );
+
+        dialogRef.afterClosed().subscribe(async (result) => {
+            if (!result) return;
+
+            try {
+                await this.cardsStore.update(result.id, result.title, result.description, result.type, result.priority);
+                this.toastService.success("CARDS.EDIT_OK");
+            } catch {
+                this.toastService.error("CARDS.EDIT_KO");
+            }
+        });
     }
 }

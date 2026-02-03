@@ -68,6 +68,15 @@ public class CardService(KansoDbContext db, IWebhookService webhooks) : ICardSer
             .OrderBy(c => c.Order)
             .ToListAsync();
 
+    public async Task<List<Card>> GetByUserIdAsync(Guid userId)
+        => await db.Cards
+            .AsNoTracking()
+            .Include(c => c.Column)
+            .Include(c => c.AssignedTo)
+            .Where(c => c.AssignedToUserId == userId)
+            .OrderByDescending(c => c.Priority)
+            .ToListAsync();
+
     public async Task<Card?> UpdateAsync(Guid id, string title, string? description, CardType type, CardPriority priority)
     {
         var card = await db.Cards

@@ -8,6 +8,7 @@ public interface ICardService
     Task<Card> CreateAsync(Guid columnId, string title, string? description, CardType type, CardPriority priority);
     Task<Card?> GetByIdAsync(Guid id);
     Task<List<Card>> GetByBoardAsync(Guid boardId);
+    Task<List<Card>> GetByUserIdAsync(Guid userId);
     Task<Card?> UpdateAsync(Guid id, string title, string? description, CardType type, CardPriority priority);
     Task<bool> DeleteAsync(Guid id);
     Task<bool> AssignAsync(Guid id, Guid? userId);

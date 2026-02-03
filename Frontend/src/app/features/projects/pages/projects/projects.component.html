@@ -1,6 +1,10 @@
 <mat-card>
     <mat-card-header>
-        <mat-card-title>{{ "PROJECTS.TITLE" | translate }}</mat-card-title>
+        <mat-card-title>
+            <span routerLink="/dashboard" class="cursor-pointer">{{ "DASHBOARD.TITLE" | translate }}</span>
+            <mat-icon>chevron_right</mat-icon>
+            <span>{{ "PROJECTS.TITLE" | translate }}</span>
+        </mat-card-title>
         <span class="spacer"></span>
         <button mat-icon-button [matTooltip]="'PROJECTS.JOIN' | translate" (click)="join()" class="info">
             <mat-icon>qr_code</mat-icon>

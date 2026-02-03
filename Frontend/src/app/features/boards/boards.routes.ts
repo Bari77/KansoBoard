@@ -5,4 +5,5 @@ import { boardResolver } from "./pages/board/board.resolver";
 
 export const routes: Routes = [
     { path: ":guid", component: BoardComponent, canActivate: [AuthGuard], resolve: { load: boardResolver } },
+    { path: ":guid/:cardId", component: BoardComponent, canActivate: [AuthGuard], resolve: { load: boardResolver } },
 ];

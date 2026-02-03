@@ -3,7 +3,9 @@ import { BaseService } from "@shared/services/base.service";
 import { Observable } from "rxjs";
 import { CardOrderDto } from "../dto/card-order.dto";
 import { CardDto } from "../dto/card.dto";
+import { UserCardDto } from "../dto/user-card.dto";
 import { Card } from "../models/card.model";
+import { UserCard } from "../models/user-card.model";
 
 @Injectable()
 export class CardsService extends BaseService {
@@ -11,6 +13,10 @@ export class CardsService extends BaseService {
 
     public getByBoard(boardId: string): Observable<Card[]> {
         return this.httpList<CardDto, Card>(Card, `board/${boardId}`);
+    }
+
+    public getByCurrentUser(): Observable<UserCard[]> {
+        return this.httpList<UserCardDto, UserCard>(UserCard, "user/me");
     }
 
     public get(id: string): Observable<Card | null> {

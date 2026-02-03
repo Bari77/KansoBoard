@@ -1,6 +1,8 @@
 <mat-card>
     <mat-card-header>
         <mat-card-title>
+            <span routerLink="/dashboard" class="cursor-pointer">{{ "DASHBOARD.TITLE" | translate }}</span>
+            <mat-icon>chevron_right</mat-icon>
             <span routerLink="/projects" class="cursor-pointer">{{ "PROJECTS.TITLE" | translate }}</span>
             <mat-icon>chevron_right</mat-icon>
             @if (boardStore.board()?.projectId) {
