@@ -1,3 +1,4 @@
+using KansoBoard.Api.Extensions;
 using KansoBoard.Application.Auth;
 using KansoBoard.Application.Mapping;
 using KansoBoard.Contracts.Auth;
@@ -22,7 +23,7 @@ public class AuthController(IAuthService service) : ControllerBase
     public async Task<IActionResult> Login(LoginRequest req)
     {
         var result = await service.LoginAsync(req.Email, req.Password);
-        if (result is null) return BadRequest();
+        if (result is null) return this.BadRequestError("ERR_LOGIN_FAILED");
         return Ok(result);
     }
 
@@ -30,7 +31,7 @@ public class AuthController(IAuthService service) : ControllerBase
     public async Task<IActionResult> Refresh(RefreshRequest req)
     {
         var result = await service.RefreshAsync(req.RefreshToken);
-        if (result is null) return Unauthorized();
+        if (result is null) return this.UnauthorizedError("ERR_REFRESH_TOKEN_INVALID");
         return Ok(result);
     }
 
@@ -60,6 +61,6 @@ public class AuthController(IAuthService service) : ControllerBase
         if (user is null) return Unauthorized();
 
         var result = await service.LogoutAsync(user.Id);
-        return result ? Ok() : BadRequest();
+        return result ? Ok() : this.BadRequestError("ERR_LOGOUT_FAILED");
     }
 }

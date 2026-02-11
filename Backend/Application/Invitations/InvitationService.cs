@@ -1,4 +1,4 @@
-﻿using KansoBoard.Application.ProjectUsers;
+using KansoBoard.Application.ProjectUsers;
 using KansoBoard.Domain.Entities;
 using KansoBoard.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -47,7 +47,7 @@ public class InvitationService(KansoDbContext db, IProjectUserService projectUse
     {
         var inv = await db.Invitations.FirstOrDefaultAsync(i =>
             i.Token == token &&
-            i.ExpiresAt > DateTime.UtcNow) ?? throw new Exception("ERR_INVITATION_NOT_FOUND");
+            i.ExpiresAt > DateTime.UtcNow) ?? throw new InvalidOperationException("ERR_INVITATION_NOT_FOUND");
 
         if (await db.ProjectUsers.AnyAsync(f => f.UserId == userId && f.ProjectId == inv.ProjectId))
         {

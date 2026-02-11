@@ -88,6 +88,7 @@ using (var scope = app.Services.CreateScope())
 
 app.UseCors("cors_policy");
 app.UseHttpsRedirection();
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthentication();
 app.UseMiddleware<ApiKeyMiddleware>();
 app.UseAuthorization();

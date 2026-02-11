@@ -1,4 +1,4 @@
-﻿using KansoBoard.Api.Extensions;
+using KansoBoard.Api.Extensions;
 using KansoBoard.Application.Authorization;
 using KansoBoard.Application.Mapping;
 using KansoBoard.Application.ProjectUsers;
@@ -49,7 +49,7 @@ public class ProjectUsersController(IProjectUserService service, IProjectAuthori
             if (!await auth.CanAccessProjectAsync(userId.Value, projectId)) return Forbid();
         }
 
-        return await service.AddUserAsync(projectId, req.UserId) ? Ok() : BadRequest();
+        return await service.AddUserAsync(projectId, req.UserId) ? Ok() : this.BadRequestError("ERR_PROJECT_USER_ADD_FAILED");
     }
 
     [HttpPost("{projectId:guid}/remove")]
@@ -68,6 +68,6 @@ public class ProjectUsersController(IProjectUserService service, IProjectAuthori
             if (!await auth.CanAccessProjectAsync(userId.Value, projectId)) return Forbid();
         }
 
-        return await service.RemoveUserAsync(projectId, req.UserId) ? Ok() : NotFound();
+        return await service.RemoveUserAsync(projectId, req.UserId) ? Ok() : this.NotFoundError("ERR_PROJECT_USER_NOT_FOUND");
     }
 }

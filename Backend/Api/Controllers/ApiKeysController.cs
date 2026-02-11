@@ -1,4 +1,4 @@
-﻿using KansoBoard.Api.Extensions;
+using KansoBoard.Api.Extensions;
 using KansoBoard.Application.ApiKeys;
 using KansoBoard.Application.Authorization;
 using KansoBoard.Contracts.ApiKeys;
@@ -34,7 +34,7 @@ public class ApiKeysController(IApiKeyService service, IProjectAuthorizationServ
         if (!await auth.CanAccessProjectAsync(userId.Value, projectId))
             return Forbid();
 
-        return await service.RevokeAsync(req.Key) ? Ok() : NotFound();
+        return await service.RevokeAsync(req.Key) ? Ok() : this.NotFoundError("ERR_API_KEY_NOT_FOUND");
     }
 
     [HttpGet("{projectId:guid}")]

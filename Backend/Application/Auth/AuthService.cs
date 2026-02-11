@@ -15,8 +15,8 @@ public class AuthService(KansoDbContext db, IConfiguration config) : IAuthServic
 {
     public async Task<User> RegisterAsync(string email, string pseudo, string password)
     {
-        var exists = await db.Users.AnyAsync(u => u.Email.Equals(email, StringComparison.InvariantCultureIgnoreCase));
-        if (exists) throw new Exception("Email already exists");
+        var exists = await db.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower());
+        if (exists) throw new InvalidOperationException("ERR_EMAIL_ALREADY_EXISTS");
 
         var salt = GenerateSalt();
         var hash = HashPassword(password, salt);
@@ -39,7 +39,7 @@ public class AuthService(KansoDbContext db, IConfiguration config) : IAuthServic
 
     public async Task<LoginResponse?> LoginAsync(string email, string password)
     {
-        var user = await db.Users.FirstOrDefaultAsync(u => u.Email.Equals(email, StringComparison.InvariantCultureIgnoreCase));
+        var user = await db.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
         if (user is null) return null;
 
         var hash = HashPassword(password, user.PasswordSalt);

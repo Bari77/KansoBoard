@@ -14,6 +14,22 @@
         "ERR_RENEW_SESSION": "Impossible de renouveler votre session. Merci de vous reconnecter.",
         "ERR_LOGIN_FAILED": "Une erreur s'est produite lors de votre authentification.",
         "ERR_SIGNUP_FAILED": "Une erreur s'est produite lors de votre inscription.",
-        "ERR_INVITATION_NOT_FOUND": "L'invitation est invalide"
+        "ERR_EMAIL_ALREADY_EXISTS": "Cette adresse e-mail est déjà utilisée.",
+        "ERR_INVITATION_NOT_FOUND": "L'invitation est invalide ou a expiré.",
+        "ERR_INVITATION_CONSUME_FAILED": "Impossible d'utiliser cette invitation.",
+        "ERR_REFRESH_TOKEN_INVALID": "Session expirée ou invalide. Veuillez vous reconnecter.",
+        "ERR_LOGOUT_FAILED": "La déconnexion a échoué.",
+        "ERR_USER_NOT_FOUND": "Utilisateur introuvable.",
+        "ERR_PROJECT_NOT_FOUND": "Projet introuvable.",
+        "ERR_BOARD_NOT_FOUND": "Board introuvable.",
+        "ERR_COLUMN_NOT_FOUND": "Colonne introuvable.",
+        "ERR_COLUMN_LOCKED": "Cette colonne ne peut pas être supprimée.",
+        "ERR_CARD_NOT_FOUND": "Carte introuvable.",
+        "ERR_CARD_MOVE_INVALID": "Déplacement impossible (carte ou colonne cible invalide).",
+        "ERR_CARD_TRANSFER_FAILED": "Transfert impossible (carte ou board cible introuvable).",
+        "ERR_PROJECT_USER_NOT_FOUND": "Ce membre n'est pas dans le projet.",
+        "ERR_PROJECT_USER_ADD_FAILED": "Impossible d'ajouter ce membre au projet.",
+        "ERR_API_KEY_NOT_FOUND": "Clé API introuvable.",
+        "ERR_UNKNOWN": "Une erreur inattendue s'est produite."
     }
 }

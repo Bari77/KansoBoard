@@ -1,4 +1,4 @@
-﻿using KansoBoard.Api.Extensions;
+using KansoBoard.Api.Extensions;
 using KansoBoard.Application.Authorization;
 using KansoBoard.Application.Boards;
 using KansoBoard.Application.Mapping;
@@ -33,7 +33,7 @@ public class BoardsController(IBoardService service, IProjectAuthorizationServic
         }
 
         var board = await service.GetByIdAsync(id);
-        return board is null ? NotFound() : Ok(Mapper.ToDto(board));
+        return board is null ? this.NotFoundError("ERR_BOARD_NOT_FOUND") : Ok(Mapper.ToDto(board));
     }
 
     [HttpGet("project/{projectId:guid}")]
@@ -96,7 +96,7 @@ public class BoardsController(IBoardService service, IProjectAuthorizationServic
         }
 
         var board = await service.UpdateAsync(id, request.Name);
-        return board is null ? NotFound() : Ok(Mapper.ToDto(board));
+        return board is null ? this.NotFoundError("ERR_BOARD_NOT_FOUND") : Ok(Mapper.ToDto(board));
     }
 
     [HttpDelete("{id:guid}")]
@@ -119,6 +119,6 @@ public class BoardsController(IBoardService service, IProjectAuthorizationServic
         }
 
         var deleted = await service.DeleteAsync(id);
-        return deleted ? NoContent() : NotFound();
+        return deleted ? NoContent() : this.NotFoundError("ERR_BOARD_NOT_FOUND");
     }
 }

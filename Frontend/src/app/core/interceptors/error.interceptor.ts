@@ -19,10 +19,10 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
             }
 
             if (err.status) {
+                const backendMessage = err.error?.Message ?? err.error?.message;
                 let errorMsg = "ERROR.HTTP_CODE." + err.status;
-                if (err.error?.Message?.startsWith("ERR_")) {
-                    errorMsg = "ERROR." + err.error.Message;
-                    err.error.Message = errorMsg;
+                if (typeof backendMessage === "string" && backendMessage.startsWith("ERR_")) {
+                    errorMsg = "ERROR." + backendMessage;
                 }
 
                 console.error(errorMsg, err.error);

@@ -1,4 +1,4 @@
-﻿using KansoBoard.Api.Extensions;
+using KansoBoard.Api.Extensions;
 using KansoBoard.Application.Authorization;
 using KansoBoard.Application.Cards;
 using KansoBoard.Application.Mapping;
@@ -66,7 +66,7 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
         }
 
         var card = await service.GetByIdAsync(id);
-        return card is null ? NotFound() : Ok(Mapper.ToDto(card));
+        return card is null ? this.NotFoundError("ERR_CARD_NOT_FOUND") : Ok(Mapper.ToDto(card));
     }
 
     [HttpPost]
@@ -112,7 +112,7 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
         }
 
         var card = await service.UpdateAsync(id, req.Title, req.Description, req.Type, req.Priority);
-        return card is null ? NotFound() : Ok(Mapper.ToDto(card));
+        return card is null ? this.NotFoundError("ERR_CARD_NOT_FOUND") : Ok(Mapper.ToDto(card));
     }
 
     [HttpDelete("{id:guid}")]
@@ -135,7 +135,7 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
             if (!await auth.CanAccessProjectAsync(userId.Value, projectId.Value)) return Forbid();
         }
 
-        return await service.DeleteAsync(id) ? NoContent() : NotFound();
+        return await service.DeleteAsync(id) ? NoContent() : this.NotFoundError("ERR_CARD_NOT_FOUND");
     }
 
     [HttpPost("{id:guid}/assign")]
@@ -157,7 +157,7 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
             if (!await auth.CanAccessProjectAsync(userId.Value, projectId.Value)) return Forbid();
         }
 
-        return await service.AssignAsync(id, req.UserId) ? Ok() : NotFound();
+        return await service.AssignAsync(id, req.UserId) ? Ok() : this.NotFoundError("ERR_CARD_NOT_FOUND");
     }
 
     [HttpPost("{id:guid}/move")]
@@ -179,7 +179,7 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
             if (!await auth.CanAccessProjectAsync(userId.Value, projectId.Value)) return Forbid();
         }
 
-        return await service.MoveAsync(id, req.NewColumnId) ? Ok() : NotFound();
+        return await service.MoveAsync(id, req.NewColumnId) ? Ok() : this.NotFoundError("ERR_CARD_NOT_FOUND");
     }
 
     [HttpPost("{id:guid}/reorder")]
@@ -201,7 +201,7 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
             if (!await auth.CanAccessProjectAsync(userId.Value, projectId.Value)) return Forbid();
         }
 
-        return await service.ReorderAsync(id, orders) ? NoContent() : NotFound();
+        return await service.ReorderAsync(id, orders) ? NoContent() : this.NotFoundError("ERR_CARD_NOT_FOUND");
     }
 
     [HttpPost("{id:guid}/transfer")]
@@ -211,7 +211,7 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
         if (sourceProjectId is null) return Forbid();
 
         var targetProjectId = await resolver.GetProjectIdFromBoard(req.BoardId);
-        if (targetProjectId is null) return NotFound();
+        if (targetProjectId is null) return this.NotFoundError("ERR_BOARD_NOT_FOUND");
 
         if (sourceProjectId != targetProjectId)
             return Forbid();
@@ -231,7 +231,6 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
         }
 
         var result = await service.TransferAsync(id, req.BoardId);
-
-        return result ? Ok() : NotFound();
+        return result ? Ok() : this.NotFoundError("ERR_CARD_TRANSFER_FAILED");
     }
 }
