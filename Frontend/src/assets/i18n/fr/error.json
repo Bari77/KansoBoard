@@ -12,7 +12,7 @@
         },
         "ERR_EXPIRED_SESSION": "Votre session a expiré. Veuillez vous reconnecter.",
         "ERR_RENEW_SESSION": "Impossible de renouveler votre session. Merci de vous reconnecter.",
-        "ERR_LOGIN_FAILED": "Une erreur s'est produite lors de votre authentification.",
+        "ERR_LOGIN_FAILED": "Identifiants invalides. Veuillez vérifier votre email et mot de passe.",
         "ERR_SIGNUP_FAILED": "Une erreur s'est produite lors de votre inscription.",
         "ERR_EMAIL_ALREADY_EXISTS": "Cette adresse e-mail est déjà utilisée.",
         "ERR_INVITATION_NOT_FOUND": "L'invitation est invalide ou a expiré.",
