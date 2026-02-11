@@ -1,4 +1,4 @@
-﻿using KansoBoard.Api.Extensions;
+using KansoBoard.Api.Extensions;
 using KansoBoard.Application.Mapping;
 using KansoBoard.Application.Users;
 using KansoBoard.Contracts.Users;
@@ -19,19 +19,19 @@ public class UsersController(IUserService service) : ControllerBase
         if (userId is null) return Unauthorized();
 
         var user = await service.UpdateAsync(userId.Value, req.Pseudo, req.AvatarUrl);
-        return user is null ? NotFound() : Ok(Mapper.ToDto(user));
+        return user is null ? this.NotFoundError("ERR_USER_NOT_FOUND") : Ok(Mapper.ToDto(user));
     }
 
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> Update(Guid id, UpdateUserRequest req)
     {
         var user = await service.UpdateAsync(id, req.Pseudo, req.AvatarUrl);
-        return user is null ? NotFound() : Ok(Mapper.ToDto(user));
+        return user is null ? this.NotFoundError("ERR_USER_NOT_FOUND") : Ok(Mapper.ToDto(user));
     }
 
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {
-        return await service.DeleteAsync(id) ? NoContent() : NotFound();
+        return await service.DeleteAsync(id) ? NoContent() : this.NotFoundError("ERR_USER_NOT_FOUND");
     }
 }

@@ -1,4 +1,4 @@
-﻿using KansoBoard.Api.Extensions;
+using KansoBoard.Api.Extensions;
 using KansoBoard.Application.Auth;
 using KansoBoard.Application.Authorization;
 using KansoBoard.Application.Invitations;
@@ -44,6 +44,6 @@ public class InvitationsController(IInvitationService service, IAuthService auth
         if (user is null) return Unauthorized();
 
         var consumeResult = await service.ConsumeAsync(req.Token, user.Id);
-        return consumeResult != null ? Ok(consumeResult) : BadRequest();
+        return consumeResult != null ? Ok(consumeResult) : this.BadRequestError("ERR_INVITATION_CONSUME_FAILED");
     }
 }

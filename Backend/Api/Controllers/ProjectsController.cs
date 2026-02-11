@@ -1,4 +1,4 @@
-﻿using KansoBoard.Api.Extensions;
+using KansoBoard.Api.Extensions;
 using KansoBoard.Application.Authorization;
 using KansoBoard.Application.Mapping;
 using KansoBoard.Application.Projects;
@@ -40,7 +40,7 @@ public class ProjectsController(IProjectService service, IProjectAuthorizationSe
         }
 
         var project = await service.GetByIdAsync(id);
-        return project is null ? NotFound() : Ok(Mapper.ToDto(project));
+        return project is null ? this.NotFoundError("ERR_PROJECT_NOT_FOUND") : Ok(Mapper.ToDto(project));
     }
 
     [HttpPost]
@@ -70,7 +70,7 @@ public class ProjectsController(IProjectService service, IProjectAuthorizationSe
         }
 
         var project = await service.UpdateAsync(id, request.Name);
-        return project is null ? NotFound() : Ok(Mapper.ToDto(project));
+        return project is null ? this.NotFoundError("ERR_PROJECT_NOT_FOUND") : Ok(Mapper.ToDto(project));
     }
 
     [HttpDelete("{id:guid}")]
@@ -90,6 +90,6 @@ public class ProjectsController(IProjectService service, IProjectAuthorizationSe
         }
 
         var deleted = await service.DeleteAsync(id);
-        return deleted ? NoContent() : NotFound();
+        return deleted ? NoContent() : this.NotFoundError("ERR_PROJECT_NOT_FOUND");
     }
 }

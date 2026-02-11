@@ -18,9 +18,6 @@
                 <mat-label>{{ "SIGNUP.PASSWORD" | translate }}</mat-label>
                 <input matInput type="password" formControlName="password" />
             </mat-form-field>
-            @if (error()) {
-            <p class="error">{{ error() | translate }}</p>
-            }
         </mat-card-content>
 
         <mat-card-actions>

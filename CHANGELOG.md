@@ -1,8 +1,15 @@
+# [v2.5.0] - 2026-02-11
+
+## Added
+
+- Matomo user tracking;
+- Login refresh token.
+
 # [v2.4.0] - 2026-02-05
 
 ## Added
 
-- Matojo tracking.
+- Matomo tracking.
 
 # [v2.3.0] - 2026-02-03
 

@@ -1,4 +1,5 @@
-﻿using KansoBoard.Application.Auth;
+using KansoBoard.Api.Extensions;
+using KansoBoard.Application.Auth;
 using KansoBoard.Application.Mapping;
 using KansoBoard.Contracts.Auth;
 using Microsoft.AspNetCore.Authorization;
@@ -21,15 +22,17 @@ public class AuthController(IAuthService service) : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginRequest req)
     {
-        var token = await service.LoginAsync(req.Email, req.Password);
-        return token is null ? BadRequest() : Ok(token);
+        var result = await service.LoginAsync(req.Email, req.Password);
+        if (result is null) return this.BadRequestError("ERR_LOGIN_FAILED");
+        return Ok(result);
     }
 
     [HttpPost("refresh")]
     public async Task<IActionResult> Refresh(RefreshRequest req)
     {
-        var token = await service.RefreshAsync(req.RefreshToken);
-        return token is null ? Unauthorized() : Ok(token);
+        var result = await service.RefreshAsync(req.RefreshToken);
+        if (result is null) return this.UnauthorizedError("ERR_REFRESH_TOKEN_INVALID");
+        return Ok(result);
     }
 
     [Authorize]
@@ -58,6 +61,6 @@ public class AuthController(IAuthService service) : ControllerBase
         if (user is null) return Unauthorized();
 
         var result = await service.LogoutAsync(user.Id);
-        return result ? Ok() : BadRequest();
+        return result ? Ok() : this.BadRequestError("ERR_LOGOUT_FAILED");
     }
 }

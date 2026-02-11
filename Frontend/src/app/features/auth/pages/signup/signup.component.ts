@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthStore } from '@features/auth/stores/auth.store';
@@ -31,7 +31,6 @@ import { TranslateModule } from '@ngx-translate/core';
 export class SignupComponent {
     public readonly fb = inject(FormBuilder);
 
-    public readonly error = signal('');
     public readonly form = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
         pseudo: ['', Validators.required],
@@ -44,13 +43,11 @@ export class SignupComponent {
     async submit() {
         if (this.form.invalid) return;
 
-        this.error.set("");
-
         try {
             await this.authStore.register(this.form.value.email!, this.form.value.pseudo!, this.form.value.password!);
             await this.router.navigate(['/login']);
         } catch {
-            this.error.set("ERROR.ERR_SIGNUP_FAILED");
+            // Erreur déjà affichée par l'intercepteur (toast)
         }
     }
 }

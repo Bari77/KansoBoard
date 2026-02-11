@@ -1,4 +1,4 @@
-﻿using KansoBoard.Api.Extensions;
+using KansoBoard.Api.Extensions;
 using KansoBoard.Application.Authorization;
 using KansoBoard.Application.Columns;
 using KansoBoard.Application.Mapping;
@@ -56,7 +56,7 @@ public class ColumnsController(IColumnService service, IProjectAuthorizationServ
         }
 
         var col = await service.GetByIdAsync(id);
-        return col is null ? NotFound() : Ok(Mapper.ToDto(col));
+        return col is null ? this.NotFoundError("ERR_COLUMN_NOT_FOUND") : Ok(Mapper.ToDto(col));
     }
 
     [HttpPost]
@@ -102,7 +102,7 @@ public class ColumnsController(IColumnService service, IProjectAuthorizationServ
         }
 
         var col = await service.UpdateAsync(id, req.Name);
-        return col is null ? NotFound() : Ok(Mapper.ToDto(col));
+        return col is null ? this.NotFoundError("ERR_COLUMN_NOT_FOUND") : Ok(Mapper.ToDto(col));
     }
 
     [HttpDelete("{id:guid}")]
@@ -124,7 +124,7 @@ public class ColumnsController(IColumnService service, IProjectAuthorizationServ
             if (!await auth.CanAccessProjectAsync(userId.Value, projectId.Value)) return Forbid();
         }
 
-        return await service.DeleteAsync(id) ? NoContent() : NotFound();
+        return await service.DeleteAsync(id) ? NoContent() : this.NotFoundError("ERR_COLUMN_NOT_FOUND");
     }
 
     [HttpPost("{id:guid}/reorder")]
@@ -146,6 +146,6 @@ public class ColumnsController(IColumnService service, IProjectAuthorizationServ
             if (!await auth.CanAccessProjectAsync(userId.Value, projectId.Value)) return Forbid();
         }
 
-        return await service.ReorderAsync(id, orders) ? NoContent() : NotFound();
+        return await service.ReorderAsync(id, orders) ? NoContent() : this.NotFoundError("ERR_COLUMN_NOT_FOUND");
     }
 }

@@ -1,4 +1,5 @@
-﻿using KansoBoard.Domain.Entities;
+using KansoBoard.Contracts.Auth;
+using KansoBoard.Domain.Entities;
 using KansoBoard.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,8 +15,8 @@ public class AuthService(KansoDbContext db, IConfiguration config) : IAuthServic
 {
     public async Task<User> RegisterAsync(string email, string pseudo, string password)
     {
-        var exists = await db.Users.AnyAsync(u => u.Email == email);
-        if (exists) throw new Exception("Email already exists");
+        var exists = await db.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower());
+        if (exists) throw new InvalidOperationException("ERR_EMAIL_ALREADY_EXISTS");
 
         var salt = GenerateSalt();
         var hash = HashPassword(password, salt);
@@ -36,22 +37,23 @@ public class AuthService(KansoDbContext db, IConfiguration config) : IAuthServic
         return user;
     }
 
-    public async Task<string?> LoginAsync(string email, string password)
+    public async Task<LoginResponse?> LoginAsync(string email, string password)
     {
-        var user = await db.Users.FirstOrDefaultAsync(u => u.Email == email);
+        var user = await db.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
         if (user is null) return null;
 
         var hash = HashPassword(password, user.PasswordSalt);
         if (hash != user.PasswordHash) return null;
 
         user.RefreshToken = GenerateRefreshToken();
-        user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(7);
+        user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(30);
         await db.SaveChangesAsync();
 
-        return GenerateJwt(user);
+        var accessToken = GenerateJwt(user);
+        return new LoginResponse(accessToken, user.RefreshToken);
     }
 
-    public async Task<string?> RefreshAsync(string refreshToken)
+    public async Task<RefreshResponse?> RefreshAsync(string refreshToken)
     {
         var user = await db.Users.FirstOrDefaultAsync(u =>
             u.RefreshToken == refreshToken &&
@@ -63,7 +65,8 @@ public class AuthService(KansoDbContext db, IConfiguration config) : IAuthServic
         user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(30);
         await db.SaveChangesAsync();
 
-        return GenerateJwt(user);
+        var accessToken = GenerateJwt(user);
+        return new RefreshResponse(accessToken, user.RefreshToken);
     }
 
     public async Task<User?> GetUserFromTokenAsync(string token)
@@ -130,7 +133,7 @@ public class AuthService(KansoDbContext db, IConfiguration config) : IAuthServic
 
         var token = new JwtSecurityToken(
             claims: claims,
-            expires: DateTime.UtcNow.AddDays(7),
+            expires: DateTime.UtcNow.AddHours(1),
             signingCredentials: creds
         );
 
