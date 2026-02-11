@@ -16,7 +16,11 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     const tokenStore = inject(TokenStore);
     const authService = inject(AuthService);
 
+    const isRefreshRequest = (request: HttpRequest<unknown>) =>
+        request.url.includes("/Auth/refresh");
+
     const addAuthHeader = (request: HttpRequest<unknown>, token?: string) => {
+        if (isRefreshRequest(request)) return request;
         const jwt = token ?? tokenStore.accessToken();
         if (!jwt) return request;
 

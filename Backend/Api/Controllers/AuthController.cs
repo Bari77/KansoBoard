@@ -1,4 +1,4 @@
-﻿using KansoBoard.Application.Auth;
+using KansoBoard.Application.Auth;
 using KansoBoard.Application.Mapping;
 using KansoBoard.Contracts.Auth;
 using Microsoft.AspNetCore.Authorization;
@@ -21,15 +21,17 @@ public class AuthController(IAuthService service) : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginRequest req)
     {
-        var token = await service.LoginAsync(req.Email, req.Password);
-        return token is null ? BadRequest() : Ok(token);
+        var result = await service.LoginAsync(req.Email, req.Password);
+        if (result is null) return BadRequest();
+        return Ok(result);
     }
 
     [HttpPost("refresh")]
     public async Task<IActionResult> Refresh(RefreshRequest req)
     {
-        var token = await service.RefreshAsync(req.RefreshToken);
-        return token is null ? Unauthorized() : Ok(token);
+        var result = await service.RefreshAsync(req.RefreshToken);
+        if (result is null) return Unauthorized();
+        return Ok(result);
     }
 
     [Authorize]

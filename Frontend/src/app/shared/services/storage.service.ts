@@ -4,6 +4,7 @@ import { DtoConvertibleClass } from "@shared/models/dto-model";
 @Injectable()
 export class StorageService {
     public static readonly KANSO_TOKEN: string = "Kanso_Token";
+    public static readonly KANSO_REFRESH_TOKEN: string = "Kanso_Refresh_Token";
     public static readonly KANSO_DATA: string = "Kanso_Data";
 
     /**
@@ -99,6 +100,21 @@ export class StorageService {
         return new type(parsed);
     }
 
+    /**
+     * Stores a value in offline storage (via Capacitor Preferences), optionally
+     * converting it to JSON if it is not already a string.
+     *
+     * This method supports:
+     *  - Storing a single object when `data` is not `null`.
+     *  - Deleting the key when `data` is `null`.
+     *
+     * @template T
+     * The type of the data to store.
+     * 
+     * @param key The storage key used to store the data.
+     * @param data The data to store.
+     * @returns {Promise<void>} A promise that resolves when the data is stored.
+     */
     public async setStorage<T>(key: string, data: T | null): Promise<void> {
         if (data) {
             localStorage.setItem(key, JSON.stringify(data));
@@ -107,6 +123,16 @@ export class StorageService {
         }
     }
 
+    /**
+     * Deletes a value from offline storage (via Capacitor Preferences).
+     *
+     * This method supports:
+     *  - Deleting a single key when `key` is provided.
+     *  - Deleting all keys when `key` is `null`.
+     *
+     * @param key The storage key used to delete the data.
+     * @returns {Promise<void>} A promise that resolves when the data is deleted.
+     */
     public async deleteStorage(key: string): Promise<void> {
         localStorage.removeItem(key);
     }

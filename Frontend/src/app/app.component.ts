@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit, computed, inject } from "@angular/core";
+import { Component, OnInit, computed, effect, inject } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
 import { MatToolbar } from "@angular/material/toolbar";
 import { MatTooltip } from "@angular/material/tooltip";
@@ -37,6 +37,18 @@ export class AppComponent implements OnInit {
                 (window as any)._paq.push(['setCustomUrl', e.urlAfterRedirects]);
                 (window as any)._paq.push(['trackPageView']);
             });
+
+        effect(() => {
+            const data = this.tokenStore.tokenData();
+            const paq = (window as any)._paq;
+            if (paq) {
+                if (data?.pseudo) {
+                    paq.push(["setUserId", data.pseudo]);
+                } else {
+                    paq.push(["resetUserId"]);
+                }
+            }
+        });
     }
 
     public async ngOnInit(): Promise<void> {

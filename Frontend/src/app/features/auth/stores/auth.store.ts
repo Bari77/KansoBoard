@@ -9,8 +9,7 @@ export class AuthStore {
     private readonly tokenStore = inject(TokenStore);
 
     public async login(email: string, password: string): Promise<void> {
-        const token = await firstValueFrom(this.authService.login(email, password));
-        await this.tokenStore.save(token);
+        await firstValueFrom(this.authService.login(email, password));
     }
 
     public async register(email: string, pseudo: string, password: string): Promise<void> {
