@@ -15,20 +15,16 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
     return next(req).pipe(
         catchError((err: HttpErrorResponse) => {
-            if (err.status === CodeHttp.AUTH_ERROR || err.status === CodeHttp.UNSUPPORTED_MEDIA_TYPE) {
-                return throwError(() => err);
-            }
+            const backendError = parseBackendErrorBody(err.error);
+            const hasBusinessError = backendError && backendError.Message.startsWith("ERR_");
 
             if (err.status) {
-                const backendError = parseBackendErrorBody(err.error);
-                const errorMsg =
-                    backendError && backendError.Message.startsWith("ERR_")
-                        ? "ERROR." + backendError.Message
-                        : "ERROR.HTTP_CODE." + err.status;
+                const errorMsg = hasBusinessError
+                    ? "ERROR." + backendError!.Message
+                    : "ERROR.HTTP_CODE." + err.status;
 
                 console.error(errorMsg, err.error);
-                const toastService = injector.get(ToastService);
-                toastService.error(errorMsg);
+                injector.get(ToastService).error(errorMsg);
             } else {
                 console.error(err);
             }
