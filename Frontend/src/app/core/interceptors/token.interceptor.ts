@@ -3,6 +3,7 @@ import { inject, Injector } from "@angular/core";
 import { Router } from "@angular/router";
 import { CodeHttp } from "@core/enums/code-http.enum";
 import { ToastService } from "@core/services/toast.service";
+import { LoadingStore } from "@core/stores/loading.store";
 import { AuthService } from "@features/auth/services/auth.service";
 import { TokenStore } from "@features/auth/stores/token.store";
 import { catchError, ReplaySubject, switchMap, take, throwError } from "rxjs";
@@ -15,6 +16,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     const router = inject(Router);
     const tokenStore = inject(TokenStore);
     const authService = inject(AuthService);
+    const loadingStore = inject(LoadingStore);
 
     const isRefreshRequest = (request: HttpRequest<unknown>) =>
         request.url.includes("/Auth/refresh");
@@ -55,14 +57,14 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
                         const cloned = addAuthHeader(req, newToken);
                         return next(cloned);
                     }),
-                    catchError(() => {
+                    catchError((refreshErr: unknown) => {
                         isRefreshing = false;
+                        loadingStore.loading.set(false);
 
                         tokenStore.clear();
                         router.navigateByUrl("/auth/login");
-                        toastService.error("ERROR.ERR_RENEW_SESSION");
                         refreshTokenSubject.error("Refresh failed");
-                        return throwError(() => "Refresh failed");
+                        return throwError(() => refreshErr);
                     })
                 );
             }
