@@ -19,12 +19,15 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
             const hasBusinessError = backendError && backendError.Message.startsWith("ERR_");
 
             if (err.status) {
-                const errorMsg = hasBusinessError
-                    ? "ERROR." + backendError!.Message
-                    : "ERROR.HTTP_CODE." + err.status;
-
-                console.error(errorMsg, err.error);
-                injector.get(ToastService).error(errorMsg);
+                const isRefreshFailure =
+                    err.status === CodeHttp.AUTH_ERROR && err.url?.includes("/Auth/refresh");
+                if (!isRefreshFailure) {
+                    const errorMsg = hasBusinessError
+                        ? "ERROR." + backendError!.Message
+                        : "ERROR.HTTP_CODE." + err.status;
+                    console.error(errorMsg, err.error);
+                    injector.get(ToastService).error(errorMsg);
+                }
             } else {
                 console.error(err);
             }

@@ -7,6 +7,7 @@
             alt="Logo" width="45px" height="45px" class="logo" />
         <span [matTooltip]="'GLOBAL.ACCUEIL' | translate" [routerLink]="'/dashboard'" style="cursor: pointer">{{
             "GLOBAL.TITLE" | translate }}</span>
+        <span class="version">v{{ version }}</span>
         <span class="spacer"></span>
         @if (tokenData()) {
         <img [src]="tokenData()?.avatar ?? 'assets/img/avatar.png'" [routerLink]="'users/profile'"

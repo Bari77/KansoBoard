@@ -6,7 +6,19 @@ import { ToastService } from "@core/services/toast.service";
 import { LoadingStore } from "@core/stores/loading.store";
 import { AuthService } from "@features/auth/services/auth.service";
 import { TokenStore } from "@features/auth/stores/token.store";
-import { catchError, ReplaySubject, switchMap, take, throwError } from "rxjs";
+import { catchError, from, ReplaySubject, switchMap, take, throwError } from "rxjs";
+
+function getRefreshErrorKey(err: unknown): string {
+    if (err && typeof err === "object" && "error" in err) {
+        const body = (err as HttpErrorResponse).error;
+        const msg =
+            typeof body === "object" && body !== null && "Message" in body
+                ? (body as { Message: unknown }).Message
+                : null;
+        if (typeof msg === "string" && msg.startsWith("ERR_")) return "ERROR." + msg;
+    }
+    return "ERROR.ERR_RENEW_SESSION";
+}
 
 let isRefreshing = false;
 let refreshTokenSubject = new ReplaySubject<string>(1);
@@ -61,10 +73,15 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
                         isRefreshing = false;
                         loadingStore.loading.set(false);
 
-                        tokenStore.clear();
-                        router.navigateByUrl("/auth/login");
+                        toastService.error(getRefreshErrorKey(refreshErr));
                         refreshTokenSubject.error("Refresh failed");
-                        return throwError(() => refreshErr);
+
+                        return from(tokenStore.clear()).pipe(
+                            switchMap(() => {
+                                router.navigateByUrl("/auth/login");
+                                return throwError(() => refreshErr);
+                            })
+                        );
                     })
                 );
             }
