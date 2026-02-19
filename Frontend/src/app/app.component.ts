@@ -9,6 +9,7 @@ import { LoadingStore } from "@core/stores/loading.store";
 import { TokenStore } from "@features/auth/stores/token.store";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { AppStore } from "app/app.store";
+import { APP_VERSION } from "app/version";
 import { filter } from "rxjs";
 
 @Component({
@@ -19,6 +20,7 @@ import { filter } from "rxjs";
     styleUrl: "./app.component.scss",
 })
 export class AppComponent implements OnInit {
+    public readonly version = APP_VERSION;
     public readonly loadingStore = inject(LoadingStore);
     public readonly appStore = inject(AppStore);
     public readonly tokenData = computed(() => this.tokenStore.tokenData());

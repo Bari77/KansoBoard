@@ -1,3 +1,13 @@
+# [v2.6.0] - 2026-02-19
+
+## Added
+
+- Version on header
+
+## Fixed
+
+- Interceptors.
+
 # [v2.5.1] - 2026-02-16
 
 ## Fixed
