@@ -50,6 +50,20 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
             }
 
             const toastService = injector.get(ToastService);
+
+            if (isRefreshRequest(req)) {
+                isRefreshing = false;
+                loadingStore.loading.set(false);
+                toastService.error(getRefreshErrorKey(err));
+                refreshTokenSubject.error("Refresh failed");
+                return from(tokenStore.clear()).pipe(
+                    switchMap(() => {
+                        router.navigateByUrl("/auth/login");
+                        return throwError(() => err);
+                    })
+                );
+            }
+
             if (!isRefreshing) {
                 isRefreshing = true;
                 refreshTokenSubject = new ReplaySubject<string>(1);
@@ -73,15 +87,20 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
                         isRefreshing = false;
                         loadingStore.loading.set(false);
 
-                        toastService.error(getRefreshErrorKey(refreshErr));
-                        refreshTokenSubject.error("Refresh failed");
-
-                        return from(tokenStore.clear()).pipe(
-                            switchMap(() => {
-                                router.navigateByUrl("/auth/login");
-                                return throwError(() => refreshErr);
-                            })
-                        );
+                        const isRefreshCallFailure =
+                            refreshErr instanceof HttpErrorResponse &&
+                            refreshErr.url?.includes("/Auth/refresh");
+                        if (!isRefreshCallFailure) {
+                            toastService.error(getRefreshErrorKey(refreshErr));
+                            refreshTokenSubject.error("Refresh failed");
+                            return from(tokenStore.clear()).pipe(
+                                switchMap(() => {
+                                    router.navigateByUrl("/auth/login");
+                                    return throwError(() => refreshErr);
+                                })
+                            );
+                        }
+                        return throwError(() => refreshErr);
                     })
                 );
             }
