@@ -5,6 +5,7 @@ import { BoardStore } from "@features/boards/stores/board.store";
 import { BoardsStore } from "@features/boards/stores/boards.store";
 import { CardsStore } from "@features/cards/stores/cards.store";
 import { ColumnsStore } from "@features/columns/stores/columns.store";
+import { ProjectsStore } from "@features/projects/stores/projects.store";
 import { ProjectUsersStore } from "@features/users/stores/project-users.store";
 
 export const boardResolver: ResolveFn<void> = async (route) => {
@@ -15,6 +16,7 @@ export const boardResolver: ResolveFn<void> = async (route) => {
     const columnsStore = inject(ColumnsStore);
     const cardsStore = inject(CardsStore);
     const projectUsersStore = inject(ProjectUsersStore);
+    const projectsStore = inject(ProjectsStore);
 
     const boardId = route.paramMap.get('guid');
 
@@ -41,6 +43,11 @@ export const boardResolver: ResolveFn<void> = async (route) => {
             await runInInjectionContext(injector, () => {
                 projectUsersStore.setProject(board.projectId);
                 return projectUsersStore.loaded();
+            });
+
+            await runInInjectionContext(injector, () => {
+                projectsStore.setCurrentProject(board.projectId);
+                return projectsStore.loadedCurrentProject();
             });
         }
     } finally {

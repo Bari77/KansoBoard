@@ -1,4 +1,4 @@
-﻿namespace KansoBoard.Contracts.Cards;
+namespace KansoBoard.Contracts.Cards;
 
 public record CardDto(
     Guid Id,
@@ -9,5 +9,6 @@ public record CardDto(
     CardType Type,
     CardPriority Priority,
     Guid ColumnId,
-    Guid? AssignedToUserId
+    Guid? AssignedToUserId,
+    IReadOnlyList<CardCustomFieldValueDto> CustomFields
 );

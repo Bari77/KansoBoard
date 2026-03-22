@@ -11,6 +11,65 @@
         <mat-label>{{ "PROJECTS.DIALOG.NAME" | translate }}</mat-label>
         <input matInput [(ngModel)]="project().name" />
     </mat-form-field>
+
+    <div class="custom-fields-header">
+        <h3>{{ "PROJECTS.DIALOG.CUSTOM_FIELDS_TITLE" | translate }}</h3>
+        <button mat-stroked-button type="button" (click)="addCustomField()">
+            {{ "PROJECTS.DIALOG.ADD_FIELD" | translate }}
+        </button>
+    </div>
+
+    @for (field of project().customFields; track field.id) {
+    <div class="custom-field-row">
+        <div class="custom-field-row-top">
+            <div class="custom-field-row-main">
+                <mat-form-field appearance="outline">
+                    <mat-label>{{ "PROJECTS.DIALOG.FIELD_LABEL" | translate }}</mat-label>
+                    <input matInput [(ngModel)]="field.label" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>{{ "PROJECTS.DIALOG.FIELD_TYPE" | translate }}</mat-label>
+                    <mat-select [(ngModel)]="field.type" (selectionChange)="updateFieldType(field)">
+                        @for (type of fieldTypes; track type) {
+                        <mat-option [value]="type">{{ "PROJECTS.DIALOG.FIELD_TYPES." + type | translate }}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <button mat-icon-button type="button" color="warn" (click)="removeCustomField($index)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+
+        @if (field.type === 2) {
+        <mat-slide-toggle [(ngModel)]="field.allowCustomValues">
+            {{ "PROJECTS.DIALOG.ALLOW_CUSTOM_VALUES" | translate }}
+        </mat-slide-toggle>
+
+        <div class="field-options">
+            <mat-form-field appearance="outline">
+                <mat-label>{{ "PROJECTS.DIALOG.NEW_OPTION" | translate }}</mat-label>
+                <input matInput [(ngModel)]="optionDrafts[field.id]" (keydown.enter)="addOption(field); $event.preventDefault()">
+            </mat-form-field>
+            <button mat-stroked-button type="button" (click)="addOption(field)">
+                {{ "PROJECTS.DIALOG.ADD_OPTION" | translate }}
+            </button>
+        </div>
+
+        <div class="options-list">
+            @for (option of field.options; track option) {
+            <button mat-stroked-button type="button" class="option-chip" (click)="removeOption(field, option)">
+                {{ option }}
+                <mat-icon>close</mat-icon>
+            </button>
+            }
+        </div>
+        }
+
+    </div>
+    }
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">

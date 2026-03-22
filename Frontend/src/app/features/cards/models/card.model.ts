@@ -1,3 +1,4 @@
+import { CardCustomFieldValue } from '@features/cards/models/card-custom-field-value.model';
 import { CardDto } from '@features/cards/dto/card.dto';
 import { CardPriority } from '@features/cards/enums/card-priority.enum';
 import { CardType } from '@features/cards/enums/card-type.enum';
@@ -13,6 +14,7 @@ export class Card {
         public priority: CardPriority = CardPriority.Normal,
         public columnId: string = '',
         public assignedToUserId: string | null = null,
+        public customFields: CardCustomFieldValue[] = [],
     ) { }
 
     public static fromDto(dto: CardDto): Card {
@@ -26,6 +28,7 @@ export class Card {
             dto.priority as CardPriority,
             dto.columnId,
             dto.assignedToUserId ?? null,
+            (dto.customFields ?? []).map(CardCustomFieldValue.fromDto),
         );
     }
 }

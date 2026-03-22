@@ -95,7 +95,7 @@ export class ColumnComponent {
             if (!result) return;
 
             try {
-                await this.cardsStore.create(this.column().id, result.title, result.description, result.type, result.priority);
+                await this.cardsStore.create(this.column().id, result.title, result.description, result.type, result.priority, result.customFields);
                 this.toastService.success("CARDS.CREATE_OK");
             } catch {
                 this.toastService.error("CARDS.CREATE_KO");

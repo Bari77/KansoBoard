@@ -1,0 +1,18 @@
+<mat-form-field appearance="outline">
+    @if (label()) {
+    <mat-label>{{ label() }}</mat-label>
+    }
+    <input matInput [placeholder]="placeholder()" [formControl]="control" [matAutocomplete]="auto"
+        (blur)="commitCurrentInput()" (keydown.enter)="commitCurrentInput(); $event.preventDefault()">
+
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectOption($event)">
+        @for (option of filteredOptions | async; track option) {
+        <mat-option [value]="option">{{ option }}</mat-option>
+        }
+        @if (canCreateCurrent()) {
+        <mat-option [value]="control.value" (click)="commitCurrentInput()">
+            {{ "GLOBAL.CREATE_VALUE" | translate : { value: control.value } }}
+        </mat-option>
+        }
+    </mat-autocomplete>
+</mat-form-field>

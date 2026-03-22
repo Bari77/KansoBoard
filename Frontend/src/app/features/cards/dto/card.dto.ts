@@ -1,3 +1,5 @@
+import { CardCustomFieldValueDto } from "@features/cards/dto/card-custom-field-value.dto";
+
 export interface CardDto {
     id: string;
     number: number;
@@ -8,4 +10,5 @@ export interface CardDto {
     priority: number;
     columnId: string;
     assignedToUserId?: string | null;
+    customFields: CardCustomFieldValueDto[];
 }

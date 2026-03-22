@@ -19,7 +19,19 @@
         "DIALOG": {
             "EDIT": "Modifier le projet",
             "NEW": "Nouveau projet",
-            "NAME": "Nom du projet"
+            "NAME": "Nom du projet",
+            "CUSTOM_FIELDS_TITLE": "Champs dynamiques",
+            "ADD_FIELD": "Ajouter un champ",
+            "FIELD_LABEL": "Libellé",
+            "FIELD_TYPE": "Type de champ",
+            "ALLOW_CUSTOM_VALUES": "Autoriser la création de nouvelles valeurs",
+            "NEW_OPTION": "Nouvelle option",
+            "ADD_OPTION": "Ajouter l'option",
+            "FIELD_TYPES": {
+                "0": "Texte libre",
+                "1": "Nombre",
+                "2": "Combo box"
+            }
         }
     }
 }

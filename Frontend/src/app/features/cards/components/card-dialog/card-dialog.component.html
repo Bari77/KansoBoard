@@ -71,6 +71,27 @@
             }
         </mat-select>
     </mat-form-field>
+
+    @for (field of projectCustomFields(); track field.id) {
+    @if (isTextField(field)) {
+    <mat-form-field appearance="outline">
+        <mat-label>{{ field.label }}</mat-label>
+        <input matInput [ngModel]="getTextValue(field.id)" (ngModelChange)="setTextValue(field.id, $event)">
+    </mat-form-field>
+    }
+    @if (isNumberField(field)) {
+    <mat-form-field appearance="outline">
+        <mat-label>{{ field.label }}</mat-label>
+        <input type="number" matInput [ngModel]="getNumberValue(field.id)"
+            (ngModelChange)="setNumberValue(field.id, $event)">
+    </mat-form-field>
+    }
+    @if (isComboField(field)) {
+    <app-creatable-combobox [label]="field.label" [options]="field.options" [allowCreate]="field.allowCustomValues"
+        [value]="getComboValue(field.id)" (valueChange)="setComboValue(field.id, $event)">
+    </app-creatable-combobox>
+    }
+    }
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">

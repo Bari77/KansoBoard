@@ -1,3 +1,7 @@
-﻿namespace KansoBoard.Contracts.Projects;
+namespace KansoBoard.Contracts.Projects;
 
-public record ProjectDto(Guid Id, string Name);
+public record ProjectDto(
+    Guid Id,
+    string Name,
+    IReadOnlyList<ProjectCustomFieldDto> CustomFields
+);
