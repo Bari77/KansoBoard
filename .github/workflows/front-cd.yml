@@ -25,13 +25,13 @@ jobs:
         echo "version=$VERSION" >> $GITHUB_OUTPUT
 
   publish:
-    if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/staging/') || startsWith(github.ref, 'refs/tags/release/')
     needs: detect-version
     uses: ./.github/workflows/docker-wf.yml
     with:
         directory: "Frontend"
-        app_env: ${{ github.ref == 'refs/heads/develop' && 'staging' || 'prod' }}
-        tag: ${{ github.ref == 'refs/heads/develop' && 'staging' || 'latest' }}
+        app_env: ${{ startsWith(github.ref, 'refs/tags/staging/') && 'staging' || 'prod' }}
+        tag: ${{ startsWith(github.ref, 'refs/tags/staging/') && 'staging' || 'latest' }}
         image_name: "kansoboard/front"
         version: ${{ needs.detect-version.outputs.version }}
         run_number: ${{ github.run_number }}
