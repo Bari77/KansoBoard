@@ -1,4 +1,5 @@
-﻿using KansoBoard.Application.Webhooks;
+using KansoBoard.Application.CustomFields;
+using KansoBoard.Application.Webhooks;
 using KansoBoard.Contracts.Cards;
 using KansoBoard.Domain.Entities;
 using KansoBoard.Infrastructure;
@@ -13,7 +14,8 @@ public class CardService(KansoDbContext db, IWebhookService webhooks) : ICardSer
         string title,
         string? description,
         CardType type,
-        CardPriority priority)
+        CardPriority priority,
+        IReadOnlyList<CardCustomFieldValueRequest>? customFields)
     {
         await using var tx = await db.Database.BeginTransactionAsync();
 
@@ -23,6 +25,8 @@ public class CardService(KansoDbContext db, IWebhookService webhooks) : ICardSer
             .FirstAsync(c => c.Id == columnId);
 
         var project = column.Board.Project;
+        var projectCustomFields = CustomFieldJsonSerializer.ParseProjectFields(project.CustomFieldsJson);
+        var customFieldValues = CustomFieldJsonSerializer.NormalizeCardValues(customFields, projectCustomFields);
 
         var counter = await db.ProjectCounters.FirstAsync(c => c.ProjectId == project.Id);
         var number = counter.NextCardNumber;
@@ -35,10 +39,12 @@ public class CardService(KansoDbContext db, IWebhookService webhooks) : ICardSer
             Title = title,
             Description = description,
             Type = type,
-            Priority = priority
+            Priority = priority,
+            CustomFieldValuesJson = CustomFieldJsonSerializer.WriteCardValues(customFieldValues),
         };
 
         db.Cards.Add(card);
+        project.CustomFieldsJson = CustomFieldJsonSerializer.WriteProjectFields(projectCustomFields);
 
         await db.SaveChangesAsync();
         await tx.CommitAsync();
@@ -77,7 +83,13 @@ public class CardService(KansoDbContext db, IWebhookService webhooks) : ICardSer
             .OrderByDescending(c => c.Priority)
             .ToListAsync();
 
-    public async Task<Card?> UpdateAsync(Guid id, string title, string? description, CardType type, CardPriority priority)
+    public async Task<Card?> UpdateAsync(
+        Guid id,
+        string title,
+        string? description,
+        CardType type,
+        CardPriority priority,
+        IReadOnlyList<CardCustomFieldValueRequest>? customFields)
     {
         var card = await db.Cards
             .Include(c => c.Column)
@@ -93,6 +105,10 @@ public class CardService(KansoDbContext db, IWebhookService webhooks) : ICardSer
         card.Description = description;
         card.Type = type;
         card.Priority = priority;
+        var projectCustomFields = CustomFieldJsonSerializer.ParseProjectFields(card.Column.Board.Project.CustomFieldsJson);
+        var customFieldValues = CustomFieldJsonSerializer.NormalizeCardValues(customFields, projectCustomFields);
+        card.CustomFieldValuesJson = CustomFieldJsonSerializer.WriteCardValues(customFieldValues);
+        card.Column.Board.Project.CustomFieldsJson = CustomFieldJsonSerializer.WriteProjectFields(projectCustomFields);
 
         await db.SaveChangesAsync();
 

@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { CardOrderDto } from "../dto/card-order.dto";
 import { CardDto } from "../dto/card.dto";
 import { UserCardDto } from "../dto/user-card.dto";
+import { CardCustomFieldValue } from "../models/card-custom-field-value.model";
 import { Card } from "../models/card.model";
 import { UserCard } from "../models/user-card.model";
 
@@ -29,8 +30,9 @@ export class CardsService extends BaseService {
         description: string | null,
         type: number,
         priority: number,
+        customFields: CardCustomFieldValue[],
     ): Observable<Card> {
-        return this.httpPost<CardDto, Card>(Card, "", { columnId, title, description, type, priority });
+        return this.httpPost<CardDto, Card>(Card, "", { columnId, title, description, type, priority, customFields });
     }
 
     public update(
@@ -39,12 +41,14 @@ export class CardsService extends BaseService {
         description?: string | null,
         type?: number,
         priority?: number,
+        customFields?: CardCustomFieldValue[],
     ): Observable<Card | null> {
         return this.httpPut<CardDto, Card>(Card, id, {
             title,
             description,
             type,
             priority,
+            customFields,
         });
     }
 

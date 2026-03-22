@@ -1,3 +1,6 @@
-﻿namespace KansoBoard.Contracts.Projects;
+namespace KansoBoard.Contracts.Projects;
 
-public record CreateProjectRequest(string Name);
+public record CreateProjectRequest(
+    string Name,
+    IReadOnlyList<ProjectCustomFieldRequest>? CustomFields
+);

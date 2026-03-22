@@ -1,4 +1,4 @@
-﻿using KansoBoard.Contracts.Cards;
+using KansoBoard.Contracts.Cards;
 
 namespace KansoBoard.Domain.Entities;
 
@@ -12,6 +12,7 @@ public class Card
 
     public CardType Type { get; set; }
     public CardPriority Priority { get; set; }
+    public string? CustomFieldValuesJson { get; set; }
 
     public Guid? AssignedToUserId { get; set; }
     public User? AssignedTo { get; set; }

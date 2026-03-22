@@ -1,15 +1,29 @@
-﻿using KansoBoard.Contracts.Cards;
+using KansoBoard.Contracts.Cards;
 using KansoBoard.Domain.Entities;
 
 namespace KansoBoard.Application.Cards;
 
 public interface ICardService
 {
-    Task<Card> CreateAsync(Guid columnId, string title, string? description, CardType type, CardPriority priority);
+    Task<Card> CreateAsync(
+        Guid columnId,
+        string title,
+        string? description,
+        CardType type,
+        CardPriority priority,
+        IReadOnlyList<CardCustomFieldValueRequest>? customFields
+    );
     Task<Card?> GetByIdAsync(Guid id);
     Task<List<Card>> GetByBoardAsync(Guid boardId);
     Task<List<Card>> GetByUserIdAsync(Guid userId);
-    Task<Card?> UpdateAsync(Guid id, string title, string? description, CardType type, CardPriority priority);
+    Task<Card?> UpdateAsync(
+        Guid id,
+        string title,
+        string? description,
+        CardType type,
+        CardPriority priority,
+        IReadOnlyList<CardCustomFieldValueRequest>? customFields
+    );
     Task<bool> DeleteAsync(Guid id);
     Task<bool> AssignAsync(Guid id, Guid? userId);
     Task<bool> MoveAsync(Guid id, Guid newColumnId);

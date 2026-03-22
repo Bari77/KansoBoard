@@ -1,4 +1,5 @@
 import { computed, inject, Injectable, resource, signal } from "@angular/core";
+import { CardCustomFieldValue } from "@features/cards/models/card-custom-field-value.model";
 import { Card } from "@features/cards/models/card.model";
 import { UserCard } from "@features/cards/models/user-card.model";
 import { CardsService } from "@features/cards/services/cards.service";
@@ -36,8 +37,9 @@ export class CardsStore {
         description: string | null,
         type: number,
         priority: number,
+        customFields: CardCustomFieldValue[],
     ) {
-        await firstValueFrom(this.cardsService.create(columnId, title, description, type, priority));
+        await firstValueFrom(this.cardsService.create(columnId, title, description, type, priority, customFields));
         this.cardsResource.reload();
     }
 
@@ -47,6 +49,7 @@ export class CardsStore {
         description: string | null,
         type: number,
         priority: number,
+        customFields: CardCustomFieldValue[],
     ) {
         await firstValueFrom(
             this.cardsService.update(
@@ -55,6 +58,7 @@ export class CardsStore {
                 description,
                 type,
                 priority,
+                customFields,
             )
         );
         this.cardsResource.reload();

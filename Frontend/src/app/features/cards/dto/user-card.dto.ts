@@ -1,12 +1,5 @@
-export interface UserCardDto {
-    id: string;
-    number: number;
-    title: string;
-    order: number;
-    description?: string | null;
-    type: number;
-    priority: number;
-    columnId: string;
-    assignedToUserId?: string | null;
+import { CardDto } from "@features/cards/dto/card.dto";
+
+export interface UserCardDto extends CardDto {
     boardId: string;
 }

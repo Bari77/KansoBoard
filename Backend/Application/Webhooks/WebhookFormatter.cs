@@ -1,4 +1,5 @@
-﻿using KansoBoard.Domain.Entities;
+using KansoBoard.Application.CustomFields;
+using KansoBoard.Domain.Entities;
 
 namespace KansoBoard.Application.Webhooks
 {
@@ -33,6 +34,9 @@ namespace KansoBoard.Application.Webhooks
                     description = card.Description,
                     type = card.Type.ToString(),
                     priority = card.Priority.ToString(),
+                    customFields = CustomFieldJsonSerializer.ToCardValueDtos(
+                        CustomFieldJsonSerializer.ParseCardValues(card.CustomFieldValuesJson)
+                    ),
                 },
                 assigned = assigned == null ? null : new
                 {

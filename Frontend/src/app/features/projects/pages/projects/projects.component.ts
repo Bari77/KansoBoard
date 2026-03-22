@@ -46,7 +46,7 @@ export class ProjectsComponent {
             if (!result) return;
 
             try {
-                await this.projectsStore.create(result.name);
+                await this.projectsStore.create(result.name, result.customFields);
                 this.toastService.success("PROJECTS.CREATE_OK");
             } catch {
                 this.toastService.error("PROJECTS.CREATE_KO");
@@ -64,7 +64,7 @@ export class ProjectsComponent {
             if (!result) return;
 
             try {
-                await this.projectsStore.update(result.id, result.name);
+                await this.projectsStore.update(result.id, result.name, result.customFields);
                 this.toastService.success("PROJECTS.EDIT_OK");
             } catch {
                 this.toastService.error("PROJECTS.EDIT_KO");

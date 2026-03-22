@@ -1,3 +1,51 @@
 mat-form-field {
     width: 100%;
 }
+
+.custom-fields-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.custom-field-row {
+    border: 1px solid var(--mat-sys-outline-variant);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.custom-field-row-top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    align-items: start;
+}
+
+.custom-field-row-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.field-options {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.options-list {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.option-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}

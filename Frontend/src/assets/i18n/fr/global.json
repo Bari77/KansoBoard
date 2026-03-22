@@ -9,6 +9,7 @@
         "COPY_ID": "Copier l'id",
         "COPY": "Copier",
         "USE": "Utiliser",
+        "CREATE_VALUE": "Créer \"{{value}}\"",
         "EDIT": "Modifier",
         "DELETE": "Supprimer",
         "SAVE": "Sauvegarder",

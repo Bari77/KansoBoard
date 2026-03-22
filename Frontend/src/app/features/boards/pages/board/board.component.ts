@@ -101,7 +101,7 @@ export class BoardComponent implements AfterViewInit {
             if (!result) return;
 
             try {
-                await this.cardsStore.update(result.id, result.title, result.description, result.type, result.priority);
+                await this.cardsStore.update(result.id, result.title, result.description, result.type, result.priority, result.customFields);
                 this.toastService.success("CARDS.EDIT_OK");
             } catch {
                 this.toastService.error("CARDS.EDIT_KO");

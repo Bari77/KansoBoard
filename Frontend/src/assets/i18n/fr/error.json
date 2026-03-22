@@ -25,6 +25,7 @@
         "ERR_COLUMN_NOT_FOUND": "Colonne introuvable.",
         "ERR_COLUMN_LOCKED": "Cette colonne ne peut pas être supprimée.",
         "ERR_CARD_NOT_FOUND": "Carte introuvable.",
+        "ERR_CARD_CUSTOM_FIELD_VALUE_INVALID": "La valeur d'un champ dynamique de la carte est invalide.",
         "ERR_CARD_MOVE_INVALID": "Déplacement impossible (carte ou colonne cible invalide).",
         "ERR_CARD_TRANSFER_FAILED": "Transfert impossible (carte ou board cible introuvable).",
         "ERR_PROJECT_USER_NOT_FOUND": "Ce membre n'est pas dans le projet.",

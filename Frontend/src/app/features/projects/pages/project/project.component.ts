@@ -18,7 +18,6 @@ import { ConfigStore } from "@features/configs/store/config.store";
 import { InvitationDialogComponent } from "@features/invitations/components/invitation-dialog/invitation-dialog.component";
 import { InvitationsStore } from "@features/invitations/stores/invitations.store";
 import { ApiKeyDialogComponent } from "@features/projects/components/api-key-dialog/api-key-dialog.component";
-import { Project } from "@features/projects/models/project.model";
 import { ProjectsStore } from "@features/projects/stores/projects.store";
 import { TranslateModule } from "@ngx-translate/core";
 
@@ -44,7 +43,7 @@ export class ProjectComponent {
     private readonly invitationsStore = inject(InvitationsStore);
 
     public new(): void {
-        const dialogRef = this.dialog.open<BoardDialogComponent, Project, Project>(
+        const dialogRef = this.dialog.open<BoardDialogComponent, Board, Board>(
             BoardDialogComponent,
             { data: null }
         );
@@ -63,7 +62,7 @@ export class ProjectComponent {
     }
 
     public edit(board: Board): void {
-        const dialogRef = this.dialog.open<BoardDialogComponent, Project, Project>(
+        const dialogRef = this.dialog.open<BoardDialogComponent, Board, Board>(
             BoardDialogComponent,
             { data: board }
         );
@@ -80,7 +79,7 @@ export class ProjectComponent {
         });
     }
 
-    public delete(project: Project): void {
+    public delete(board: Board): void {
         const dialogRef = this.dialog.open<AskDialogComponent, AskDialogData, AskDialogData>(AskDialogComponent, {
             data: {
                 message: "BOARDS.DELETE_ASK",
@@ -92,7 +91,7 @@ export class ProjectComponent {
             if (!result) return;
 
             try {
-                await this.boardsStore.delete(project.id);
+                await this.boardsStore.delete(board.id);
                 this.toastService.success("BOARDS.DELETE_OK");
             } catch {
                 this.toastService.error("BOARDS.DELETE_KO");

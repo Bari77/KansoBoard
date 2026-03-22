@@ -10,5 +10,6 @@ public record UserCardDto(
     CardPriority Priority,
     Guid ColumnId,
     Guid? AssignedToUserId,
-    Guid BoardId
+    Guid BoardId,
+    IReadOnlyList<CardCustomFieldValueDto> CustomFields
 );

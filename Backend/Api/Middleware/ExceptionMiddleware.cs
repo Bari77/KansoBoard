@@ -25,6 +25,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
         { "ERR_COLUMN_NOT_FOUND", "Column not found." },
         { "ERR_COLUMN_LOCKED", "Column cannot be deleted: it is locked." },
         { "ERR_CARD_NOT_FOUND", "Card not found." },
+        { "ERR_CARD_CUSTOM_FIELD_VALUE_INVALID", "Card custom field value is invalid." },
         { "ERR_CARD_MOVE_INVALID", "Card move failed: card not found or target column invalid." },
         { "ERR_CARD_TRANSFER_FAILED", "Card transfer failed: card or target board not found." },
         { "ERR_PROJECT_USER_NOT_FOUND", "Project member not found." },

@@ -1,3 +1,9 @@
-﻿namespace KansoBoard.Contracts.Cards;
+namespace KansoBoard.Contracts.Cards;
 
-public record UpdateCardRequest(string Title, string? Description, CardType Type, CardPriority Priority);
+public record UpdateCardRequest(
+    string Title,
+    string? Description,
+    CardType Type,
+    CardPriority Priority,
+    IReadOnlyList<CardCustomFieldValueRequest>? CustomFields
+);

@@ -52,6 +52,9 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("ColumnId")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("CustomFieldValuesJson")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
@@ -131,6 +134,9 @@ namespace Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CustomFieldsJson")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")

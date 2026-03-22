@@ -88,7 +88,7 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
             if (!await auth.CanAccessProjectAsync(userId.Value, projectId.Value)) return Forbid();
         }
 
-        var card = await service.CreateAsync(req.ColumnId, req.Title, req.Description, req.Type, req.Priority);
+        var card = await service.CreateAsync(req.ColumnId, req.Title, req.Description, req.Type, req.Priority, req.CustomFields);
         return CreatedAtAction(nameof(GetById), new { id = card.Id }, Mapper.ToDto(card));
     }
 
@@ -111,7 +111,7 @@ public class CardsController(ICardService service, IProjectAuthorizationService 
             if (!await auth.CanAccessProjectAsync(userId.Value, projectId.Value)) return Forbid();
         }
 
-        var card = await service.UpdateAsync(id, req.Title, req.Description, req.Type, req.Priority);
+        var card = await service.UpdateAsync(id, req.Title, req.Description, req.Type, req.Priority, req.CustomFields);
         return card is null ? this.NotFoundError("ERR_CARD_NOT_FOUND") : Ok(Mapper.ToDto(card));
     }
 

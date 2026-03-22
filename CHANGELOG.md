@@ -1,3 +1,15 @@
+# [v2.7.0] - 2026-03-22
+
+## Added
+
+- Custom field management by project
+
+# [v2.6.1] - 2026-02-19
+
+## Fixed
+
+- Token JWT management
+
 # [v2.6.0] - 2026-02-19
 
 ## Added

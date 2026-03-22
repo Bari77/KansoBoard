@@ -1,4 +1,6 @@
-﻿using KansoBoard.Application.ProjectUsers;
+using KansoBoard.Application.CustomFields;
+using KansoBoard.Contracts.Projects;
+using KansoBoard.Application.ProjectUsers;
 using KansoBoard.Domain.Entities;
 using KansoBoard.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -7,11 +9,14 @@ namespace KansoBoard.Application.Projects;
 
 public class ProjectService(KansoDbContext db, IProjectUserService projectUsers) : IProjectService
 {
-    public async Task<Project> CreateAsync(Guid userId, string name)
+    public async Task<Project> CreateAsync(Guid userId, string name, IReadOnlyList<ProjectCustomFieldRequest>? customFields)
     {
+        var normalizedCustomFields = CustomFieldJsonSerializer.NormalizeProjectFields(customFields);
+
         var project = new Project
         {
-            Name = name
+            Name = name,
+            CustomFieldsJson = CustomFieldJsonSerializer.WriteProjectFields(normalizedCustomFields),
         };
 
         db.Projects.Add(project);
@@ -53,13 +58,15 @@ public class ProjectService(KansoDbContext db, IProjectUserService projectUsers)
             .ToListAsync();
     }
 
-    public async Task<Project?> UpdateAsync(Guid id, string name)
+    public async Task<Project?> UpdateAsync(Guid id, string name, IReadOnlyList<ProjectCustomFieldRequest>? customFields)
     {
         var project = await db.Projects.FirstOrDefaultAsync(p => p.Id == id);
         if (project == null)
             return null;
 
+        var normalizedCustomFields = CustomFieldJsonSerializer.NormalizeProjectFields(customFields);
         project.Name = name;
+        project.CustomFieldsJson = CustomFieldJsonSerializer.WriteProjectFields(normalizedCustomFields);
         await db.SaveChangesAsync();
         return project;
     }

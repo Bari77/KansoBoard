@@ -1,3 +1,10 @@
-﻿namespace KansoBoard.Contracts.Cards;
+namespace KansoBoard.Contracts.Cards;
 
-public record CreateCardRequest(Guid ColumnId, string Title, string? Description, CardType Type, CardPriority Priority);
+public record CreateCardRequest(
+    Guid ColumnId,
+    string Title,
+    string? Description,
+    CardType Type,
+    CardPriority Priority,
+    IReadOnlyList<CardCustomFieldValueRequest>? CustomFields
+);

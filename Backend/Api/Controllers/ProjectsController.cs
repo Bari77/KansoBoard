@@ -49,7 +49,7 @@ public class ProjectsController(IProjectService service, IProjectAuthorizationSe
         var userId = User.GetUserId();
         if (userId is null) return Unauthorized();
 
-        var project = await service.CreateAsync(userId.Value, request.Name);
+        var project = await service.CreateAsync(userId.Value, request.Name, request.CustomFields);
         return CreatedAtAction(nameof(GetById), new { id = project.Id }, Mapper.ToDto(project));
     }
 
@@ -69,7 +69,7 @@ public class ProjectsController(IProjectService service, IProjectAuthorizationSe
             if (!await auth.CanAccessProjectAsync(userId.Value, id)) return Forbid();
         }
 
-        var project = await service.UpdateAsync(id, request.Name);
+        var project = await service.UpdateAsync(id, request.Name, request.CustomFields);
         return project is null ? this.NotFoundError("ERR_PROJECT_NOT_FOUND") : Ok(Mapper.ToDto(project));
     }
 
